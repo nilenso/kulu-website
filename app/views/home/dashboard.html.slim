@@ -3,6 +3,7 @@ h1 Kulu Home
 = form_for(@invoice, html: {class: 'direct-upload'}) do |f|
   .field
     = f.hidden_field(:url_prefix)
+    = f.hidden_field(:filename, class: 'filename')
     input id='file-upload' type='file' name='upload' data-s3-url="#{@pre_signed_post.url}" data-form-data="#{@pre_signed_post.fields.to_json}"
 
 #progress

@@ -2,6 +2,7 @@ class Kulu.FileUploader
   constructor: (form) ->
     @form = form
     @fileInput = form.find('input#file-upload')
+    @fileNameInput = form.find('input.filename')
     @url = @fileInput.data('s3-url')
     @formData = @fileInput.data('form-data')
 
@@ -16,6 +17,7 @@ class Kulu.FileUploader
       dataType: "XML" # S3 returns XML if success_action_status is set to 201
       replaceFileInput: false
       done: (e, data) =>
+        @fileNameInput.val(data.files[0].name)
         @form.submit()
 
       fail: (e, data) ->
