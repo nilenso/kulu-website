@@ -18,5 +18,7 @@ gem 'jquery.fileupload-rails'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'spring',        group: :development
+gem 'pry',           group: :development
+gem 'better_errors', group: :development
 gem 'unicorn'
 gem 'rack-timeout'
