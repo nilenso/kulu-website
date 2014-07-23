@@ -1,7 +1,6 @@
 class Kulu.FileUploader
   constructor: (form) ->
     @form = form
-    @fileNameInput = form.find('input#filename')
     @fileInput = form.find('input#file-upload')
     @url = @fileInput.data('s3-url')
     @formData = @fileInput.data('form-data')
@@ -21,3 +20,7 @@ class Kulu.FileUploader
 
       fail: (e, data) ->
         alert("Wowoow! Shit is broken!")
+
+      progressall: (e, data) ->
+        progress = Number(data.loaded / data.total * 100)
+        $('#progress .bar').css('width', progress + '%')
