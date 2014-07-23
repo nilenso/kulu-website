@@ -1,8 +1,8 @@
 h1 Kulu Home
 
-form.direct-upload
+= form_tag('/invoices', method: :post, class: 'direct-upload') do |f|
   .field
-    label for='upload'
+    input name='url_prefix' type='hidden' value="#{@pre_signed_post.key}"
     input id='file-upload' type='file' name='upload' data-s3-url="#{@pre_signed_post.url}" data-form-data="#{@pre_signed_post.fields.to_json}"
 
 javascript:
