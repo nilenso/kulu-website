@@ -5,7 +5,8 @@ ruby '2.1.2'
 gem 'rails', '4.1.1'
 gem 'pg', '~> 0.17.1'
 gem 'aws-sdk', '~> 1.48.1'
-gem 'figaro', '~> 0.7.0'
+gem 'figaro'
+gem 'quiet_assets'
 
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
@@ -33,3 +34,5 @@ end
 
 gem 'unicorn'
 gem 'rack-timeout'
+gem 'rails_12factor', group: :production
+gem 'rails_serve_static_assets', group: :production
