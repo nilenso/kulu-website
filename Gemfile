@@ -17,6 +17,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'react-rails', '~> 0.10.0.0'
 gem 'jquery-rails'
 gem 'jquery.fileupload-rails'
+gem 'faraday'
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 

@@ -1,5 +1,9 @@
 h1 Kulu Home
 
+- if flash[:notice]
+  p
+    = flash[:notice]
+
 = form_for(@invoice, html: {class: 'direct-upload'}) do |f|
   .field
     = f.hidden_field(:url_prefix)
