@@ -4,7 +4,7 @@ RSpec.describe InvoicesController, :type => :controller do
   context 'POST create' do
     it 'creates an invoice resoure' do
       expected_filename = "foo/bar/foo.png"
-      expect_any_instance_of(KuluService).to receive(:create_invoice).with(expected_filename)
+      expect_any_instance_of(Service).to receive(:create_invoice).with(expected_filename)
       post :create, invoice: { filename: "foo.png", url_prefix: "foo/bar/${filename}" }
     end
 

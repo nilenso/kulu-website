@@ -199,6 +199,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery.fileupload-rails
+  multi_json
   pg (~> 0.17.1)
   pry
   quiet_assets
