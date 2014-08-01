@@ -1,5 +1,5 @@
 module HTTPService
-  class Connection
+  class Request
     attr_reader :connection
 
     def initialize(url)
@@ -10,30 +10,30 @@ module HTTPService
       end
     end
 
-    def post(url, body)
+    def post(request_url, request_body)
       response = connection.post do |req|
-        req.url(url)
+        req.url(request_url)
         req.headers['Content-Type'] = 'application/json'
-        req.body = body.to_json
+        req.body = request_body.to_json
       end
 
       check_errors(response.status, response.body)
       response
     end
 
-    def check_errors(status, body)
-      status = status.to_i
+    def check_errors(response_status, response_body)
+      status = response_status.to_i
 
       if status >= 400
         if status >= 500
-          raise(ServerError.new(status, body))
+          raise(ServerError.new(status, response_body))
         else
-          raise(ClientError.new(status, body))
+          raise(ClientError.new(status, response_body))
         end
       end
 
-      if body.empty?
-        raise(BadResponse.new(status, body))
+      if response_body.empty?
+        raise(BadResponse.new(status, response_body))
       end
     end
   end

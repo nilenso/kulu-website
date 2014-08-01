@@ -1,5 +1,5 @@
 module HTTPService
-  class ConnectionError < StandardError
+  class Error < StandardError
     attr_accessor :response_body, :http_status
 
     def initialize(http_status, response_body)
@@ -13,7 +13,7 @@ module HTTPService
       end
 
       # parse the errors out
-      error_info = self.response_body['errors'] if self.response_body || {}
+      error_info = self.response_body['errors'] || {}
 
       # collect all the error keys and shove them into the message
       error_array = error_info.inject([]) { |a, (k, v)| a << "#{k}: #{v}" }
@@ -30,15 +30,15 @@ module HTTPService
     end
   end
 
-  # Any invalid response body
-  class BadResponse < ConnectionError
+  # Any invalid/empty response body
+  class BadResponse < Error
   end
 
   # Any error with a 5xx HTTP status code
-  class ServerError < ConnectionError
+  class ServerError < Error
   end
 
   # Any error with a 4xx HTTP status code
-  class ClientError < ConnectionError
+  class ClientError < Error
   end
 end
