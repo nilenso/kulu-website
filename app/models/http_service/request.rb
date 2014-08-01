@@ -17,24 +17,7 @@ module HTTPService
         req.body = request_body.to_json
       end
 
-      check_errors(response.status, response.body)
-      response
-    end
-
-    def check_errors(response_status, response_body)
-      status = response_status.to_i
-
-      if status >= 400
-        if status >= 500
-          raise(ServerError.new(status, response_body))
-        else
-          raise(ClientError.new(status, response_body))
-        end
-      end
-
-      if response_body.empty?
-        raise(BadResponse.new(status, response_body))
-      end
+      Response.new(response.status, response.body, response.headers)
     end
   end
 end
