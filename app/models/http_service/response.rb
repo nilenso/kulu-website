@@ -10,6 +10,8 @@ module HTTPService
       check_errors
     end
 
+    private
+
     def check_errors
       if status >= 400
         if status >= 500
