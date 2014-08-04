@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.fileupload
+//= require underscore
 //= require kulu
 //= require_tree .

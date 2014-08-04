@@ -19,6 +19,14 @@ module HTTPService
 
       Response.new(response.status, response.body, response.headers)
     end
+
+    def get(request_url, request_body = {})
+      response = connection.get do |req|
+        req.url(request_url)
+      end
+
+      Response.new(response.status, response.body, response.headers)
+    end
   end
 end
 

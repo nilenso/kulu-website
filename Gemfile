@@ -17,6 +17,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'react-rails', '~> 0.10.0.0'
 gem 'jquery-rails'
 gem 'jquery.fileupload-rails'
+gem 'underscore-rails'
 gem 'faraday'
 gem 'multi_json'
 
