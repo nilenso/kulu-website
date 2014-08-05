@@ -10,22 +10,23 @@ module HTTPService
       end
     end
 
-    def post(request_url, request_body)
-      response = connection.post do |req|
+    def make(verb, request_url, request_body = {})
+      response = send(verb, request_url, request_body)
+      Response.new(response.status, response.body, response.headers)
+    end
+
+    def post(request_url, request_body = {})
+      connection.post do |req|
         req.url(request_url)
         req.headers['Content-Type'] = 'application/json'
         req.body = request_body.to_json
       end
-
-      Response.new(response.status, response.body, response.headers)
     end
 
     def get(request_url, request_body = {})
-      response = connection.get do |req|
+      connection.get do |req|
         req.url(request_url)
       end
-
-      Response.new(response.status, response.body, response.headers)
     end
   end
 end
