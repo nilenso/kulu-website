@@ -7,7 +7,7 @@ class InvoicesController < ApplicationController
       redirect_to :root,
                   notice: "#{filename} has been uploaded and will be processed. Upload ID: #{invoice.invoice_id}"
     else
-      render json: { error_messages: invoice.error_messages }
+      render json: { error_messages: invoice.errors.full_messages }
     end
   end
 

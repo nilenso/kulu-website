@@ -6,27 +6,26 @@ class Invoice
 
   class << self
     def create(url_prefix, filename)
-      object = new(url_prefix: url_prefix, filename: filename)
+      object = new(url_prefix, filename)
 
       begin
         object.invoice_id = KuluService::API.new.create_invoice(object.storage_key)
       rescue HTTPService::Error => e
-        object.errors.merge!({base: e.message})
+        object.errors.add(:base, e.message)
       end
 
       object
     end
 
-    def all
-      KuluService::API.new.all_invoices
+    def list(page)
+      KuluService::API.new.list_invoices(page)
     end
   end
 
-  def initialize(url_prefix: '', filename: '')
+  def initialize(url_prefix, filename = '')
     @url_prefix = url_prefix
     @filename = Pathname.new(filename).basename.to_s
-    @invoice_id = nil
-    @errors = {}
+    @errors = ActiveModel::Errors.new(self)
   end
 
   def storage_key
@@ -35,9 +34,5 @@ class Invoice
 
   def valid?
     errors.blank?
-  end
-
-  def error_messages
-    errors.each_with_object([]) { |(k, v), acc| acc << "#{k.to_s.titlecase}: #{v.join(', ')}" }
   end
 end

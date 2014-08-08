@@ -18,16 +18,16 @@ module HTTPService
     def post(request_url, request_body = {})
       connection.post do |req|
         req.url(request_url)
-        req.headers['Content-Type'] = 'application/json'
         req.body = request_body.to_json
+        req.headers['Content-Type'] = 'application/json'
       end
     end
 
     def get(request_url, request_body = {})
       connection.get do |req|
         req.url(request_url)
+        req.params = request_body
       end
     end
   end
 end
-

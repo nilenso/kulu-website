@@ -5,17 +5,14 @@ module HTTPService
     def initialize(http_status, response_body)
       self.http_status = http_status
 
-      # parse the response
       begin
         self.response_body = MultiJson.load(response_body)
       rescue MultiJson::DecodeError
         self.response_body = {}
       end
 
-      # parse the errors out
       error_info = self.response_body['errors'] || {}
 
-      # collect all the error keys and shove them into the message
       error_array = error_info.inject([]) { |a, (k, v)| a << "#{k}: #{v}" }
 
       if error_array.empty?

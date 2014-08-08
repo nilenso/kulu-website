@@ -14,19 +14,18 @@ p#invoices
 javascript:
   new Kulu.FileUploader($('.direct-upload')).setupUpload();
 
-  $(document).on("page:change", function() {
+  $(document).on("page:change", function () {
     $.ajax({
       url: "/invoices"
-    }).done(function(r) {
+    }).done(function (r) {
       var invoices = _.pluck(r, 'id');
-      _.each(invoices, function(i) {
-                html = $('p#invoices');
+      _.each(invoices, function (i) {
+                var html = $('p#invoices');
                 html.append(i);
                 html.append("<br>");
               }
-        );
+      );
 
       return true;
     });
   });
-
