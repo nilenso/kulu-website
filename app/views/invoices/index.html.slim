@@ -1,3 +1,17 @@
-- @invoices.each do |i|
-  div
-    = i["name"]
+table
+  thead
+    th Name
+    th Date
+    th Amount
+    th Invoice URL
+  tbody
+    - @invoices.each do |i|
+      tr
+        td = i.id
+        td = i.name
+        td = i.date.present? ? Time.parse(i.date) : ''
+        td = "#{i.currency} #{i.amount}"
+        td = i.invoice_url
+
+= page_entries_info @invoices
+= paginate @invoices
