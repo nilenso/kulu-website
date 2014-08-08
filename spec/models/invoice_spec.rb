@@ -49,10 +49,10 @@ RSpec.describe Invoice, :type => :model do
     end
   end
 
-  context "all" do
-    pending "lists invoice objects returned from the service" do
-      expect_any_instance_of(KuluService::API).to receive(:all_invoices).and_return(invoice_results)
-      invoices = Invoice.all
+  context "list" do
+    it "lists invoice objects returned from the service" do
+      expect_any_instance_of(KuluService::API).to receive(:list_invoices).and_return(invoice_results)
+      invoices = Invoice.list
       expect(invoices.map(&:name)).to match_array(["Invoice #1", "Invoice #2"])
     end
   end

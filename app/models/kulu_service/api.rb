@@ -12,7 +12,7 @@ module KuluService
       MultiJson.load(response.body)['id']
     end
 
-    def all_invoices
+    def list_invoices
       response = request.make(:get, 'invoices')
       MultiJson.load(response.body)
     end
