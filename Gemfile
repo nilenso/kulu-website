@@ -20,6 +20,7 @@ gem 'jquery.fileupload-rails'
 gem 'underscore-rails'
 gem 'faraday'
 gem 'multi_json'
+gem 'kaminari'
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
