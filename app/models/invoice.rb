@@ -54,8 +54,8 @@ class Invoice
       object
     end
 
-    def list
-      raw_data = KuluService::API.new.list_invoices
+    def list(page: 1)
+      raw_data = KuluService::API.new.list_invoices((page || 1).to_i)
       PaginatedInvoices.new(raw_data).enrich
     end
   end

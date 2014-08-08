@@ -12,6 +12,6 @@ class InvoicesController < ApplicationController
   end
 
   def index
-    @invoices = Invoice.list
+    @invoices = Invoice.list(page: params[:page])
   end
 end
