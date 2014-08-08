@@ -17,8 +17,8 @@ class Invoice
       object
     end
 
-    def list(page)
-      KuluService::API.new.list_invoices(page)
+    def all
+      KuluService::API.new.all_invoices
     end
   end
 
