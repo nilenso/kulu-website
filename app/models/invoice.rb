@@ -54,10 +54,8 @@ class Invoice
       object
     end
 
-    def list(page: 1, per_page: 15)
-      page = (page || 1).to_i
-      per_page = (per_page || 15).to_i
-      raw_data = KuluService::API.new.list_invoices(page, per_page)
+    def list(options = {})
+      raw_data = KuluService::API.new.list_invoices(options)
       PaginatedInvoices.new(raw_data).enrich
     end
   end
