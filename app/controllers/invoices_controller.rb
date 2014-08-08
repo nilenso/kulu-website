@@ -12,6 +12,6 @@ class InvoicesController < ApplicationController
   end
 
   def index
-    render json: Invoice.all
+    @invoices = Invoice.all
   end
 end

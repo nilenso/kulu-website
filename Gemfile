@@ -21,6 +21,7 @@ gem 'underscore-rails'
 gem 'faraday'
 gem 'multi_json'
 gem 'kaminari'
+gem 'hashie', '~> 3.2.0'
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
