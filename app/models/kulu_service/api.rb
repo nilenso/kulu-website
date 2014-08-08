@@ -12,8 +12,8 @@ module KuluService
       MultiJson.load(response.body)['id']
     end
 
-    def list_invoices(page)
-      response = request.make(:get, 'invoices', {:page => page})
+    def list_invoices(page, per_page)
+      response = request.make(:get, 'invoices', {page: page, per_page: per_page})
       MultiJson.load(response.body)
     end
   end
