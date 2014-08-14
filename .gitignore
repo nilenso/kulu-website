@@ -17,3 +17,5 @@
 
 config/application.yml
 config/database.yml
+
+.sass-cache

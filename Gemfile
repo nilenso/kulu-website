@@ -7,6 +7,8 @@ gem 'pg', '~> 0.17.1'
 gem 'aws-sdk', '~> 1.48.1'
 gem 'figaro'
 gem 'quiet_assets'
+gem 'bootstrap-sass'
+gem 'bootswatch-rails'
 
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
