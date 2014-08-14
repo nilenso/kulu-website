@@ -7,6 +7,14 @@ html
     = csrf_meta_tags
 
   body
+    nav.navbar.navbar-inverse role="navigation"
+      .container-fluid
+        .navbar-header
+          a.navbar-brand href="#" Kulu
+        .collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a href="#{invoices_path}" Invoices
     - if flash[:error]
       p.error = h flash[:error]
     - if flash[:notice]

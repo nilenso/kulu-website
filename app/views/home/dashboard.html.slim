@@ -1,13 +1,12 @@
-h1 Kulu Home
-
-= form_for(@invoice, html: {class: 'direct-upload'}) do |f|
+= form_for(@invoice, html: {class: 'direct-upload invoice-file-upload-form'}) do |f|
   .field
     = f.hidden_field(:url_prefix)
     = f.hidden_field(:filename, class: 'filename')
     input id='file-upload' type='file' name='upload' data-s3-url="#{@pre_signed_post.url}" data-form-data="#{@pre_signed_post.fields.to_json}"
+    label.btn.btn-primary.invoice-file-input-label for='file-upload' Upload Invoice
 
-#progress
-  .bar
+    .progress.invoice-file-upload-progress
+      .progress-bar.progress-bar-warning.progress-bar-striped role="progressbar"
 
 p#invoices
 

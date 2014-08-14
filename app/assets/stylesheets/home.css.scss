@@ -2,8 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.bar {
-    width: 0%;
-    height: 18px;
-    background: green;
+#file-upload {
+  display: none;
+}
+
+.invoice-file-upload-form {
+  margin: 50px auto 0;
+  width: 500px;
+}
+
+.invoice-file-input-label {
+  display: block;
+  margin: 0 auto;
+}
+
+.invoice-file-upload-progress {
+  display: none;
+  margin: 20px auto 0;
 }
