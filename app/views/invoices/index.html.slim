@@ -1,3 +1,27 @@
-- @invoices.each do |i|
-  div
-    = i["name"]
+table
+  thead
+    th Name
+    th Date
+    th Amount
+    th Invoice URL
+  tbody
+    - @invoices.each do |i|
+      tr
+        td = i.id
+        td = i.name
+        td = i.date.present? ? Time.parse(i.date) : ''
+        td = "#{i.currency} #{i.amount}"
+        td = i.invoice_url
+
+= page_entries_info @invoices
+= paginate @invoices
+
+div
+  = form_tag invoices_path, method: :get, id: 'form-per-page'
+    = hidden_field_tag :page, params[:page] || 1
+    = label_tag :per_page, "Invoices to show per page:"
+    = select_tag :per_page, options_for_select([10, 15, 25, 50, 100], selected: params[:per_page] || Kaminari.config.default_per_page), id: 'per-page'
+    = submit_tag 'Go'
+
+javascript:
+  new Kulu.Paginator($('#form-per-page')).setupPerPageForm();

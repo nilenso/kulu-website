@@ -1,6 +1,7 @@
 module KuluService
   class API
     KULU_BACKEND_SERVICE_URL = ENV['KULU_BACKEND_SERVICE_URL']
+
     attr_reader :request
 
     def initialize
@@ -12,8 +13,11 @@ module KuluService
       MultiJson.load(response.body)['id']
     end
 
-    def all_invoices
-      response = request.make(:get, 'invoices')
+    def list_invoices(options)
+      page = (options[:page] || 1).to_i
+      per_page = (options[:per_page] || Kaminari.config.default_per_page).to_i
+
+      response = request.make(:get, 'invoices', {page: page, per_page: per_page})
       MultiJson.load(response.body)
     end
   end
