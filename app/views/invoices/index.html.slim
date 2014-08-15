@@ -1,27 +1,30 @@
+.pagination.info = page_entries_info @invoices
+
 table.table.table-striped.table-hover
   thead
     th Name
     th Date
     th Amount
     th Invoice URL
+    th ID
   tbody
     - @invoices.each do |i|
       tr
-        td = i.id
         td = i.name
         td = i.date.present? ? Time.parse(i.date) : ''
         td = "#{i.currency} #{i.amount}"
         td = i.invoice_url
+        td = i.id
 
-= page_entries_info @invoices
-= paginate @invoices
+= paginate @invoices, theme: 'twitter-bootstrap-3'
 
-div
+.pagination-per-page
   = form_tag invoices_path, method: :get, id: 'form-per-page'
     = hidden_field_tag :page, params[:page] || 1
-    = label_tag :per_page, "Invoices to show per page:"
+    = label_tag :per_page, "Show"
     = select_tag :per_page, options_for_select([10, 15, 25, 50, 100], selected: params[:per_page] || Kaminari.config.default_per_page), id: 'per-page'
-    = submit_tag 'Go'
+    span items per page
+    = submit_tag 'Go', class: 'btn btn-primary btn-xs'
 
 javascript:
   new Kulu.Paginator($('#form-per-page')).setupPerPageForm();
