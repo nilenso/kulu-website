@@ -3,5 +3,4 @@ class Kulu.Paginator
     @form = form
 
   setupPerPageForm: ->
-    $(@form.find('input#per-page')).change ->
-      @form.submit()
+    $(@form.find('select#per-page')).change -> @form.submit()
