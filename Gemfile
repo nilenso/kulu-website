@@ -32,7 +32,7 @@ group 'development' do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'guard-rspec'
-  gem 'rb-fsevent' if `uname` =~ /Darwin/
+  gem 'rb-fsevent'
   gem 'pry'
   gem 'better_errors'
   gem 'binding_of_caller'
