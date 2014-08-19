@@ -1,7 +1,8 @@
 class Invoice
   include ActiveModel::Model
 
-  attr_accessor :url_prefix, :filename, :invoice_id, :name, :currency, :amount, :date
+  attr_accessor :url_prefix, :filename, :invoice_id, :name, :currency,
+                :amount, :date, :image_url
 
   class PaginatedInvoices < Array
     def initialize(raw_data)
@@ -72,5 +73,9 @@ class Invoice
 
   def storage_key
     File.join(url_prefix.gsub('${filename}', ''), filename)
+  end
+
+  def decorate
+    InvoiceDecorator.new(self)
   end
 end

@@ -1,14 +1,25 @@
 .invoice-table-row:hover {
   cursor: pointer;
- }
+}
 
 .pagination-per-page {
-    margin-left: 10px;
-    font-size: 12px;
-    font-weight: 300;
-    color: #999999;
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 300;
+  color: #999999;
 
-    #per-page {
-        margin: 5px;
-    }
+  #per-page {
+    margin: 5px;
+  }
+}
+
+.invoice-details {
+  margin-top: 60px;
+}
+
+.invoice-details-name-label, .invoice-details-date-label, .invoice-details-amount-label {
+  margin-top: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  font-variant: small-caps;
 }

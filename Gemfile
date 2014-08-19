@@ -25,6 +25,7 @@ gem 'multi_json'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views', '~> 0.0.3'
 gem 'hashie', '~> 3.2.0'
+gem 'draper', '~> 1.3.1'
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
