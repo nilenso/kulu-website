@@ -15,9 +15,10 @@ html
           ul.nav.navbar-nav.navbar-right
             li
               a href="#{invoices_path}" Invoices
-    - if flash[:error]
-      p.error = h flash[:error]
-    - if flash[:notice]
-      p.notice = h flash[:notice]
+    .container
+      - if flash[:error]
+        p.error = h flash[:error]
+      - if flash[:notice]
+        p.notice = h flash[:notice]
 
-    == yield
+      == yield

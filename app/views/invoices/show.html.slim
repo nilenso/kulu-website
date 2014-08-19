@@ -1,0 +1,9 @@
+.jumbotron
+  p.invoice-name
+    = @invoice.name
+
+  p.invoice-date
+    = @invoice.date
+
+  p.invoice-amount
+    = "#{@invoice.currency} #{@invoice.amount}"
