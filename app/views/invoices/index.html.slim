@@ -9,7 +9,7 @@ table.table.table-striped.table-hover
     th ID
   tbody
     - @invoices.each do |i|
-      tr
+      tr.invoice-table-row data-invoice-url="#{invoice_path(i.id)}"
         td = i.name
         td = i.date.present? ? Time.parse(i.date) : ''
         td = "#{i.currency} #{i.amount}"
@@ -26,3 +26,4 @@ table.table.table-striped.table-hover
 
 javascript:
   new Kulu.Paginator($('#form-per-page')).setupPerPageForm();
+  new Kulu.Utils().clickableRows($(".invoice-table-row"));

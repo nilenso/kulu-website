@@ -1,0 +1,14 @@
+.invoice-table-row:hover {
+  cursor: pointer;
+ }
+
+.pagination-per-page {
+    margin-left: 10px;
+    font-size: 12px;
+    font-weight: 300;
+    color: #999999;
+
+    #per-page {
+        margin: 5px;
+    }
+}
