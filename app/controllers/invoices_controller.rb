@@ -14,4 +14,9 @@ class InvoicesController < ApplicationController
   def index
     @invoices = Invoice.list(params)
   end
+
+  def show
+    @invoice = Invoice.find(params[:id])
+    render nothing: true
+  end
 end

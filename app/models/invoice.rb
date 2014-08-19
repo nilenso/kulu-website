@@ -1,8 +1,7 @@
 class Invoice
   include ActiveModel::Model
 
-  attr_reader :errors
-  attr_accessor :url_prefix, :filename, :invoice_id
+  attr_accessor :url_prefix, :filename, :invoice_id, :name, :currency, :amount, :date
 
   class PaginatedInvoices < Array
     def initialize(raw_data)
@@ -43,7 +42,7 @@ class Invoice
 
   class << self
     def create(url_prefix, filename)
-      object = new(url_prefix, filename)
+      object = new(url_prefix: url_prefix, filename: Pathname.new(filename).basename.to_s)
 
       begin
         object.invoice_id = KuluService::API.new.create_invoice(object.storage_key)
@@ -58,19 +57,20 @@ class Invoice
       raw_data = KuluService::API.new.list_invoices(options)
       PaginatedInvoices.new(raw_data).enrich
     end
-  end
 
-  def initialize(url_prefix, filename = '')
-    @url_prefix = url_prefix
-    @filename = Pathname.new(filename).basename.to_s
-    @errors = ActiveModel::Errors.new(self)
+    def find(invoice_id)
+      raw_data = KuluService::API.new.find_invoice(invoice_id)
+      new(invoice_id: raw_data["id"],
+          name: raw_data["name"],
+          amount: raw_data["amount"],
+          currency: raw_data["currency"]
+          ).tap do |i|
+             i.date = Date.parse(raw_data["date"]) if raw_data["date"]
+          end
+    end
   end
 
   def storage_key
     File.join(url_prefix.gsub('${filename}', ''), filename)
-  end
-
-  def valid?
-    errors.blank?
   end
 end

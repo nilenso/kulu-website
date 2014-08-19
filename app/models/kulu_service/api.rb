@@ -20,5 +20,10 @@ module KuluService
       response = request.make(:get, 'invoices', {page: page, per_page: per_page})
       MultiJson.load(response.body)
     end
+
+    def find_invoice(invoice_id)
+      response = request.make(:get, "invoices/#{invoice_id}")
+      MultiJson.load(response.body)
+    end
   end
 end
