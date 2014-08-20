@@ -1,13 +1,13 @@
 .well.row
   .span12
     .invoice-details.col-md-6
-      p.invoice-details-name-label Name
+      p.invoice-details-label Name
       p = @invoice.name
 
-      p.invoice-details-date-label Date
+      p.invoice-details-label Date
       p = @invoice.date
 
-      p.invoice-details-amount-label Amount
+      p.invoice-details-label Amount
       p = "#{@invoice.currency} #{@invoice.amount}"
 
     .invoice-image-container.col-md-6
