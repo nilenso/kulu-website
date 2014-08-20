@@ -10,11 +10,11 @@ class Invoice
     end
 
     def enrich
-      invoices = @raw_data["items"].map {|i| OpenStruct.new(i)}
+      invoices = @raw_data['items'].map {|i| OpenStruct.new(i)}
 
       pagination_keys = %w{page per_page total_pages total_count}
       page, limit, total_pages, total_count =
-        @raw_data["meta"].values_at(*pagination_keys)
+        @raw_data['meta'].values_at(*pagination_keys)
       offset = (page - 1) * limit
 
       Kaminari::PaginatableArray.new(invoices, total_count: total_count).tap do |arr|
@@ -61,12 +61,12 @@ class Invoice
 
     def find(invoice_id)
       raw_data = KuluService::API.new.find_invoice(invoice_id)
-      new(invoice_id: raw_data["id"],
-          name: raw_data["name"],
-          amount: raw_data["amount"],
-          currency: raw_data["currency"]
+      new(invoice_id: raw_data['id'],
+          name: raw_data['name'],
+          amount: raw_data['amount'],
+          currency: raw_data['currency']
           ).tap do |i|
-             i.date = Date.parse(raw_data["date"]) if raw_data["date"]
+             i.date = Date.parse(raw_data['date']) if raw_data['date']
           end
     end
   end
