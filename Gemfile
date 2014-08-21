@@ -26,6 +26,7 @@ gem 'kaminari'
 gem 'bootstrap-kaminari-views', '~> 0.0.3'
 gem 'hashie', '~> 3.2.0'
 gem 'draper', '~> 1.3.1'
+gem 'js-routes'
 
 group 'development' do
   gem 'spring'

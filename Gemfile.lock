@@ -93,6 +93,9 @@ GEM
     jquery.fileupload-rails (1.10.0)
       jquery-ui-rails (~> 5.0)
       railties (>= 3.1)
+    js-routes (0.9.9)
+      railties (>= 3.2)
+      sprockets-rails
     json (1.8.1)
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
@@ -244,6 +247,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery.fileupload-rails
+  js-routes
   kaminari
   multi_json
   pg (~> 0.17.1)

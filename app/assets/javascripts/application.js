@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require js-routes
 //= require jquery.fileupload
 //= require underscore
 //= require kulu
