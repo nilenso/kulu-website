@@ -1,14 +1,29 @@
 .well.row
   .span12
     .invoice-details.col-md-6
-      p.invoice-details-label Name
-      p = @invoice.name
+      form.invoice-details-form action="#{invoice_path(@invoice.invoice_id)}" method="PUT"
+        .invoice-details-fieldset.inplace-edit-fieldset
+          p.invoice-details-label Name
+          p.inplace-edit-show = @invoice.name
+          input.inplace-edit-input name="invoice[:name]" value="#{@invoice.name}"
 
-      p.invoice-details-label Date
-      p = @invoice.date
+        .invoice-details-fieldset.inplace-edit-fieldset
+          p.invoice-details-label Date
+          p.inplace-edit-show  = @invoice.date
+          input.inplace-edit-input name="invoice[:date]" value="#{@invoice.date}"
 
-      p.invoice-details-label Amount
-      p = "#{@invoice.currency} #{@invoice.amount}"
+        .invoice-details-fieldset.inplace-edit-fieldset
+          p.invoice-details-label Amount
+          p.inplace-edit-show  = "#{@invoice.currency} #{@invoice.amount}"
+          .inplace-edit-input
+            = select_tag 'invoice[:currency]', options_for_select([['USD', 1], ['INR', 2]]), class: 'form-control invoice-details-currency'
+            input name="invoice[:amount]" value="#{@invoice.amount}"
+
+        input.btn.btn-primary.invoice-details-submit type='submit' value="Update"
 
     .invoice-image-container.col-md-6
       img src = @invoice.image_url
+
+javascript:
+  new Kulu.InplaceEdit($(".invoice-details-form"));
+

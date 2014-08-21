@@ -1,0 +1,11 @@
+.inplace-edit-show {
+  padding: 10px 10px 10px 5px;
+  &:hover {
+    background-color: gainsboro;
+    cursor: pointer;
+  }
+}
+
+.inplace-edit-input {
+  display: none;
+}

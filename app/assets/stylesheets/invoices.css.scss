@@ -17,9 +17,23 @@
   margin-top: 60px;
 }
 
-.invoice-details-label {
+.invoice-details-fieldset {
   margin-top: 50px;
+}
+
+.invoice-details-label {
   font-size: 20px;
   font-weight: bold;
   font-variant: small-caps;
+}
+
+.invoice-details-submit {
+  margin-top: 20px;
+  display: none;
+}
+
+.invoice-details-currency {
+  width: 100px;
+  display: inline-block;
+  margin-right: 5px;
 }
