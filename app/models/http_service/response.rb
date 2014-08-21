@@ -1,4 +1,6 @@
 module HTTPService
+  require 'http_service/error'
+
   class Response
     attr_reader :status, :body, :headers
 

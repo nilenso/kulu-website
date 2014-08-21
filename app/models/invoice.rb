@@ -69,6 +69,17 @@ class Invoice
              i.date = Date.parse(raw_data['date']) if raw_data['date']
           end
     end
+
+    def update(invoice_id, params)
+      raw_data = KuluService::API.new.update_invoice(invoice_id, params)
+      new(invoice_id: raw_data['id'],
+          name: raw_data['name'],
+          amount: raw_data['amount'],
+          currency: raw_data['currency']
+      ).tap do |i|
+        i.date = Date.parse(raw_data['date']) if raw_data['date']
+      end
+    end
   end
 
   def storage_key

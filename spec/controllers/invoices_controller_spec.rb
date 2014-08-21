@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'http_service/error'
 
 RSpec.describe InvoicesController, :type => :controller do
   context 'POST create' do
@@ -15,19 +16,41 @@ RSpec.describe InvoicesController, :type => :controller do
     end
   end
 
-  context "GET show" do
+  context 'GET show' do
     let(:invoice_result) {
       {
-        "id" => "df56565f-7a24-4701-9ac9-f29235a1f00e",
-        "name" => "Invoice #1",
+        'id' => 'df56565f-7a24-4701-9ac9-f29235a1f00e',
+        'name' => 'Invoice #1',
       }
     }
 
-    it "fetches the invoice" do
-      expect_any_instance_of(KuluService::API).to receive(:find_invoice).with("df56565f-7a24-4701-9ac9-f29235a1f00e").and_return(invoice_result)
-      get :show, id: "df56565f-7a24-4701-9ac9-f29235a1f00e"
+    it 'fetches the invoice' do
+      expect_any_instance_of(KuluService::API).to receive(:find_invoice).with('df56565f-7a24-4701-9ac9-f29235a1f00e').and_return(invoice_result)
+      get :show, id: 'df56565f-7a24-4701-9ac9-f29235a1f00e'
       invoice = assigns(:invoice)
-      expect(invoice.name).to eq("Invoice #1")
+      expect(invoice.name).to eq('Invoice #1')
+    end
+  end
+
+  context 'PUT update' do
+    let(:invoice_result) {
+      {
+          'id' => 'df56565f-7a24-4701-9ac9-f29235a1f00e',
+          'name' => 'New Invoice',
+          'date' => '2014-08-08T18:30:00.000Z',
+          'currency' => 'INR',
+          'amount' => 500
+      }
+    }
+
+    it 'updates the invoice name, amount, date and currency' do
+      expected_params = {name: 'New Invoice', currency: 'INR', amount: '500'}
+      expect_any_instance_of(KuluService::API).to receive(:update_invoice).with('df56565f-7a24-4701-9ac9-f29235a1f00e', expected_params).and_return(invoice_result)
+      put :update, id: 'df56565f-7a24-4701-9ac9-f29235a1f00e', invoice: expected_params
+      invoice = JSON.parse(response.body, symbolize_names: true)[:invoice]
+      expect(invoice[:name]).to eq('New Invoice')
+      expect(invoice[:amount]).to eq(500)
+      expect(invoice[:currency]).to eq('INR')
     end
   end
 end

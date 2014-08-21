@@ -18,4 +18,9 @@ class InvoicesController < ApplicationController
   def show
     @invoice = Invoice.find(params[:id]).decorate
   end
+
+  def update
+    @invoice = Invoice.update(params[:id], params[:invoice])
+    render json: { invoice: @invoice }
+  end
 end

@@ -25,5 +25,10 @@ module KuluService
       response = request.make(:get, "invoices/#{invoice_id}")
       MultiJson.load(response.body)
     end
+
+    def update_invoice(invoice_id, params)
+      response = request.make(:put, "invoices/#{invoice_id}", params)
+      MultiJson.load(response.body)
+    end
   end
 end

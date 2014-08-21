@@ -23,6 +23,14 @@ module HTTPService
       end
     end
 
+    def put(request_url, request_body = {})
+      connection.put do |req|
+        req.url(request_url)
+        req.body = request_body.to_json
+        req.headers['Content-Type'] = 'application/json'
+      end
+    end
+
     def get(request_url, request_body = {})
       connection.get do |req|
         req.url(request_url)
