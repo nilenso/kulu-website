@@ -14,6 +14,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require js-routes
+//= require nprogress
+//= require nprogress-turbolinks
+//= require nprogress-ajax
 //= require jquery.fileupload
 //= require underscore
 //= require kulu

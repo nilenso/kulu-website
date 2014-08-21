@@ -19,7 +19,6 @@ class Kulu.InplaceEdit
         @updateButton.show()
         $(fieldset).find(".inplace-edit-input").show()
 
-
   formSubmit: () =>
     data = {
       name: @formContainer.find('input[name="invoice[:name]"]').val()
@@ -33,4 +32,4 @@ class Kulu.InplaceEdit
       url: Routes.invoice_path({id: @invoiceID})
       data: JSON.stringify({invoice: data})
       contentType: "application/json"
-    ).done -> alert "Data Saved."
+    ).success -> alert "Data Saved."

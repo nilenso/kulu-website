@@ -1,14 +1,9 @@
-// application manifest file is not used to make bootswatch theme to work
-// REFER: https://github.com/maxim/bootswatch-rails
 @import "bootswatch/yeti/variables";
-
-// Then bootstrap itself
 @import "bootstrap";
-
-// And finally bootswatch style itself
 @import "bootswatch/yeti/bootswatch";
-
-// Whatever application styles you have go last
+@import "nprogress";
+@import "nprogress-bootstrap";
+@import "common";
 @import "home";
 @import "inplace_edit";
 @import "invoices";

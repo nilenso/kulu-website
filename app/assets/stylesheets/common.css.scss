@@ -1,0 +1,22 @@
+$nprogress-new-color: #E99002;
+$nprogress-new-z-index: 100;
+
+#nprogress .bar {
+  background: $nprogress-new-color;
+
+  position: fixed;
+  z-index: $nprogress-new-z-index;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+}
+
+#nprogress .spinner {
+  display: block;
+  position: fixed;
+  z-index: $nprogress-new-z-index;
+  top: 50px;
+  right: 25px;
+}

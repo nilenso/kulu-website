@@ -7,8 +7,6 @@ gem 'pg', '~> 0.17.1'
 gem 'aws-sdk', '~> 1.48.1'
 gem 'figaro'
 gem 'quiet_assets'
-gem 'bootstrap-sass'
-gem 'bootswatch-rails'
 
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
@@ -27,6 +25,9 @@ gem 'bootstrap-kaminari-views', '~> 0.0.3'
 gem 'hashie', '~> 3.2.0'
 gem 'draper', '~> 1.3.1'
 gem 'js-routes'
+gem 'bootstrap-sass'
+gem 'bootswatch-rails'
+gem 'nprogress-rails'
 
 group 'development' do
   gem 'spring'
