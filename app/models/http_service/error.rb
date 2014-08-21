@@ -25,6 +25,7 @@ module HTTPService
 
       super(message)
     end
+
   end
 
   # Any invalid/empty response body
