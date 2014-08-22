@@ -2,6 +2,7 @@ NProgress.configure
   speed: 700
   minimum: 0.7
   ease: 'ease'
+  showSpinner: false
 
 startSpinner = -> NProgress.inc()
 stopSpinner = -> NProgress.done()
