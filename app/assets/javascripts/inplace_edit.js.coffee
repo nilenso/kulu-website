@@ -1,7 +1,9 @@
 class Kulu.InplaceEdit
   constructor: (@formContainer) ->
     @fieldsets = @formContainer.find(".inplace-edit-fieldset")
-    @updateButton = @formContainer.find(".invoice-details-submit")
+    @actionsContainer = @formContainer.find(".inplace-edit-actions")
+    @updateButton = @formContainer.find(".inplace-edit-submit")
+    @cancelButton = @formContainer.find(".inplace-edit-cancel")
     @invoiceID = @formContainer.find('input[name="invoice-id"]').val()
 
     @setupFieldsets()
@@ -10,13 +12,17 @@ class Kulu.InplaceEdit
       e.preventDefault()
       @formSubmit()
 
+    @cancelButton.click (e) =>
+      e.preventDefault()
+      @revertToShow()
+
   setupFieldsets: () =>
     _.each @fieldsets, (fieldset) =>
       showField = $(fieldset).find(".inplace-edit-show")
 
       showField.click =>
         showField.hide()
-        @updateButton.show()
+        @actionsContainer.show()
         $(fieldset).find(".inplace-edit-input").show()
 
   formSubmit: () =>
@@ -33,3 +39,9 @@ class Kulu.InplaceEdit
       data: JSON.stringify({invoice: data})
       contentType: "application/json"
     ).success -> alert "Data Saved."
+
+  revertToShow: () =>
+    @actionsContainer.hide()
+    _.each @fieldsets, (fieldset) =>
+      $(fieldset).find(".inplace-edit-show").show()
+      $(fieldset).find(".inplace-edit-input").hide()

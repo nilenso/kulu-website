@@ -20,11 +20,13 @@
             = select_tag 'invoice[:currency]', options_for_select([['USD', 1], ['INR', 2]]), class: 'form-control invoice-details-currency'
             input name="invoice[:amount]" value="#{@invoice.amount}"
 
-        input.btn.btn-primary.invoice-details-submit type='submit' value="Update"
+        .inplace-edit-actions
+          input.btn.btn-primary.inplace-edit-submit type='submit' value="Update"
+          input.btn.inplace-edit-cancel value="Cancel"
+
 
     .invoice-image-container.col-md-6
       img src = @invoice.image_url
 
 javascript:
   new Kulu.InplaceEdit($(".invoice-details-form"));
-
