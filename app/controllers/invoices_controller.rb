@@ -22,6 +22,7 @@ class InvoicesController < ApplicationController
 
   def update
     @invoice = Invoice.update(params[:id], params[:invoice])
+    flash.notice = "Invoice updated."
     render json: { invoice: @invoice }
   end
 end

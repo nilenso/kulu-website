@@ -38,7 +38,7 @@ class Kulu.InplaceEdit
       url: Routes.invoice_path({id: @invoiceID})
       data: JSON.stringify({invoice: data})
       contentType: "application/json"
-    ).success -> alert "Data Saved."
+    ).success => location.reload()
 
   revertToShow: () =>
     @actionsContainer.hide()
