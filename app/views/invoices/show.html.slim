@@ -17,7 +17,7 @@
           p.invoice-details-label Amount
           p.inplace-edit-show  = "#{@invoice.currency} #{@invoice.amount}"
           .inplace-edit-input
-            = select_tag 'invoice[:currency]', options_for_select([['USD', 1], ['INR', 2]]), class: 'form-control invoice-details-currency'
+            = select_tag 'invoice[:currency]', options_for_select(@currencies, @invoice.currency), class: 'form-control invoice-details-currency'
             input name="invoice[:amount]" value="#{@invoice.amount}"
 
         .inplace-edit-actions

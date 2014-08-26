@@ -30,5 +30,10 @@ module KuluService
       response = request.make(:put, "invoices/#{invoice_id}", {invoice: params})
       MultiJson.load(response.body)
     end
+
+    def list_currencies
+      response = request.make(:get, 'currencies')
+      MultiJson.load(response.body)
+    end
   end
 end

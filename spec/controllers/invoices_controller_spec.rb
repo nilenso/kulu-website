@@ -25,11 +25,19 @@ RSpec.describe InvoicesController, :type => :controller do
     }
 
     it 'fetches the invoice' do
-      expect_any_instance_of(KuluService::API).to receive(:find_invoice).with('df56565f-7a24-4701-9ac9-f29235a1f00e').and_return(invoice_result)
+      expected_currencies = ["USD", "INR"]
+      expect_any_instance_of(KuluService::API).to receive(:list_currencies).and_return(expected_currencies)
+
+      expect_any_instance_of(KuluService::API).to receive(:find_invoice) \
+        .with('df56565f-7a24-4701-9ac9-f29235a1f00e').and_return(invoice_result)
+
       get :show, id: 'df56565f-7a24-4701-9ac9-f29235a1f00e'
       invoice = assigns(:invoice)
       expect(invoice.name).to eq('Invoice #1')
+      currencies = assigns(:currencies)
+      expect(currencies).to match_array(expected_currencies)
     end
+
   end
 
   context 'PUT update' do
