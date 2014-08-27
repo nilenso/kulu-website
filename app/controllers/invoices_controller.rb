@@ -12,7 +12,7 @@ class InvoicesController < ApplicationController
   end
 
   def index
-    @invoices = Invoice.list(params)
+    @invoices = PaginatedInvoices.new(Invoice.list(params))
   end
 
   def show
@@ -22,7 +22,7 @@ class InvoicesController < ApplicationController
 
   def update
     @invoice = Invoice.update(params[:id], params[:invoice])
-    flash.notice = "Invoice updated."
+    flash.notice = 'Invoice updated.'
     render json: { invoice: @invoice }
   end
 end
