@@ -2,7 +2,7 @@ class Invoice
   include ActiveModel::Model
 
   attr_accessor :url_prefix, :filename, :invoice_id, :name, :currency,
-                :amount, :date, :image_url
+                :amount, :date, :attachment_url
 
   class PaginatedInvoices < Array
     def initialize(raw_data)
@@ -64,7 +64,8 @@ class Invoice
       new(invoice_id: raw_data['id'],
           name: raw_data['name'],
           amount: raw_data['amount'],
-          currency: raw_data['currency']
+          currency: raw_data['currency'],
+          attachment_url: raw_data['attachment_url']
           ).tap do |i|
              i.date = Date.parse(raw_data['date']) if raw_data['date']
           end
