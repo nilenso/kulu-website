@@ -1,7 +1,7 @@
 class Invoice
   include ActiveModel::Model
 
-  attr_accessor :id, :url_prefix, :filename, :invoice_id, :name, :currency,
+  attr_accessor :id, :url_prefix, :filename, :name, :currency,
                 :amount, :date, :attachment_url, :status
 
   class << self
@@ -9,7 +9,7 @@ class Invoice
       object = new(url_prefix: url_prefix, filename: Pathname.new(filename).basename.to_s)
 
       begin
-        object.invoice_id = KuluService::API.new.create_invoice(object.storage_key)
+        object.id = KuluService::API.new.create_invoice(object.storage_key)
       rescue HTTPService::Error => e
         object.errors.add(:base, e.message)
       end
@@ -21,9 +21,9 @@ class Invoice
       KuluService::API.new.list_invoices(options)
     end
 
-    def find(invoice_id)
-      raw_data = KuluService::API.new.find_invoice(invoice_id)
-      new(invoice_id: raw_data['id'],
+    def find(id)
+      raw_data = KuluService::API.new.find_invoice(id)
+      new(id: raw_data['id'],
           name: raw_data['name'],
           amount: raw_data['amount'],
           currency: raw_data['currency'],
@@ -33,9 +33,9 @@ class Invoice
           end
     end
 
-    def update(invoice_id, params)
-      raw_data = KuluService::API.new.update_invoice(invoice_id, params)
-      new(invoice_id: raw_data['id'],
+    def update(id, params)
+      raw_data = KuluService::API.new.update_invoice(id, params)
+      new(id: raw_data['id'],
           name: raw_data['name'],
           amount: raw_data['amount'],
           currency: raw_data['currency']

@@ -21,13 +21,13 @@ module KuluService
       MultiJson.load(response.body)
     end
 
-    def find_invoice(invoice_id)
-      response = request.make(:get, "invoices/#{invoice_id}")
+    def find_invoice(id)
+      response = request.make(:get, "invoices/#{id}")
       MultiJson.load(response.body)
     end
 
-    def update_invoice(invoice_id, params)
-      response = request.make(:put, "invoices/#{invoice_id}", {invoice: params})
+    def update_invoice(id, params)
+      response = request.make(:put, "invoices/#{id}", {invoice: params})
       MultiJson.load(response.body)
     end
 

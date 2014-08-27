@@ -1,8 +1,8 @@
 .well.row
   .span12
     .invoice-details.col-md-6
-      form.invoice-details-form action="#{invoice_path(@invoice.invoice_id)}"
-        input type="hidden" name="invoice-id" value="#{@invoice.invoice_id}"
+      form.invoice-details-form action="#{invoice_path(@invoice.id)}"
+        input type="hidden" name="invoice-id" value="#{@invoice.id}"
         .invoice-details-fieldset.inplace-edit-fieldset
           p.invoice-details-label Name
           p.inplace-edit-show = @invoice.name
