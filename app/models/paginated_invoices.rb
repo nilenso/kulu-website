@@ -1,23 +1,13 @@
 class PaginatedInvoices < Kaminari::PaginatableArray
   PAGINATION_KEYS = %w{page per_page total_pages total_count}
 
+  attr_reader :current_page, :total_pages, :limit_value
+
   def initialize(raw_data)
     invoices = raw_data['items'].map {|i| Invoice.new(i).decorate }
-    @page, @limit, @total_pages, total_count = raw_data['meta'].values_at(*PAGINATION_KEYS)
+    @current_page, @limit_value, @total_pages, total_count = raw_data['meta'].values_at(*PAGINATION_KEYS)
 
     super(invoices, total_count: total_count)
-  end
-
-  def current_page
-    @page
-  end
-
-  def total_pages
-    @total_pages
-  end
-
-  def limit_value
-    @limit
   end
 
   def offset_value
