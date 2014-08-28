@@ -23,25 +23,23 @@ class Invoice
 
     def find(id)
       raw_data = KuluService::API.new.find_invoice(id)
-      new(id: raw_data['id'],
+      o = new(id: raw_data['id'],
           name: raw_data['name'],
           amount: raw_data['amount'],
           currency: raw_data['currency'],
-          attachment_url: raw_data['attachment_url']
-          ).tap do |i|
-             i.date = Date.parse(raw_data['date']) if raw_data['date']
-          end
+          attachment_url: raw_data['attachment_url'])
+      o.date = raw_data['date'] if raw_data['date']
+      o
     end
 
     def update(id, params)
       raw_data = KuluService::API.new.update_invoice(id, params)
-      new(id: raw_data['id'],
+      o = new(id: raw_data['id'],
           name: raw_data['name'],
           amount: raw_data['amount'],
-          currency: raw_data['currency']
-      ).tap do |i|
-        i.date = Date.parse(raw_data['date']) if raw_data['date']
-      end
+          currency: raw_data['currency'])
+      o.date = raw_data['date'] if raw_data['date']
+      o
     end
   end
 

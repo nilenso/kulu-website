@@ -9,8 +9,8 @@ table.table.table-striped.table-hover
     - @invoices.each do |i|
       tr.invoice-table-row data-invoice-url="#{invoice_path(i.id)}"
         td = i.name
-        td = i.date.present? ? Time.parse(i.date) : ''
-        td = "#{i.currency} #{i.amount}"
+        td = i.date
+        td = i.amount_with_currency
 
 = paginate @invoices, theme: 'twitter-bootstrap-3'
 
