@@ -1,7 +1,29 @@
 class Kulu.ExpenseViewer
   constructor: (@canvasElement, @prevElement, @nextElement, @pageNumElement, @pageCountElement) ->
 
-  view: (file) ->
+  view: (file) =>
+    @file = file
+    @canvas = document.getElementById(@canvasElement);
+    @ctx = @canvas.getContext("2d");
+    @mimeType = @canvas.getAttribute("data-mime-type");
+
+    if (@mimeType == 'image/png' or @mimeType == 'image/jpeg')
+      @viewImage()
+    else
+      if (@mimeType == 'application/pdf')
+        @viewPDF()
+
+  viewImage: =>
+    $('.expense-pager').hide()
+
+    img = new Image();
+    img.src = @file
+    @canvas.height = 600
+    @canvas.width = 450
+    img.onload = () =>
+      @ctx.drawImage(img,0, 0)
+
+  viewPDF: =>
     ###*
     Get page info from document, resize canvas accordingly, and render page.
     @param num Page number.
@@ -10,14 +32,14 @@ class Kulu.ExpenseViewer
       pageRendering = true
 
       # Using promise to fetch the page
-      pdfDoc.getPage(num).then (page) ->
+      pdfDoc.getPage(num).then (page) =>
         viewport = page.getViewport(scale)
-        canvas.height = viewport.height
-        canvas.width = viewport.width
+        @canvas.height = viewport.height
+        @canvas.width = viewport.width
 
         # Render PDF page into canvas context
         renderContext =
-          canvasContext: ctx
+          canvasContext: @ctx
           viewport: viewport
 
         renderTask = page.render(renderContext)
@@ -67,15 +89,13 @@ class Kulu.ExpenseViewer
     pageRendering = false
     pageNumPending = null
     scale = 0.9
-    canvas = document.getElementById(@canvasElement)
-    ctx = canvas.getContext("2d")
     document.getElementById(@prevElement).addEventListener "click", onPrevPage
     document.getElementById(@nextElement).addEventListener "click", onNextPage
 
     ###*
     Asynchronously downloads PDF.
     ###
-    PDFJS.getDocument(file).then (pdfDoc_) =>
+    PDFJS.getDocument(@file).then (pdfDoc_) =>
       pdfDoc = pdfDoc_
       document.getElementById(@pageCountElement).textContent = pdfDoc.numPages
 

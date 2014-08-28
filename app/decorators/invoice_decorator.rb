@@ -11,6 +11,17 @@ class InvoiceDecorator < Draper::Decorator
     end
   end
 
+  def attachment_mime_type
+    u = attachment_url
+
+    if u.present?
+      MimeMagic.by_path(URI.parse(u.html_safe).path).type
+    else
+      ''
+    end
+
+  end
+
   def name
     object.name || '-'
   end

@@ -37,7 +37,7 @@
         span id="page-num"
         |/
         span id="page-count"
-      canvas id="expense-canvas" style="border:1px solid black"
+      canvas id="expense-canvas" style="border:1px solid black" data-mime-type="#{@invoice.attachment_mime_type}"
 
 javascript:
   new Kulu.InplaceEdit($(".invoice-details-form"));
