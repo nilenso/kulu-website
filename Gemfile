@@ -29,7 +29,6 @@ gem 'js-routes'
 gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'nprogress-rails'
-gem 'pdfjs-rails'
 gem 'mimemagic'
 
 group 'development' do

@@ -14,7 +14,7 @@ class Kulu.ExpenseViewer
         @viewPDF()
 
   viewImage: =>
-    $('.expense-pager').hide()
+    document.getElementsByClassName('expense-pager')[0].style.visibility='hidden';
 
     img = new Image();
     img.src = @file
