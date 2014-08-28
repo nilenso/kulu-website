@@ -18,7 +18,7 @@ class Invoice
     end
 
     def list(options = {})
-      KuluService::API.new.list_invoices(options)
+      PaginatedInvoices.new(KuluService::API.new.list_invoices(options))
     end
 
     def find(id)

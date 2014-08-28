@@ -12,7 +12,7 @@ class InvoicesController < ApplicationController
   end
 
   def index
-    @invoices = PaginatedInvoices.new(Invoice.list(params))
+    @invoices = Invoice.list(params)
   end
 
   def show
