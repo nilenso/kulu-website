@@ -2,7 +2,13 @@ class InvoiceDecorator < Draper::Decorator
   delegate :id, :attachment_url, :name, :date, :amount, :currency
 
   def attachment_url
-    object.attachment_url || helpers.asset_path('placeholder-portrait-450x600.jpg')
+    u = object.attachment_url
+
+    if u.present?
+      object.attachment_url.html_safe
+    else
+      helpers.asset_path('placeholder-portrait-450x600.jpg')
+    end
   end
 
   def name

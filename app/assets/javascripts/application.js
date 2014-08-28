@@ -19,5 +19,6 @@
 //= require nprogress-ajax
 //= require jquery.fileupload
 //= require underscore
+//= require pdf
 //= require kulu
 //= require_tree .

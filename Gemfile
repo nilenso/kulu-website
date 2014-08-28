@@ -29,6 +29,7 @@ gem 'js-routes'
 gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'nprogress-rails'
+gem 'pdfjs-rails'
 
 group 'development' do
   gem 'spring'

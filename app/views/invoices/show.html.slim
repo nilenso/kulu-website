@@ -24,9 +24,21 @@
           input.btn.btn-primary.inplace-edit-submit type='submit' value="Update"
           input.btn.inplace-edit-cancel value="Cancel"
 
-
     .invoice-image-container.col-md-6
-      img src = @invoice.attachment_url
+      ul.pager.expense-pager
+        li
+          a id="prev" href="#"
+            | ← Previous
+        li
+          a id="next" href="#"
+            | Next →
+        | &nbsp; &nbsp;
+        | Page:
+        span id="page-num"
+        |/
+        span id="page-count"
+      canvas id="expense-canvas" style="border:1px solid black"
 
 javascript:
   new Kulu.InplaceEdit($(".invoice-details-form"));
+  new Kulu.ExpenseViewer('expense-canvas', 'prev', 'next', 'page-num', 'page-count').view("#{@invoice.attachment_url}");

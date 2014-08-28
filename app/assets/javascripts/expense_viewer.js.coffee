@@ -1,0 +1,84 @@
+class Kulu.ExpenseViewer
+  constructor: (@canvasElement, @prevElement, @nextElement, @pageNumElement, @pageCountElement) ->
+
+  view: (file) ->
+    ###*
+    Get page info from document, resize canvas accordingly, and render page.
+    @param num Page number.
+    ###
+    renderPage = (num) =>
+      pageRendering = true
+
+      # Using promise to fetch the page
+      pdfDoc.getPage(num).then (page) ->
+        viewport = page.getViewport(scale)
+        canvas.height = viewport.height
+        canvas.width = viewport.width
+
+        # Render PDF page into canvas context
+        renderContext =
+          canvasContext: ctx
+          viewport: viewport
+
+        renderTask = page.render(renderContext)
+
+        # Wait for rendering to finish
+        renderTask.then ->
+          pageRendering = false
+          if pageNumPending isnt null
+
+            # New page rendering is pending
+            renderPage(pageNumPending)
+            pageNumPending = null
+
+      # Update page counters
+      document.getElementById(@pageNumElement).textContent = pageNum
+
+    ###*
+    If another page rendering in progress, waits until the rendering is
+    finised. Otherwise, executes rendering immediately.
+    ###
+    queueRenderPage = (num) ->
+      if pageRendering
+        pageNumPending = num
+      else
+        renderPage(num)
+
+    ###*
+    Displays previous page.
+    ###
+    onPrevPage = ->
+      return if pageNum <= 1
+      pageNum--
+      queueRenderPage(pageNum)
+
+    ###*
+    Displays next page.
+    ###
+    onNextPage = ->
+      return if pageNum >= pdfDoc.numPages
+      pageNum++
+      queueRenderPage(pageNum)
+
+    PDFJS.disableWorker = true
+
+    pdfDoc = null
+    pageNum = 1
+    pageRendering = false
+    pageNumPending = null
+    scale = 0.9
+    canvas = document.getElementById(@canvasElement)
+    ctx = canvas.getContext("2d")
+    document.getElementById(@prevElement).addEventListener "click", onPrevPage
+    document.getElementById(@nextElement).addEventListener "click", onNextPage
+
+    ###*
+    Asynchronously downloads PDF.
+    ###
+    PDFJS.getDocument(file).then (pdfDoc_) =>
+      pdfDoc = pdfDoc_
+      document.getElementById(@pageCountElement).textContent = pdfDoc.numPages
+
+      # Initial/first page rendering
+      renderPage(pageNum)
+
