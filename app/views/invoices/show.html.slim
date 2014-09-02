@@ -37,8 +37,11 @@
         span id="page-num"
         |/
         span id="page-count"
-      canvas id="expense-canvas" style="border:1px solid black" data-mime-type="#{@invoice.attachment_mime_type}"
+
+      canvas id="expense-canvas-pdf" style="border:1px solid black" data-mime-type="#{@invoice.attachment_mime_type}"
+      div class="expense-image-container"
+        img class="expense-image" src="#{@invoice.attachment_url}"
 
 javascript:
   new Kulu.InplaceEdit($(".invoice-details-form"));
-  new Kulu.ExpenseViewer('expense-canvas', 'prev', 'next', 'page-num', 'page-count').view("#{@invoice.attachment_url}");
+  new Kulu.ExpenseViewer('expense-canvas-pdf', 'prev', 'next', 'page-num', 'page-count').view("#{@invoice.attachment_url}");

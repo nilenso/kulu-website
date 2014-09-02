@@ -14,16 +14,22 @@ class Kulu.ExpenseViewer
         @viewPDF()
 
   viewImage: =>
-    document.getElementsByClassName('expense-pager')[0].style.visibility='hidden';
+    $('#expense-canvas-pdf').hide()
+    $('.expense-pager').hide()
 
-    img = new Image();
-    img.src = @file
-    @canvas.height = 600
-    @canvas.width = 450
-    img.onload = () =>
-      @ctx.drawImage(img,0, 0)
+    $('.expense-image').css('display', 'block').parent().zoom({
+      magnify: 1
+      callback: ->
+        $(this).colorbox({
+          href: this.src,
+          onLoad: ->
+              $('#cboxClose').remove()
+          })
+    });
 
   viewPDF: =>
+    $('.expense-image-container').hide()
+
     ###*
     Get page info from document, resize canvas accordingly, and render page.
     @param num Page number.

@@ -20,5 +20,7 @@
 //= require jquery.fileupload
 //= require underscore
 //= require pdf
+//= require jquery.zoom
+//= require jquery.colorbox
 //= require kulu
 //= require_tree .
