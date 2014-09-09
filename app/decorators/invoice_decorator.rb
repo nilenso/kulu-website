@@ -43,7 +43,8 @@ class InvoiceDecorator < Draper::Decorator
     if c.blank? or a.blank?
       '-'
     else
-      money = Money.new(a, c)
+      currency = Money::Currency.new(c)
+      money = Money.new(a * currency.subunit_to_unit, currency)
       "#{money.symbol}#{money.amount}"
     end
   end
