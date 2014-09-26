@@ -22,5 +22,7 @@
 //= require pdf
 //= require jquery.zoom
 //= require jquery.colorbox
+//= require moment
+//= require pikaday
 //= require kulu
 //= require_tree .

@@ -30,6 +30,8 @@ gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'nprogress-rails'
 gem 'mimemagic'
+gem 'pikaday-gem'
+gem 'momentjs-rails'
 
 group 'development' do
   gem 'spring'

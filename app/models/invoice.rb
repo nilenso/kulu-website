@@ -33,7 +33,8 @@ class Invoice
     end
 
     def update(id, params)
-      raw_data = KuluService::API.new.update_invoice(id, params)
+      params_with_date = params.merge(date: Date.parse(params[:date]).iso8601) if params[:date]
+      raw_data = KuluService::API.new.update_invoice(id, params_with_date || params)
       o = new(id: raw_data['id'],
           name: raw_data['name'],
           amount: raw_data['amount'],

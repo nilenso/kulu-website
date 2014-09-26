@@ -3,15 +3,15 @@
     .invoice-details.col-md-6
       form.invoice-details-form action="#{invoice_path(@invoice.id)}"
         input type="hidden" name="invoice-id" value="#{@invoice.id}"
-        .invoice-details-fieldset.inplace-edit-fieldset
+        .invoice-details-fieldset.inplace-edit-fieldset.form-group
           p.invoice-details-label Name
           p.inplace-edit-show = @invoice.name
-          input.inplace-edit-input name="invoice[:name]" value="#{@invoice.name}"
+          input.inplace-edit-input.form-control name="invoice[:name]" value="#{@invoice.name}"
 
-        .invoice-details-fieldset.inplace-edit-fieldset
+        .invoice-details-fieldset.inplace-edit-fieldset.invoice-details-date-group.form-group
           p.invoice-details-label Date
-          p.inplace-edit-show  = @invoice.date
-          input.inplace-edit-input name="invoice[:date]" value="#{@invoice.date}"
+          p.inplace-edit-show  = @invoice.display_date
+          input.inplace-edit-input.invoice-details-date.form-control name="invoice[:date]" value="#{@invoice.input_date}" placeholder="DD-MM-YYYY"
 
         .invoice-details-fieldset.inplace-edit-fieldset
           p.invoice-details-label Amount
@@ -43,5 +43,10 @@
         img class="expense-image" src="#{@invoice.attachment_url}"
 
 javascript:
-  new Kulu.InplaceEdit($(".invoice-details-form"));
+  new Kulu.InvoiceEdit($(".invoice-details-form"));
   new Kulu.ExpenseViewer('expense-canvas-pdf', 'prev', 'next', 'page-num', 'page-count').view("#{@invoice.attachment_url}");
+
+  var picker = new Pikaday({
+      field: $('.invoice-details-date')[0],
+      format: 'DD-MM-YYYY'
+  });
