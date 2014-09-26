@@ -26,14 +26,12 @@ class InvoiceDecorator < Draper::Decorator
     object.name || '-'
   end
 
-  def date
-    d = object.date
+  def display_date
+    formatted_date('%d %b %Y')
+  end
 
-    if d.blank?
-      '-'
-    else
-      Time.parse(d).to_formatted_s(:long_ordinal)
-    end
+  def input_date
+    formatted_date('%d-%m-%Y')
   end
 
   def amount_with_currency
@@ -46,6 +44,18 @@ class InvoiceDecorator < Draper::Decorator
       currency = Money::Currency.new(c)
       money = Money.new(a * currency.subunit_to_unit, currency)
       "#{money.symbol}#{money.amount}"
+    end
+  end
+
+  private
+
+  def formatted_date(format)
+    d = object.date
+
+    if d.blank?
+      '-'
+    else
+      Date.parse(d).strftime(format)
     end
   end
 end

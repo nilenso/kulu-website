@@ -10,8 +10,8 @@
 
         .invoice-details-fieldset.inplace-edit-fieldset
           p.invoice-details-label Date
-          p.inplace-edit-show  = @invoice.date
-          input.inplace-edit-input name="invoice[:date]" value="#{@invoice.date}"
+          p.inplace-edit-show  = @invoice.display_date
+          input.inplace-edit-input.invoice-details-date name="invoice[:date]" value="#{@invoice.input_date}" placeholder="DD-MM-YYYY"
 
         .invoice-details-fieldset.inplace-edit-fieldset
           p.invoice-details-label Amount
@@ -45,3 +45,8 @@
 javascript:
   new Kulu.InplaceEdit($(".invoice-details-form"));
   new Kulu.ExpenseViewer('expense-canvas-pdf', 'prev', 'next', 'page-num', 'page-count').view("#{@invoice.attachment_url}");
+
+  var picker = new Pikaday({
+      field: $('.invoice-details-date')[0],
+      format: 'DD-MM-YYYY'
+  });
