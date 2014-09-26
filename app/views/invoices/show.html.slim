@@ -3,26 +3,22 @@
     .invoice-details.col-md-6
       form.invoice-details-form action="#{invoice_path(@invoice.id)}"
         input type="hidden" name="invoice-id" value="#{@invoice.id}"
-        .invoice-details-fieldset.inplace-edit-fieldset.form-group
+        .invoice-details-fieldset.form-group
           p.invoice-details-label Name
-          p.inplace-edit-show = @invoice.name
-          input.inplace-edit-input.form-control name="invoice[:name]" value="#{@invoice.name}"
+          input.form-control name="invoice[:name]" value="#{@invoice.name}" tabindex=1
 
-        .invoice-details-fieldset.inplace-edit-fieldset.invoice-details-date-group.form-group
+        .invoice-details-fieldset.invoice-details-date-group.form-group
           p.invoice-details-label Date
-          p.inplace-edit-show  = @invoice.display_date
-          input.inplace-edit-input.invoice-details-date.form-control name="invoice[:date]" value="#{@invoice.input_date}" placeholder="DD-MM-YYYY"
+          input.invoice-details-date.form-control name="invoice[:date]" value="#{@invoice.input_date}" placeholder="DD-MM-YYYY" tabindex=2
 
-        .invoice-details-fieldset.inplace-edit-fieldset
+        .invoice-details-fieldset
           p.invoice-details-label Amount
-          p.inplace-edit-show  = "#{@invoice.currency} #{@invoice.amount}"
-          .inplace-edit-input
-            = select_tag 'invoice[:currency]', options_for_select(@currencies, @invoice.currency), class: 'form-control invoice-details-currency'
-            input name="invoice[:amount]" value="#{@invoice.amount}"
+          = select_tag 'invoice[:currency]', options_for_select(@currencies, @invoice.currency), class: 'form-control invoice-details-currency', tabindex: 3
+          input name="invoice[:amount]" value="#{@invoice.amount}" tabindex=4
 
-        .inplace-edit-actions
-          input.btn.btn-primary.inplace-edit-submit type='submit' value="Update"
-          input.btn.inplace-edit-cancel value="Cancel"
+        .invoice-edit-actions
+          input.btn.btn-primary.invoice-edit-submit type='submit' value="Update" tabindex=5
+          = link_to "Cancel", invoices_path, class: 'btn btn-link'
 
     .invoice-image-container.col-md-6
       ul.pager.expense-pager
