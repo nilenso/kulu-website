@@ -1,10 +1,11 @@
-class Kulu.InplaceEdit
+class Kulu.InvoiceEdit
   constructor: (@formContainer) ->
     @fieldsets = @formContainer.find(".inplace-edit-fieldset")
     @actionsContainer = @formContainer.find(".inplace-edit-actions")
     @updateButton = @formContainer.find(".inplace-edit-submit")
     @cancelButton = @formContainer.find(".inplace-edit-cancel")
     @invoiceID = @formContainer.find('input[name="invoice-id"]').val()
+    @dateGroup = @formContainer.find('.invoice-details-date-group')
 
     @setupFieldsets()
 
@@ -19,13 +20,20 @@ class Kulu.InplaceEdit
   setupFieldsets: () =>
     _.each @fieldsets, (fieldset) =>
       showField = $(fieldset).find(".inplace-edit-show")
-
       showField.click =>
         showField.hide()
         @actionsContainer.show()
         $(fieldset).find(".inplace-edit-input").show()
 
+  isDateValid: () =>
+    dateInput = @dateGroup.find(".invoice-details-date")
+    moment($(dateInput).val(), "DD-MM-YYYY").isValid()
+
   formSubmit: () =>
+    unless @isDateValid()
+      @dateGroup.addClass('has-error')
+      return false
+
     data = {
       name: @formContainer.find('input[name="invoice[:name]"]').val()
       currency: @formContainer.find('select[name="invoice[:currency]"]').val()
