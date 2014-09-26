@@ -29,4 +29,4 @@ class Kulu.InvoiceEdit
       url: Routes.invoice_path({id: @invoiceID})
       data: JSON.stringify({invoice: data})
       contentType: "application/json"
-    )
+    ).success => Turbolinks.visit(@formContainer.data('invoices-url'))

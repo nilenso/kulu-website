@@ -1,7 +1,7 @@
 .well.row
   .span12
     .invoice-details.col-md-6
-      form.invoice-details-form action="#{invoice_path(@invoice.id)}"
+      form.invoice-details-form action="#{invoice_path(@invoice.id)}" data-invoices-url="#{invoices_path}"
         input type="hidden" name="invoice-id" value="#{@invoice.id}"
         .invoice-details-fieldset.form-group
           p.invoice-details-label Name
