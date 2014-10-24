@@ -1,5 +1,3 @@
-require 'net/http'
-
 class InvoiceDecorator < Draper::Decorator
   delegate :id, :attachment_url, :name, :date, :amount, :currency
 
@@ -14,16 +12,8 @@ class InvoiceDecorator < Draper::Decorator
   end
 
   def attachment_mime_type
-    u = attachment_url
-
-    if u.present?
-      pathmime = MimeMagic.by_path(URI.parse(u.html_safe).path)
-      if !pathmime.nil?
-        pathmime.type
-      end
-    else
-      ''
-    end
+    return '' unless attachment_url.present?
+    MimeMagic.by_path(URI.parse(attachment_url.html_safe).path).try(:type) || ''
   end
 
   def name
