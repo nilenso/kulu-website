@@ -33,8 +33,7 @@ module KuluService
 
     def delete_invoice(id)
       response = request.make(:delete, "invoices/#{id}")
-      p response.status
-      response.status == 404
+      response.status == 204
     end
 
     def list_currencies
