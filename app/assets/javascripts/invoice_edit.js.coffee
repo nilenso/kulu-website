@@ -3,10 +3,15 @@ class Kulu.InvoiceEdit
     @updateButton = @formContainer.find(".invoice-edit-submit")
     @invoiceID = @formContainer.find('input[name="invoice-id"]').val()
     @dateGroup = @formContainer.find('.invoice-details-date-group')
+    @deleteButton = @formContainer.find(".invoice-edit-delete")
 
     @updateButton.click (e) =>
       e.preventDefault()
       @formSubmit()
+
+    @deleteButton.click (e) =>
+      e.preventDefault()
+      @deleteInvoice()
 
   isDateValid: () =>
     dateInput = @dateGroup.find(".invoice-details-date")
@@ -28,5 +33,12 @@ class Kulu.InvoiceEdit
       type: "PUT"
       url: Routes.invoice_path({id: @invoiceID})
       data: JSON.stringify({invoice: data})
+      contentType: "application/json"
+    ).success => Turbolinks.visit(@formContainer.data('invoices-url'))
+
+  deleteInvoice: =>
+    $.ajax(
+      type: "DELETE"
+      url: Routes.invoice_path({id: @invoiceID})
       contentType: "application/json"
     ).success => Turbolinks.visit(@formContainer.data('invoices-url'))
