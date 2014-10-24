@@ -31,6 +31,12 @@ module KuluService
       MultiJson.load(response.body)
     end
 
+    def delete_invoice(id)
+      response = request.make(:delete, "invoices/#{id}")
+      p response.status
+      response.status == 404
+    end
+
     def list_currencies
       response = request.make(:get, 'currencies')
       MultiJson.load(response.body)

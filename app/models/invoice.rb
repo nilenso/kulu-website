@@ -42,6 +42,10 @@ class Invoice
       o.date = raw_data['date'] if raw_data['date']
       o
     end
+
+    def destroy(id)
+      KuluService::API.new.delete_invoice(id)
+    end
   end
 
   def storage_key

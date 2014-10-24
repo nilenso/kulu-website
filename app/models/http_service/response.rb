@@ -23,7 +23,7 @@ module HTTPService
         end
       end
 
-      if body.empty?
+      if body.empty? && status != 204
         raise(BadResponse.new(status, body))
       end
     end
