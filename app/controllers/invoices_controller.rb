@@ -29,6 +29,6 @@ class InvoicesController < ApplicationController
   def destroy
     Invoice.destroy(params[:id])
     flash[:notice] = "Invoice deleted"
-    head :no_content
+    redirect_to invoices_path, notice: "Invoice deleted"
   end
 end
