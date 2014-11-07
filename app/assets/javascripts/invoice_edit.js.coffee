@@ -38,7 +38,8 @@ class Kulu.InvoiceEdit
 
   deleteInvoice: =>
     $.ajax(
-      type: "DELETE"
+      type: "POST"
+      data: {_method: 'delete'}
       url: Routes.invoice_path({id: @invoiceID})
       contentType: "application/json"
     ).success => Turbolinks.visit(@formContainer.data('invoices-url'))
