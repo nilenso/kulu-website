@@ -107,4 +107,3 @@ class Kulu.ExpenseViewer
 
       # Initial/first page rendering
       renderPage(pageNum)
-
