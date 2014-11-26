@@ -22,6 +22,8 @@ class Kulu.InvoiceEdit
       currency: @formContainer.find('select[name="invoice[:currency]"]').val()
       amount: Number(@formContainer.find('input[name="invoice[:amount]"]').val())
       date: @formContainer.find('input[name="invoice[:date]"]').val()
+      expense_type: @formContainer.find('input[name="invoice[:expense_type]"]:checked').val()
+      remarks: @formContainer.find('input[name="invoice[:remarks]"]').val()
     }
 
     $.ajax(

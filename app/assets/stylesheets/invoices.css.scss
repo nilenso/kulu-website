@@ -27,10 +27,22 @@
   font-variant: small-caps;
 }
 
+.invoice-expense-type-label {
+  margin: 8px;
+  display: inline;
+  padding:3px;
+  font-size: 17px;
+  font-variant: small-caps;
+}
+
 .invoice-details-currency {
   width: 100px;
   display: inline-block;
   margin-right: 5px;
+}
+
+.invoice-details-expense-type {
+  display: inline;
 }
 
 .invoice-edit-actions {
