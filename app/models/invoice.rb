@@ -2,7 +2,8 @@ class Invoice
   include ActiveModel::Model
 
   attr_accessor :id, :url_prefix, :filename, :name, :currency,
-                :amount, :date, :attachment_url, :status
+                :amount, :date, :attachment_url, :status, :expense_type,
+                :remarks
 
   class << self
     def create(url_prefix, filename)
@@ -27,7 +28,9 @@ class Invoice
           name: raw_data['name'],
           amount: raw_data['amount'],
           currency: raw_data['currency'],
-          attachment_url: raw_data['attachment_url'])
+          attachment_url: raw_data['attachment_url'],
+          expense_type: raw_data['expense_type'],
+          remarks: raw_data['remarks'])
       o.date = raw_data['date'] if raw_data['date']
       o
     end
@@ -38,7 +41,9 @@ class Invoice
       o = new(id: raw_data['id'],
           name: raw_data['name'],
           amount: raw_data['amount'],
-          currency: raw_data['currency'])
+          currency: raw_data['currency'],
+          expense_type: raw_data['expense_type'],
+          remarks: raw_data['remarks'])
       o.date = raw_data['date'] if raw_data['date']
       o
     end

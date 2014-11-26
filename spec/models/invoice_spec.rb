@@ -10,14 +10,18 @@ RSpec.describe Invoice, :type => :model do
          'name' => 'Invoice #1',
          'date' => '2014-08-08T18:30:00.000Z',
          'currency' => 'INR',
-         'amount' => 20000
+         'amount' => 20000,
+         'remarks' => "FOO",
+         'expense_type' => "Company"
        },
        {
          'id' => '4aa80645-ec43-4b57-8df0-aacdef8efc67',
          'name' => 'Invoice #2',
          'date' => '2014-08-18T22:44:00.000Z',
          'currency' => 'USD',
-         'amount' => 201.22
+         'amount' => 201.22,
+         'remarks' => "HELLO",
+         'expense_type' => "Personal"
        }
       ],
       'meta' => {
@@ -35,7 +39,9 @@ RSpec.describe Invoice, :type => :model do
       'name' => 'Invoice #1',
       'date' => '2014-08-08T18:30:00.000Z',
       'currency' => 'INR',
-      'amount' => 20000
+      'amount' => 20000,
+      'remarks' => "HELLO",
+      'expense_type' => "Personal"
      }
   }
 
@@ -76,6 +82,8 @@ RSpec.describe Invoice, :type => :model do
       expect(Date.parse(invoice.date)).to eq(Date.new(2014, 8, 8))
       expect(invoice.currency).to eq('INR')
       expect(invoice.amount).to eq(20000)
+      expect(invoice.remarks).to eq("HELLO")
+      expect(invoice.expense_type).to eq("Personal")
     end
   end
 end
