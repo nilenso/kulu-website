@@ -33,6 +33,7 @@
         .invoice-edit-actions
           input.btn.btn-primary.invoice-edit-submit type='submit' value="Update" tabindex=5
           = link_to "Cancel", invoices_path, class: 'btn btn-link'
+          = link_to "Delete", invoice_path(@invoice.id), method: :delete, class: 'btn btn-danger invoice-edit-delete'
 
     .invoice-image-container.col-md-6
       ul.pager.expense-pager

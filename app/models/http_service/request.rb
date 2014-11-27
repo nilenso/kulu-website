@@ -37,5 +37,12 @@ module HTTPService
         req.params = request_body
       end
     end
+
+    def delete(request_url, request_body = {})
+      connection.delete do |req|
+        req.url(request_url)
+        req.headers['Content-Type'] = 'application/json'
+      end
+    end
   end
 end

@@ -25,4 +25,10 @@ class InvoicesController < ApplicationController
     flash.notice = 'Invoice updated.'
     render json: { invoice: @invoice }
   end
+
+  def destroy
+    Invoice.destroy(params[:id])
+    flash[:notice] = "Invoice deleted"
+    redirect_to invoices_path, notice: "Invoice deleted"
+  end
 end
