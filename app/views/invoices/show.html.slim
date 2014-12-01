@@ -18,20 +18,20 @@
 
         .invoice-details-fieldset
           p.invoice-details-label Expense Type
-          = radio_button_tag "invoice[:expense_type]", 'Company' , @invoice.expense_type == "Company", class: 'invoice-details-expense-type', tabindex: 3
+          = radio_button_tag "invoice[:expense_type]", 'Company' , @invoice.expense_type == "Company", class: 'invoice-details-expense-type', tabindex: 4
           label_tag.invoice-expense-type-label Company
-          = radio_button_tag "invoice[:expense_type]", 'Personal', @invoice.expense_type == "Personal", class: 'invoice-details-expense-type', tabindex: 3
+          = radio_button_tag "invoice[:expense_type]", 'Personal', @invoice.expense_type == "Personal", class: 'invoice-details-expense-type', tabindex: 5
           label_tag.invoice-expense-type-label Personal
-          = radio_button_tag "invoice[:expense_type]", 'Reimbursement', @invoice.expense_type == "Reimbursement", class: 'invoice-details-expense-type', tabindex: 3
+          = radio_button_tag "invoice[:expense_type]", 'Reimbursement', @invoice.expense_type == "Reimbursement", class: 'invoice-details-expense-type', tabindex: 6
           label_tag.invoice-expense-type-label Reimbursement
 
         .invoice-details-fieldset
           p.invoice-details-label Remarks
-          input.form-control name="invoice[:remarks]" value="#{@invoice.remarks}" tabindex=1
+          input.form-control name="invoice[:remarks]" value="#{@invoice.remarks}" tabindex=7
 
 
         .invoice-edit-actions
-          input.btn.btn-primary.invoice-edit-submit type='submit' value="Update" tabindex=5
+          input.btn.btn-primary.invoice-edit-submit type='submit' value="Update" tabindex=8
           = link_to "Cancel", invoices_path, class: 'btn btn-link'
           = link_to "Delete", invoice_path(@invoice.id), method: :delete, class: 'btn btn-danger invoice-edit-delete'
 
