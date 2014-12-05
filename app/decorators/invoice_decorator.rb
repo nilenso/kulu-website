@@ -38,7 +38,7 @@ class InvoiceDecorator < Draper::Decorator
     else
       currency = Money::Currency.new(c)
       money = Money.new(a * currency.subunit_to_unit, currency)
-      "#{money.symbol}#{money.amount}"
+      "#{money.symbol} #{money.amount}"
     end
   end
 
