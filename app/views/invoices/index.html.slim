@@ -25,3 +25,8 @@ table.table.table-striped.table-hover
 javascript:
   new Kulu.Paginator($('#form-per-page')).setupPerPageForm();
   new Kulu.Utils().clickableRows($(".invoice-table-row"));
+  $(document).ready( function () {
+    $('.table.table-striped.table-hover').DataTable({
+      "paging":   false
+    });
+  });
