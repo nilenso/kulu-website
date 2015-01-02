@@ -2,10 +2,10 @@
 
 table.table.table-striped.table-hover
   thead
-    th Name
-    th Date
-    th Amount
-    th Remarks
+    th = sortable "Name"
+    th = sortable "Date"
+    th = sortable "Amount"
+    th = sortable "Remarks"
   tbody
     - @invoices.each do |i|
       tr.invoice-table-row data-invoice-url="#{invoice_path(i.id)}"

@@ -1,4 +1,6 @@
 class InvoicesController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   def create
     url_prefix, filename = params[:invoice].values_at(:url_prefix, :filename)
     invoice = Invoice.create(url_prefix, filename)
@@ -30,5 +32,15 @@ class InvoicesController < ApplicationController
     Invoice.destroy(params[:id])
     flash[:notice] = "Invoice deleted"
     redirect_to invoices_path, notice: "Invoice deleted"
+  end
+
+  private
+
+  def sort_column
+    %w(name amount currency remarks date).include?((params[:sort] || "").downcase) ? params[:sort] : "created_at"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "desc"
   end
 end
