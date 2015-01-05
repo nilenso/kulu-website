@@ -5,6 +5,7 @@ table.table.table-striped.table-hover
     th = sortable "Merchant Name"
     th = sortable "Expense Date"
     th = sortable "Amount"
+    th = sortable "Expense Type"
     th = sortable "Remarks"
   tbody
     - @invoices.each do |i|
@@ -12,6 +13,7 @@ table.table.table-striped.table-hover
         td = i.name
         td = i.display_date
         td = i.amount_with_currency
+        td = i.expense_type
         td = i.remarks
 
 = paginate @invoices, theme: 'twitter-bootstrap-3'

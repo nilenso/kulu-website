@@ -12,6 +12,7 @@ module ApplicationHelper
       "Expense Date" => "Date",
       "created_at" => "created_at",
       "Amount" => "Amount",
-      "Remarks" => "Remarks"}[column]
+      "Remarks" => "Remarks",
+      "Expense Type" => "expense_type"}[column]
   end
 end
