@@ -18741,7 +18741,7 @@ var Font = (function FontClosure() {
     var winAscent = override.yMax || typoAscent;
     var winDescent = -override.yMin || -typoDescent;
 
-    var x31 = '\x31'; // hack so uglifier.js doesn't turn something into an octal literal! 
+    var x31 = '\x31'; // hack so uglifier.js doesn't turn something into an octal literal!
     return '\x00\x03' + // version
            '\x02\x24' + // xAvgCharWidth
            '\x01\xF4' + // usWeightClass
@@ -18755,7 +18755,7 @@ var Font = (function FontClosure() {
            '\x02\xBB' + // ySuperScriptYSize
            '\x00\x00' + // ySuperScriptXOffset
            '\x01\xDF' + // ySuperScriptYOffset
-           '\x00' + x31 + // yStrikeOutSize 
+           '\x00' + x31 + // yStrikeOutSize
            '\x01\x02' + // yStrikeOutPosition
            '\x00\x00' + // sFamilyClass
            '\x00\x00\x06' +
@@ -38468,7 +38468,7 @@ var JpegImage = (function jpegImage() {
                 huffmanValues[j] = data[offset];
               i += 17 + codeLengthSum;
 
-              ((huffmanTableSpec >> 4) === 0 ? 
+              ((huffmanTableSpec >> 4) === 0 ?
                 huffmanTablesDC : huffmanTablesAC)[huffmanTableSpec & 15] =
                 buildHuffmanTable(codeLengths, huffmanValues);
             }
@@ -38699,5 +38699,3 @@ var JpegImage = (function jpegImage() {
 
 
 }).call((typeof window === 'undefined') ? this : window);
-
-

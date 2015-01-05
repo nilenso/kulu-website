@@ -25,7 +25,8 @@ module KuluService
       page = (options[:page] || 1).to_i
       per_page = (options[:per_page] || Kaminari.config.default_per_page).to_i
 
-      response = request.make(:get, 'invoices', {page: page, per_page: per_page})
+      response = request.make(:get, 'invoices', {page: page, per_page: per_page, order: (options[:sort] || 'created_at').downcase,
+        direction: (options[:direction] || 'desc').downcase })
       MultiJson.load(response.body)
     end
 
