@@ -2,8 +2,8 @@
 
 table.table.table-striped.table-hover
   thead
-    th = sortable "Name"
-    th = sortable "Date"
+    th = sortable "Merchant Name"
+    th = sortable "Expense Date"
     th = sortable "Amount"
     th = sortable "Remarks"
   tbody
@@ -19,7 +19,7 @@ table.table.table-striped.table-hover
 .pagination-per-page
   = form_tag invoices_path, method: :get, id: 'form-per-page'
     = hidden_field_tag :page, params[:page] || 1
-    = label_tag :per_page, 'Invoices to show per page:'
+    = label_tag :per_page, 'Expenses to show per page:'
     = select_tag :per_page, options_for_select([10, 15, 25, 50, 100], selected: params[:per_page] || Kaminari.config.default_per_page), id: 'per-page'
 
 javascript:

@@ -4,11 +4,11 @@
       form.invoice-details-form action="#{invoice_path(@invoice.id)}" data-invoices-url="#{invoices_path}"
         input type="hidden" name="invoice-id" value="#{@invoice.id}"
         .invoice-details-fieldset.form-group
-          p.invoice-details-label Name
+          p.invoice-details-label Merchant Name
           input.form-control name="invoice[:name]" value="#{@invoice.name}" tabindex=1
 
         .invoice-details-fieldset.invoice-details-date-group.form-group
-          p.invoice-details-label Date
+          p.invoice-details-label Expense Date
           input.invoice-details-date.form-control name="invoice[:date]" value="#{@invoice.input_date}" placeholder="DD-MM-YYYY" tabindex=2
 
         .invoice-details-fieldset
