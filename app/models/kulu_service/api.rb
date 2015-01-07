@@ -17,7 +17,7 @@ module KuluService
       # Until then, this hack will do - kit
       #
       stubbed_parameters = {remarks: '', expense_type: '', date: Date.today.iso8601}
-      response = request.make(:post, 'invoices', {storage_key: storage_key}.merge(stubbed_parameters))
+      response = request.make(:post, 'invoices', {invoice: {storage_key: storage_key}.merge(stubbed_parameters)})
       MultiJson.load(response.body)['id']
     end
 
