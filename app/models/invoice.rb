@@ -3,7 +3,7 @@ class Invoice
 
   attr_accessor :id, :url_prefix, :filename, :name, :currency,
                 :amount, :date, :attachment_url, :status, :expense_type,
-                :remarks
+                :remarks, :user_name, :email
 
   class << self
     def create(url_prefix, filename)

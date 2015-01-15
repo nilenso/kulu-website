@@ -7,6 +7,7 @@ table.table.table-striped.table-hover
     th = sortable "Amount"
     th = sortable "Expense Type"
     th = sortable "Remarks"
+    th = sortable "Spender"
   tbody
     - @invoices.each do |i|
       tr.invoice-table-row data-invoice-url="#{invoice_path(i.id)}"
@@ -15,6 +16,7 @@ table.table.table-striped.table-hover
         td = i.amount_with_currency
         td = i.expense_type
         td = i.remarks
+        td = i.user_name
 
 = paginate @invoices, theme: 'twitter-bootstrap-3'
 
