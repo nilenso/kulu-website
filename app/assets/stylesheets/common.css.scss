@@ -46,3 +46,8 @@ $nprogress-new-z-index: 100;
 .desc {
   background-image: url(/images/down_arrow.gif);
 }
+
+.table {
+  table-layout:fixed;
+  overflow-wrap: break-word
+}
