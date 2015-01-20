@@ -6,8 +6,7 @@ class InvoicesController < ApplicationController
     invoice = Invoice.create(url_prefix, filename)
 
     if invoice.valid?
-      redirect_to :root,
-                  notice: "#{filename} has been uploaded and will be processed. Upload ID: #{invoice.id}"
+      redirect_to invoice_path(invoice.id)
     else
       render json: { error_messages: invoice.errors.full_messages }
     end
