@@ -6,11 +6,11 @@ class Invoice
                 :remarks, :user_name, :email
 
   class << self
-    def create(url_prefix, filename)
+    def create(url_prefix, filename, current_user_token)
       object = new(url_prefix: url_prefix, filename: Pathname.new(filename).basename.to_s)
 
       begin
-        object.id = KuluService::API.new.create_invoice(object.storage_key)
+        object.id = KuluService::API.new.create_invoice(object.storage_key, current_user_token)
       rescue HTTPService::Error => e
         object.errors.add(:base, e.message)
       end

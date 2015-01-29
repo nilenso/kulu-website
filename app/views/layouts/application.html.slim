@@ -15,6 +15,10 @@ html
           ul.nav.navbar-nav.navbar-right
             li
               a href="#{invoices_path}" Expenses
+              - if logged_in?
+                a href="/logout" Logout
+              - else 
+                a href="/login" Login
     .container
       - if flash[:error]
         p.error = h flash[:error]

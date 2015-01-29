@@ -1,12 +1,15 @@
 class InvoicesController < ApplicationController
   helper_method :sort_column, :sort_direction
 
+  before_filter :require_login
+
   def create
     url_prefix, filename = params[:invoice].values_at(:url_prefix, :filename)
-    invoice = Invoice.create(url_prefix, filename)
+    invoice = Invoice.create(url_prefix, filename, current_user)
 
     if invoice.valid?
-      redirect_to invoice_path(invoice.id)
+      redirect_to :root,
+                  notice: "#{filename} has been uploaded and will be processed. Upload ID: #{invoice.id}"
     else
       render json: { error_messages: invoice.errors.full_messages }
     end
@@ -41,5 +44,12 @@ class InvoicesController < ApplicationController
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ?  params[:direction] : "desc"
+  end
+
+  def require_login
+    unless logged_in?
+      flash[:error] = "You must be logged in to access this section"
+      redirect_to root_url # halts request cycle
+    end
   end
 end

@@ -8,4 +8,18 @@ class ApplicationController < ActionController::Base
   rescue_from(HTTPService::ClientError) do |exception|
     raise ActionController::RoutingError.new('Not Found') if exception.http_status == 404
   end
+
+  def current_user
+    @current_user ||= session[:current_user_token]
+  end
+
+  def set_current_user_token(token)
+    session[:current_user_token] = token
+  end
+
+  def logged_in?
+    current_user.present?
+  end 
+  
+  helper_method :current_user, :logged_in?
 end
