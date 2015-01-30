@@ -3,10 +3,15 @@ class Kulu.InvoiceEdit
     @updateButton = @formContainer.find(".invoice-edit-submit")
     @invoiceID = @formContainer.find('input[name="invoice-id"]').val()
     @dateGroup = @formContainer.find('.invoice-details-date-group')
+    @deleteButton = @formContainer.find('.invoice-edit-delete')
 
     @updateButton.click (e) =>
       e.preventDefault()
       @formSubmit()
+
+    @deleteButton.click (e) =>
+      unless window.confirm("Are you sure?")
+        e.stopPropagation()
 
   isDateValid: () =>
     dateInput = @dateGroup.find(".invoice-details-date")
