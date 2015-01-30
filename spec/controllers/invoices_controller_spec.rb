@@ -66,7 +66,7 @@ RSpec.describe InvoicesController, :type => :controller do
     it 'deletes the invoice record' do
       expect_any_instance_of(KuluService::API).to receive(:delete_invoice).with('df56565f-7a24-4701-9ac9-f29235a1f00e').and_return(true)
       delete :destroy, id: 'df56565f-7a24-4701-9ac9-f29235a1f00e'
-      expect(response).to redirect_to(invoices_path)
+      expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to be_present
     end
   end

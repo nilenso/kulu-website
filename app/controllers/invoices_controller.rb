@@ -14,10 +14,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  def index
-    @invoices = Invoice.list(params)
-  end
-
   def show
     @invoice = Invoice.find(params[:id]).decorate
     @currencies = Currency.all
@@ -32,18 +28,9 @@ class InvoicesController < ApplicationController
   def destroy
     Invoice.destroy(params[:id])
     flash[:notice] = "Invoice deleted"
-    redirect_to invoices_path, notice: "Invoice deleted"
+    redirect_to root_path, notice: "Invoice deleted"
   end
 
-  private
-
-  def sort_column
-    %w(name amount currency remarks date expense_type).include?((params[:sort] || "").downcase) ? params[:sort] : "created_at"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "desc"
-  end
 
   def require_login
     unless logged_in?

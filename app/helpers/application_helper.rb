@@ -8,11 +8,13 @@ module ApplicationHelper
   end
 
   def convert(column)
-    {"Merchant Name" => "Name",
+    {
+      "Merchant Name" => "Name",
       "Expense Date" => "Date",
       "created_at" => "created_at",
       "Amount" => "Amount",
       "Remarks" => "Remarks",
-      "Expense Type" => "expense_type"}[column]
+      "Expense Type" => "expense_type"
+    }[column]
   end
 end
