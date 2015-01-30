@@ -9,11 +9,12 @@
       .progress.invoice-file-upload-progress
         .progress-bar.progress-bar-warning.progress-bar-striped.active role="progressbar"
 
-  = render "invoice_list", invoices: @invoices
+  .invoice-list
+    = render "invoice_list", invoices: @invoices
 
   javascript:
     new Kulu.FileUploader($('.direct-upload')).setupUpload();
 
 - else
-  p
+  p.welcome-text
     | Welcome to Kulu. Please login to manage your expenses.
