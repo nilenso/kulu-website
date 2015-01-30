@@ -51,3 +51,7 @@ $nprogress-new-z-index: 100;
   table-layout:fixed;
   overflow-wrap: break-word
 }
+
+.navbar-nav .navbar-menu a {
+  display: inline-block;
+}

@@ -13,11 +13,11 @@ html
           a.navbar-brand href="#{root_path}" Kulu
         .collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
-            li
+            li.navbar-menu
               a href="#{invoices_path}" Expenses
               - if logged_in?
                 a href="/logout" Logout
-              - else 
+              - else
                 a href="/login" Login
     .container
       - if flash[:error]
