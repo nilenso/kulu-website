@@ -51,6 +51,18 @@
 
 .invoice-edit-delete {
   float: right;
+  background-color: #f0f0f0;
+  padding: 14px 15px;
+  &:hover {
+    background-color: #f0f0f0;
+    i {
+      color: #6e6e6e;
+    }
+  }
+  i {
+    font-size: 1.2em;
+    color: #8b8b8b;
+  }
 }
 
 .expense-pager {

@@ -32,6 +32,7 @@ gem 'nprogress-rails'
 gem 'mimemagic'
 gem 'pikaday-gem'
 gem 'momentjs-rails'
+gem 'font-awesome-rails'
 
 group 'development' do
   gem 'spring'
