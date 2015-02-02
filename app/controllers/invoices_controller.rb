@@ -5,17 +5,13 @@ class InvoicesController < ApplicationController
 
   def create
     url_prefix, filename = params[:invoice].values_at(:url_prefix, :filename)
-    invoice = Invoice.create(url_prefix, filename, current_user)
+    invoice = Invoice.create(url_prefix, filename, user_token: current_user_token)
 
     if invoice.valid?
       redirect_to invoice_path(invoice.id)
     else
       render json: { error_messages: invoice.errors.full_messages }
     end
-  end
-
-  def index
-    @invoices = Invoice.list(params)
   end
 
   def show
@@ -32,18 +28,9 @@ class InvoicesController < ApplicationController
   def destroy
     Invoice.destroy(params[:id])
     flash[:notice] = "Invoice deleted"
-    redirect_to invoices_path, notice: "Invoice deleted"
+    redirect_to root_path, notice: "Invoice deleted"
   end
 
-  private
-
-  def sort_column
-    %w(name amount currency remarks date expense_type).include?((params[:sort] || "").downcase) ? params[:sort] : "created_at"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "desc"
-  end
 
   def require_login
     unless logged_in?

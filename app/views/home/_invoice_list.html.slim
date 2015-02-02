@@ -1,4 +1,4 @@
-.pagination.info = page_entries_info @invoices
+.pagination.info = page_entries_info invoices
 
 table.table.table-striped.table-hover
   thead
@@ -9,7 +9,7 @@ table.table.table-striped.table-hover
     th = sortable "Remarks"
     th = sortable "Spender"
   tbody
-    - @invoices.each do |i|
+    - invoices.each do |i|
       tr.invoice-table-row data-invoice-url="#{invoice_path(i.id)}"
         td = i.name
         td = i.display_date
@@ -18,10 +18,10 @@ table.table.table-striped.table-hover
         td = i.remarks
         td = i.user_name
 
-= paginate @invoices, theme: 'twitter-bootstrap-3'
+= paginate invoices, theme: 'twitter-bootstrap-3'
 
 .pagination-per-page
-  = form_tag invoices_path, method: :get, id: 'form-per-page'
+  = form_tag root_path, method: :get, id: 'form-per-page'
     = hidden_field_tag :page, params[:page] || 1
     = label_tag :per_page, 'Expenses to show per page:'
     = select_tag :per_page, options_for_select([10, 15, 25, 50, 100], selected: params[:per_page] || Kaminari.config.default_per_page), id: 'per-page'

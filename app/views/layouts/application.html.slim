@@ -8,13 +8,12 @@ html
 
   body
     nav.navbar.navbar-inverse role="navigation"
-      .container-fluid
+      .container
         .navbar-header
           a.navbar-brand href="#{root_path}" Kulu
         .collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
             li.navbar-menu
-              a href="#{invoices_path}" Expenses
               - if logged_in?
                 a href="/logout" Logout
               - else

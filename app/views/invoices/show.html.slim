@@ -1,7 +1,7 @@
 .well.row
   .span12
     .invoice-details.col-md-6
-      form.invoice-details-form action="#{invoice_path(@invoice.id)}" data-invoices-url="#{invoices_path}"
+      form.invoice-details-form action="#{invoice_path(@invoice.id)}" data-invoices-url="#{root_path}"
         input type="hidden" name="invoice-id" value="#{@invoice.id}"
         .invoice-details-fieldset.form-group
           p.invoice-details-label Merchant Name
@@ -32,7 +32,7 @@
 
         .invoice-edit-actions
           input.btn.btn-primary.invoice-edit-submit type='submit' value="Update" tabindex=8
-          = link_to "Cancel", invoices_path, class: 'btn btn-link', tabindex: 9
+          = link_to "Cancel", root_path, class: 'btn btn-link', tabindex: 9
           a.btn.btn-default.invoice-edit-delete data-method="delete" rel="nofollow" tabindex="10" href="#{invoice_path(@invoice.id)}"
             i.fa.fa-trash-o
 

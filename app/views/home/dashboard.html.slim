@@ -9,24 +9,12 @@
       .progress.invoice-file-upload-progress
         .progress-bar.progress-bar-warning.progress-bar-striped.active role="progressbar"
 
-  p#expenses
+  .invoice-list
+    = render "invoice_list", invoices: @invoices
 
   javascript:
     new Kulu.FileUploader($('.direct-upload')).setupUpload();
 
-    $(document).on("page:change", function () {
-      $.ajax({
-        url: "/expenses"
-      }).done(function (r) {
-        var invoices = _.pluck(r, 'id');
-        _.each(invoices, function (i) {
-                  var html = $('p#expenses');
-                  html.append(i);
-                  html.append("<br>");
-                }
-        );
-
-        return true;
-      });
-    });
-    
+- else
+  p.welcome-text
+    | Welcome to Kulu. Please login to manage your expenses.
