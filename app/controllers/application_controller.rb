@@ -9,8 +9,8 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new('Not Found') if exception.http_status == 404
   end
 
-  def current_user
-    @current_user ||= session[:current_user_token]
+  def current_user_token
+    @current_user_token ||= session[:current_user_token]
   end
 
   def set_current_user_token(token)
@@ -18,8 +18,8 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    current_user.present?
-  end 
-  
-  helper_method :current_user, :logged_in?
+    current_user_token.present?
+  end
+
+  helper_method :current_user_token, :logged_in?
 end

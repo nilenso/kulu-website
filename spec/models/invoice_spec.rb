@@ -56,13 +56,13 @@ RSpec.describe Invoice, :type => :model do
   context 'create' do
     it 'should populate errors if the service calls fails' do
       allow_any_instance_of(KuluService::API).to receive(:create_invoice) { raise HTTPService::Error.new(200, '') }
-      invoice = Invoice.create('/foo/bar/${filename}', 'filename.png', "user_token")
+      invoice = Invoice.create('/foo/bar/${filename}', 'filename.png')
       expect(invoice.errors).to_not be_empty
     end
 
     it 'builds a new Invoice object' do
       allow_any_instance_of(KuluService::API).to receive(:create_invoice)
-      expect(Invoice.create('/foo/bar/${filename}', 'filename.png', "user_token")).to be_a_kind_of(Invoice)
+      expect(Invoice.create('/foo/bar/${filename}', 'filename.png')).to be_a_kind_of(Invoice)
     end
   end
 

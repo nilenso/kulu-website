@@ -12,7 +12,7 @@ class HomeController < ApplicationController
   end
 
   def callback
-    set_current_user_token(params[:token]) unless current_user
+    set_current_user_token(params[:token]) unless current_user_token
     redirect_to root_url
   end
 
