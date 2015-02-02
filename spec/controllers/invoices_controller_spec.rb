@@ -2,17 +2,23 @@ require 'rails_helper'
 require 'http_service/error'
 
 RSpec.describe InvoicesController, :type => :controller do
+  before(:each) do
+    session[:current_user_token] = 'foo'
+  end
+
   context 'POST create' do
+    let(:invoice) { Invoice.new.tap { |i| i.id = 'foo' } }
+
     it 'creates an invoice resource' do
-      expect(Invoice).to receive(:create) { Invoice.new }
+      expect(Invoice).to receive(:create) {invoice}
       post :create, invoice: { filename: 'foo.png', url_prefix: 'foo/bar/${filename}' }
     end
 
     it 'redirects to the root path' do
-      allow(Invoice).to receive(:create) { Invoice.new }
+      allow(Invoice).to receive(:create) {invoice}
       post :create, invoice: { filename: 'foo.png', url_prefix: 'foo/bar/${filename}' }
 
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(invoice_path(invoice.id))
     end
   end
 
