@@ -20,6 +20,7 @@
 //= require jquery.fileupload
 //= require underscore
 //= require pdf
+//= require pdf.worker
 //= require jquery.zoom
 //= require jquery.colorbox
 //= require moment
