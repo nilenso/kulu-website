@@ -68,3 +68,13 @@
 .expense-pager {
   text-align: left;
 }
+
+.expense-pdf-container {
+  canvas {
+    display: none;
+  }
+  .loading-icon {
+    display: block;
+    margin: 50% auto;
+  }
+}

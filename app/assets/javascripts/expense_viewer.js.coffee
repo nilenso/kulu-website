@@ -1,11 +1,12 @@
 class Kulu.ExpenseViewer
-  constructor: (@canvasElement, @prevElement, @nextElement, @pageNumElement, @pageCountElement) ->
+  constructor: (@canvasContainer, @prevElement, @nextElement, @pageNumElement, @pageCountElement) ->
+    @canvas = @canvasContainer.find('canvas')
+    @loadingIcon = @canvasContainer.find('.loading-icon')
+    @ctx = @canvas[0].getContext("2d");
+    @mimeType = @canvas.data("mime-type");
 
   view: (file) =>
     @file = file
-    @canvas = document.getElementById(@canvasElement);
-    @ctx = @canvas.getContext("2d");
-    @mimeType = @canvas.getAttribute("data-mime-type");
 
     if (@mimeType == 'image/png' or @mimeType == 'image/jpeg')
       @viewImage()
@@ -14,7 +15,7 @@ class Kulu.ExpenseViewer
         @viewPDF()
 
   viewImage: =>
-    $('#expense-canvas-pdf').hide()
+    $('#expense-pdf-container').hide()
     $('.expense-pager').hide()
 
     $('.expense-image').css('display', 'block').parent().zoom({
@@ -40,8 +41,8 @@ class Kulu.ExpenseViewer
       # Using promise to fetch the page
       pdfDoc.getPage(num).then (page) =>
         viewport = page.getViewport(scale)
-        @canvas.height = viewport.height
-        @canvas.width = viewport.width
+        @canvas[0].height = viewport.height
+        @canvas[0].width = viewport.width
 
         # Render PDF page into canvas context
         renderContext =
@@ -51,7 +52,9 @@ class Kulu.ExpenseViewer
         renderTask = page.render(renderContext)
 
         # Wait for rendering to finish
-        renderTask.then ->
+        renderTask.then =>
+          @loadingIcon.hide()
+          @canvas.show()
           pageRendering = false
           if pageNumPending isnt null
 

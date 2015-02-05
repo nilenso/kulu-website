@@ -50,13 +50,16 @@
         |/
         span id="page-count"
 
-      canvas id="expense-canvas-pdf" style="border:1px solid black" data-mime-type="#{@invoice.attachment_mime_type}"
+      .expense-pdf-container
+        canvas id="expense-canvas-pdf" style="border:1px solid black" data-mime-type="#{@invoice.attachment_mime_type}"
+        img.loading-icon src="/assets/loading-icon.gif"
+
       div class="expense-image-container"
         img class="expense-image" src="#{@invoice.attachment_url}"
 
 javascript:
   new Kulu.InvoiceEdit($(".invoice-details-form"));
-  new Kulu.ExpenseViewer('expense-canvas-pdf', 'prev', 'next', 'page-num', 'page-count').view("#{@invoice.attachment_url}");
+  new Kulu.ExpenseViewer($('.expense-pdf-container'), 'prev', 'next', 'page-num', 'page-count').view("#{@invoice.attachment_url}");
 
   var picker = new Pikaday({
       field: $('.invoice-details-date')[0],
