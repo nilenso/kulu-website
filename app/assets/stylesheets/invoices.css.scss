@@ -72,6 +72,7 @@
 .expense-pdf-container {
   canvas {
     display: none;
+    border:1px solid black
   }
   .loading-icon {
     display: block;

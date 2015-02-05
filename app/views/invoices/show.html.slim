@@ -51,8 +51,8 @@
         span id="page-count"
 
       .expense-pdf-container
-        canvas id="expense-canvas-pdf" style="border:1px solid black" data-mime-type="#{@invoice.attachment_mime_type}"
-        img.loading-icon src="/assets/loading-icon.gif"
+        canvas id="expense-canvas-pdf" data-mime-type="#{@invoice.attachment_mime_type}"
+        img.loading-icon src="#{asset_path('loading-icon.gif')}"
 
       div class="expense-image-container"
         img class="expense-image" src="#{@invoice.attachment_url}"

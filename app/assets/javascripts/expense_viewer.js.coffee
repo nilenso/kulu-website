@@ -15,7 +15,7 @@ class Kulu.ExpenseViewer
         @viewPDF()
 
   viewImage: =>
-    $('#expense-pdf-container').hide()
+    @canvasContainer.hide()
     $('.expense-pager').hide()
 
     $('.expense-image').css('display', 'block').parent().zoom({
@@ -30,7 +30,7 @@ class Kulu.ExpenseViewer
 
   viewPDF: =>
     $('.expense-image-container').hide()
-
+    @loadingIcon.show()
     ###*
     Get page info from document, resize canvas accordingly, and render page.
     @param num Page number.
