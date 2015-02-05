@@ -101,9 +101,15 @@ class Kulu.ExpenseViewer
     ###*
     Asynchronously downloads PDF.
     ###
-    PDFJS.getDocument(@file).then (pdfDoc_) =>
-      pdfDoc = pdfDoc_
-      document.getElementById(@pageCountElement).textContent = pdfDoc.numPages
-
-      # Initial/first page rendering
-      renderPage(pageNum)
+    PDFJS.getDocument(@file)
+      .then(
+        (pdfDoc_) =>
+          pdfDoc = pdfDoc_
+          document.getElementById(@pageCountElement).textContent = pdfDoc.numPages
+          # Initial/first page rendering
+          renderPage(pageNum)
+        , ->
+            # FIXME: Chrome throws CORS issues when page is reached from the table
+            # But on page refresh, the pdf is rendered properly. We should move to a solution
+            # where pdf is streamed from our server to get around CORS.
+            window.location.reload())
