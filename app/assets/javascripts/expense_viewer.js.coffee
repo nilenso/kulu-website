@@ -111,6 +111,7 @@ class Kulu.ExpenseViewer
           # Initial/first page rendering
           renderPage(pageNum)
         , (err) =>
+            $('.expense-pager').hide()
             # FIXME: Chrome throws CORS issues when page is reached from the table
             # But on page refresh, the pdf is rendered properly. We should move to a solution
             # where pdf is streamed from our server to get around CORS.
