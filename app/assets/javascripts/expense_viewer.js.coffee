@@ -53,8 +53,7 @@ class Kulu.ExpenseViewer
 
         # Wait for rendering to finish
         renderTask.then =>
-          @loadingIcon.hide()
-          @canvas.show()
+          @showCanvas()
           pageRendering = false
           if pageNumPending isnt null
 
@@ -111,8 +110,20 @@ class Kulu.ExpenseViewer
           document.getElementById(@pageCountElement).textContent = pdfDoc.numPages
           # Initial/first page rendering
           renderPage(pageNum)
-        , ->
+        , (err) =>
             # FIXME: Chrome throws CORS issues when page is reached from the table
             # But on page refresh, the pdf is rendered properly. We should move to a solution
             # where pdf is streamed from our server to get around CORS.
-            window.location.reload())
+            if err.name == "UnexpectedResponseException"
+              window.location.reload()
+            else if err.name == "MissingPDFException"
+              @showCanvas()
+              @ctx.fillText("PDF Not Found", 50, 50)
+            else
+              @showCanvas()
+              @ctx.fillText("Image loading failed", 50, 50))
+
+
+  showCanvas: ->
+    @loadingIcon.hide()
+    @canvas.show()
