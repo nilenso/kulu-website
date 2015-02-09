@@ -19,7 +19,6 @@
 //= require nprogress-ajax
 //= require jquery.fileupload
 //= require underscore
-//= require pdf
 //= require jquery.zoom
 //= require jquery.colorbox
 //= require moment

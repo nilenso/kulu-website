@@ -1,11 +1,12 @@
 class Kulu.ExpenseViewer
-  constructor: (@canvasElement, @prevElement, @nextElement, @pageNumElement, @pageCountElement) ->
+  constructor: (@canvasContainer, @prevElement, @nextElement, @pageNumElement, @pageCountElement) ->
+    @canvas = @canvasContainer.find('canvas')
+    @loadingIcon = @canvasContainer.find('.loading-icon')
+    @ctx = @canvas[0].getContext("2d");
+    @mimeType = @canvas.data("mime-type");
 
   view: (file) =>
     @file = file
-    @canvas = document.getElementById(@canvasElement);
-    @ctx = @canvas.getContext("2d");
-    @mimeType = @canvas.getAttribute("data-mime-type");
 
     if (@mimeType == 'image/png' or @mimeType == 'image/jpeg')
       @viewImage()
@@ -14,7 +15,7 @@ class Kulu.ExpenseViewer
         @viewPDF()
 
   viewImage: =>
-    $('#expense-canvas-pdf').hide()
+    @canvasContainer.hide()
     $('.expense-pager').hide()
 
     $('.expense-image').css('display', 'block').parent().zoom({
@@ -29,7 +30,7 @@ class Kulu.ExpenseViewer
 
   viewPDF: =>
     $('.expense-image-container').hide()
-
+    @loadingIcon.show()
     ###*
     Get page info from document, resize canvas accordingly, and render page.
     @param num Page number.
@@ -40,8 +41,8 @@ class Kulu.ExpenseViewer
       # Using promise to fetch the page
       pdfDoc.getPage(num).then (page) =>
         viewport = page.getViewport(scale)
-        @canvas.height = viewport.height
-        @canvas.width = viewport.width
+        @canvas[0].height = viewport.height
+        @canvas[0].width = viewport.width
 
         # Render PDF page into canvas context
         renderContext =
@@ -51,7 +52,8 @@ class Kulu.ExpenseViewer
         renderTask = page.render(renderContext)
 
         # Wait for rendering to finish
-        renderTask.then ->
+        renderTask.then =>
+          @showCanvas()
           pageRendering = false
           if pageNumPending isnt null
 
@@ -101,9 +103,28 @@ class Kulu.ExpenseViewer
     ###*
     Asynchronously downloads PDF.
     ###
-    PDFJS.getDocument(@file).then (pdfDoc_) =>
-      pdfDoc = pdfDoc_
-      document.getElementById(@pageCountElement).textContent = pdfDoc.numPages
+    PDFJS.getDocument(@file)
+      .then(
+        (pdfDoc_) =>
+          pdfDoc = pdfDoc_
+          document.getElementById(@pageCountElement).textContent = pdfDoc.numPages
+          # Initial/first page rendering
+          renderPage(pageNum)
+        , (err) =>
+            $('.expense-pager').hide()
+            # FIXME: Chrome throws CORS issues when page is reached from the table
+            # But on page refresh, the pdf is rendered properly. We should move to a solution
+            # where pdf is streamed from our server to get around CORS.
+            if err.name == "UnexpectedResponseException"
+              window.location.reload()
+            else if err.name == "MissingPDFException"
+              @showCanvas()
+              @ctx.fillText("PDF Not Found", 50, 50)
+            else
+              @showCanvas()
+              @ctx.fillText("Image loading failed", 50, 50))
 
-      # Initial/first page rendering
-      renderPage(pageNum)
+
+  showCanvas: ->
+    @loadingIcon.hide()
+    @canvas.show()
