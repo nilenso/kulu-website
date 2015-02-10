@@ -3,7 +3,7 @@ class Invoice
 
   attr_accessor :id, :url_prefix, :filename, :name, :currency,
                 :amount, :date, :attachment_url, :status, :expense_type,
-                :remarks, :user_name, :email
+                :remarks, :user_name, :email, :status, :conflict
 
   class << self
     def create(url_prefix, filename, opts = {})
@@ -30,7 +30,9 @@ class Invoice
           currency: raw_data['currency'],
           attachment_url: raw_data['attachment_url'],
           expense_type: raw_data['expense_type'],
-          remarks: raw_data['remarks'])
+          remarks: raw_data['remarks'],
+          status: raw_data['status'],
+          conflict: raw_data['conflict'])
       o.date = raw_data['date'] if raw_data['date']
       o
     end
@@ -43,7 +45,9 @@ class Invoice
           amount: raw_data['amount'],
           currency: raw_data['currency'],
           expense_type: raw_data['expense_type'],
-          remarks: raw_data['remarks'])
+          remarks: raw_data['remarks'],
+          status: raw_data['status'],
+          conflict: raw_data['conflict'])
       o.date = raw_data['date'] if raw_data['date']
       o
     end

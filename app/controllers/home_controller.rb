@@ -24,7 +24,7 @@ class HomeController < ApplicationController
   private
 
   def sort_column
-    %w(name amount currency remarks date expense_type).include?((params[:sort] || "").downcase) ? params[:sort] : "created_at"
+    %w(name amount currency remarks date expense_type status conflict).include?((params[:sort] || "").downcase) ? params[:sort] : "created_at"
   end
 
   def sort_direction

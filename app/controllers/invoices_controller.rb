@@ -17,6 +17,7 @@ class InvoicesController < ApplicationController
   def show
     @invoice = Invoice.find(params[:id]).decorate
     @currencies = Currency.all
+    @invoice_states = InvoiceStates.all
   end
 
   def update

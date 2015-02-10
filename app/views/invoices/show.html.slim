@@ -26,14 +26,24 @@
           label_tag.invoice-expense-type-label Reimbursement
 
         .invoice-details-fieldset
-          p.invoice-details-label Remarks
-          input.form-control name="invoice[:remarks]" value="#{@invoice.remarks}" tabindex=7
+          p.invoice-details-label Conflict
+          = radio_button_tag "invoice[:conflict]", true , @invoice.conflict? , class: 'invoice-details-expense-type', tabindex: 4
+          label_tag.invoice-expense-type-label Yes
+          = radio_button_tag "invoice[:conflict]", false , !@invoice.conflict? , class: 'invoice-details-expense-type', tabindex: 5
+          label_tag.invoice-expense-type-label No
 
+        .invoice-details-fieldset
+          p.invoice-details-label Status
+          = select_tag 'invoice[:status]', options_for_select(@invoice_states, @invoice.status), class: 'form-control', tabindex: 7
+
+        .invoice-details-fieldset
+          p.invoice-details-label Remarks
+          input.form-control name="invoice[:remarks]" value="#{@invoice.remarks}" tabindex=8
 
         .invoice-edit-actions
-          input.btn.btn-primary.invoice-edit-submit type='submit' value="Update" tabindex=8
-          = link_to "Cancel", root_path, class: 'btn btn-link', tabindex: 9
-          a.btn.btn-default.invoice-edit-delete data-method="delete" rel="nofollow" tabindex="10" href="#{invoice_path(@invoice.id)}"
+          input.btn.btn-primary.invoice-edit-submit type='submit' value="Update" tabindex=9
+          = link_to "Cancel", root_path, class: 'btn btn-link', tabindex: 10
+          a.btn.btn-default.invoice-edit-delete data-method="delete" rel="nofollow" tabindex="11" href="#{invoice_path(@invoice.id)}"
             i.fa.fa-trash-o
 
     .invoice-image-container.col-md-6

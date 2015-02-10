@@ -49,5 +49,10 @@ module KuluService
       response = request.make(:get, 'currencies')
       MultiJson.load(response.body)
     end
-  end
+
+    def list_of_states
+      response = request.make(:get, 'states')
+      MultiJson.load(response.body)
+    end
+ end
 end

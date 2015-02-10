@@ -1,6 +1,6 @@
 class InvoiceDecorator < Draper::Decorator
   delegate :id, :attachment_url, :name, :date, :amount, :currency,
-           :expense_type, :remarks, :user_name, :email
+           :expense_type, :remarks, :user_name, :email, :status, :conflict
 
   def attachment_url
     u = object.attachment_url
@@ -40,6 +40,10 @@ class InvoiceDecorator < Draper::Decorator
       money = Money.new(a * currency.subunit_to_unit, currency)
       "#{money.symbol} #{money.amount}"
     end
+  end
+
+  def conflict?
+    conflict
   end
 
   private

@@ -28,6 +28,8 @@ class Kulu.InvoiceEdit
       amount: Number(@formContainer.find('input[name="invoice[:amount]"]').val())
       date: @formContainer.find('input[name="invoice[:date]"]').val()
       expense_type: @formContainer.find('input[name="invoice[:expense_type]"]:checked').val()
+      status: @formContainer.find('select[name="invoice[:status]"]').val()
+      conflict: @formContainer.find('input[name="invoice[:conflict]"]:checked').val()
       remarks: @formContainer.find('input[name="invoice[:remarks]"]').val()
     }
 

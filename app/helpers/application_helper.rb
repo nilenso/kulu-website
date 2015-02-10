@@ -14,7 +14,9 @@ module ApplicationHelper
       "created_at" => "created_at",
       "Amount" => "Amount",
       "Remarks" => "Remarks",
-      "Expense Type" => "expense_type"
+      "Expense Type" => "expense_type",
+      "Status" => "status",
+      "Conflict" => "conflict"
     }[column]
   end
 end
