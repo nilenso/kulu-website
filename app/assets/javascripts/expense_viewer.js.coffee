@@ -19,7 +19,7 @@ class Kulu.ExpenseViewer
     $('.expense-pager').hide()
 
     $('.expense-image').css('display', 'block').parent().zoom({
-      magnify: 1
+      magnify: 0.35
       callback: ->
         $(this).colorbox({
           href: this.src,
