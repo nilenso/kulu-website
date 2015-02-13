@@ -54,5 +54,10 @@ module KuluService
       response = request.make(:get, 'states')
       MultiJson.load(response.body)
     end
+
+    def next_and_prev_invoices(options)
+      response = request.make(:get, "invoices/#{options[:id]}/next_and_prev_invoices", {order: options[:order], direction: options[:direction]})
+      MultiJson.load(response.body)
+    end
  end
 end

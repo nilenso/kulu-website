@@ -19,4 +19,18 @@ module ApplicationHelper
       "Conflict" => "conflict"
     }[column]
   end
+
+  def sorted_params(params)
+    "direction=#{sorted_direction(params[:direction])}&order=#{sorted_order(params[:order]).downcase}"
+  end
+
+  private
+
+  def sorted_direction(direction)
+    !params[:direction].blank?  ? params[:direction] : "desc"
+  end
+
+  def sorted_order(order)
+    !params[:sort].blank? ? params[:sort] : "created_at"
+  end
 end

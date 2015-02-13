@@ -12,7 +12,7 @@ table.table.table-striped.table-hover
     th = "Spender"
   tbody
     - invoices.each do |i|
-      tr.invoice-table-row data-invoice-url="#{invoice_path(i.id)}"
+      tr.invoice-table-row data-invoice-url="#{invoice_path(i.id)}?#{sorted_params(params)}"
         td = i.name
         td = i.display_date
         td = i.amount_with_currency

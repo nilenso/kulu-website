@@ -18,6 +18,8 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.find(params[:id]).decorate
     @currencies = Currency.all
     @invoice_states = InvoiceStates.all
+
+    @invoices = Invoices.next_and_prev_invoices(params)
   end
 
   def update

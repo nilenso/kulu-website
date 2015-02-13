@@ -3,14 +3,14 @@
     .field
       = f.hidden_field(:url_prefix)
       = f.hidden_field(:filename, class: 'filename')
-      input id='file-upload' type='file' name='upload' accept='image/*, .pdf'data-s3-url="#{@pre_signed_post.url}" data-form-data="#{@pre_signed_post.fields.to_json}"
+      input id='file-upload' type='file' name='upload' accept='image/*, .pdfjquery.fileupload-validate.js'data-s3-url="#{@pre_signed_post.url}" data-form-data="#{@pre_signed_post.fields.to_json}"
       label.btn.btn-primary.invoice-file-input-label for='file-upload' Upload Expense
 
       .progress.invoice-file-upload-progress
         .progress-bar.progress-bar-warning.progress-bar-striped.active role="progressbar"
 
   .invoice-list
-    = render "invoice_list", invoices: @invoices
+    = render "invoice_list", invoices: @invoices, params: params
 
   javascript:
     new Kulu.FileUploader($('.direct-upload')).setupUpload();

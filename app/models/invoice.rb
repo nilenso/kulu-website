@@ -55,6 +55,10 @@ class Invoice
     def destroy(id)
       KuluService::API.new.delete_invoice(id)
     end
+  
+    def next_and_prev_invoices(options)
+      KuluService::API.new.next_and_prev_invoices(options)
+    end
   end
 
   def storage_key
@@ -64,4 +68,5 @@ class Invoice
   def decorate
     InvoiceDecorator.new(self)
   end
+
 end
