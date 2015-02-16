@@ -88,3 +88,11 @@
 .well.row {
   padding-top: 80px;
 }
+
+.expenses-table thead {
+  background: white;
+  th {
+    width: 10%;
+  }
+}
+

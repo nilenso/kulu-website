@@ -1,6 +1,6 @@
 .pagination.info = page_entries_info invoices
 
-table.table.table-striped.table-hover
+table.table.table-striped.table-hover.expenses-table
   thead
     th = sortable "Merchant Name"
     th = sortable "Expense Date"
@@ -37,3 +37,4 @@ table.table.table-striped.table-hover
 javascript:
   new Kulu.Paginator($('#form-per-page')).setupPerPageForm();
   new Kulu.Utils().clickableRows($(".invoice-table-row"));
+  new Kulu.FixTopTableHeader($('.expenses-table'), $('.navbar').height())
