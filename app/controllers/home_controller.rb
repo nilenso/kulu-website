@@ -3,8 +3,11 @@ class HomeController < ApplicationController
 
   def dashboard
     @pre_signed_post = KuluAWS.new.presigned_post
-    @invoice = Invoice.new(url_prefix: @pre_signed_post.key)
-    @invoices = Invoice.list(params)
+    if logged_in?
+      @invoice = Invoice.new(url_prefix: @pre_signed_post.key)
+      params[:token] = current_user_token
+      @invoices = Invoice.list(params)
+    end
   end
 
   def login

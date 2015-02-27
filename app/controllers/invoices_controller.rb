@@ -15,21 +15,21 @@ class InvoicesController < ApplicationController
   end
 
   def show
-    @invoice = Invoice.find(params[:id]).decorate
+    @invoice = Invoice.find(params[:id], current_user_token).decorate
     @currencies = Currency.all
     @invoice_states = InvoiceStates.all
 
-    @invoices = Invoices.next_and_prev_invoices(params)
+    @invoices = Invoices.next_and_prev_invoices(params.merge({token: current_user_token}))
   end
 
   def update
-    @invoice = Invoice.update(params[:id], params[:invoice])
+    @invoice = Invoice.update(params[:id], params[:invoice], current_user_token)
     flash.notice = 'Invoice updated.'
     render json: { invoice: @invoice }
   end
 
   def destroy
-    Invoice.destroy(params[:id])
+    Invoice.destroy(params[:id], current_user_token)
     flash[:notice] = "Invoice deleted"
     redirect_to root_path, notice: "Invoice deleted"
   end

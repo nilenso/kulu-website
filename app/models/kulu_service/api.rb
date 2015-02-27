@@ -17,7 +17,7 @@ module KuluService
       # Until then, this hack will do - kit
       #
       stubbed_parameters = {remarks: '', expense_type: '', date: Date.today.iso8601}
-      response = request.make(:post, 'invoices', {invoice: {storage_key: storage_key, user_token: token}.merge(stubbed_parameters)})
+      response = request.make(:post, 'invoices', {invoice: {storage_key: storage_key, user_token: token}.merge(stubbed_parameters)}, token)
       MultiJson.load(response.body)['id']
     end
 
@@ -26,22 +26,23 @@ module KuluService
       per_page = (options[:per_page] || Kaminari.config.default_per_page).to_i
 
       response = request.make(:get, 'invoices', {page: page, per_page: per_page, order: (options[:sort] || 'created_at').downcase,
-        direction: (options[:direction] || 'desc').downcase })
+        direction: (options[:direction] || 'desc').downcase}, options[:token] )
       MultiJson.load(response.body)
     end
 
-    def find_invoice(id)
-      response = request.make(:get, "invoices/#{id}")
+    def find_invoice(id, token)
+      response = request.make(:get, "invoices/#{id}", {}, token)
       MultiJson.load(response.body)
     end
 
-    def update_invoice(id, params)
-      response = request.make(:put, "invoices/#{id}", {invoice: params})
+    def update_invoice(id, params, token)
+      p token
+      response = request.make(:put, "invoices/#{id}", {invoice: params}, token)
       MultiJson.load(response.body)
     end
 
-    def delete_invoice(id)
-      response = request.make(:delete, "invoices/#{id}")
+    def delete_invoice(id, token)
+      response = request.make(:delete, "invoices/#{id}", {}, token)
       response.status == 204
     end
 
@@ -56,7 +57,7 @@ module KuluService
     end
 
     def next_and_prev_invoices(options)
-      response = request.make(:get, "invoices/#{options[:id]}/next_and_prev_invoices", {order: options[:order], direction: options[:direction]})
+      response = request.make(:get, "invoices/#{options[:id]}/next_and_prev_invoices", {order: options[:order], direction: options[:direction]}, options[:token])
       MultiJson.load(response.body)
     end
  end

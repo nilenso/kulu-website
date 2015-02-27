@@ -22,8 +22,8 @@ class Invoice
       PaginatedInvoices.new(KuluService::API.new.list_invoices(options))
     end
 
-    def find(id)
-      raw_data = KuluService::API.new.find_invoice(id)
+    def find(id, token)
+      raw_data = KuluService::API.new.find_invoice(id, token)
       o = new(id: raw_data['id'],
           name: raw_data['name'],
           amount: raw_data['amount'],
@@ -37,9 +37,9 @@ class Invoice
       o
     end
 
-    def update(id, params)
+    def update(id, params, token)
       params_with_date = params.merge(date: Date.parse(params[:date]).iso8601) if params[:date]
-      raw_data = KuluService::API.new.update_invoice(id, params_with_date || params)
+      raw_data = KuluService::API.new.update_invoice(id, params_with_date || params, token)
       o = new(id: raw_data['id'],
           name: raw_data['name'],
           amount: raw_data['amount'],
@@ -52,8 +52,8 @@ class Invoice
       o
     end
 
-    def destroy(id)
-      KuluService::API.new.delete_invoice(id)
+    def destroy(id, token)
+      KuluService::API.new.delete_invoice(id, token)
     end
   
     def next_and_prev_invoices(options)
