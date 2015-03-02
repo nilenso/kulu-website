@@ -20,8 +20,9 @@ class HomeController < ApplicationController
   end
 
   def logout
-    set_current_user_token(nil)
-    redirect_to "#{KuluService::API::KULU_BACKEND_SERVICE_URL}/logout?url=#{callback_url}"
+    url = "#{KuluService::API::KULU_BACKEND_SERVICE_URL}/logout?url=#{callback_url}&token=#{current_user_token}"
+    set_current_user_token(nil)  
+    redirect_to url
   end
 
   private
