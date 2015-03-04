@@ -17,9 +17,9 @@ html
           ul.nav.navbar-nav.navbar-right
             li.navbar-menu
               - if logged_in?
-                a href="/logout" Logout
+                 = link_to 'Logout', '/logout', 'data-no-turbolink' => true
               - else
-                a href="/login" Login
+                 = link_to 'Login', '/login', 'data-no-turbolink' => true
     .container
       - if flash[:error]
         p.error = h flash[:error]
