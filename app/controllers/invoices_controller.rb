@@ -18,7 +18,6 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.find(params[:id], current_user_token).decorate
     @currencies = Currency.all
     @invoice_states = InvoiceStates.all
-
     @invoices = Invoices.next_and_prev_invoices(params.merge({token: current_user_token}))
   end
 
@@ -30,14 +29,14 @@ class InvoicesController < ApplicationController
 
   def destroy
     Invoice.destroy(params[:id], current_user_token)
-    flash[:notice] = "Invoice deleted"
-    redirect_to root_path, notice: "Invoice deleted"
+    flash[:notice] = 'Invoice deleted'
+    redirect_to root_path, notice: 'Invoice deleted'
   end
 
 
   def require_login
     unless logged_in?
-      flash[:error] = "You must be logged in to access this section"
+      flash[:error] = 'You must be logged in to access this section'
       redirect_to root_url # halts request cycle
     end
   end

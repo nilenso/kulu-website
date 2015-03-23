@@ -17,16 +17,21 @@ module KuluService
       # Until then, this hack will do - kit
       #
       stubbed_parameters = {remarks: '', expense_type: '', date: Date.today.iso8601}
-      response = request.make(:post, 'invoices', {invoice: {storage_key: storage_key, user_token: token}.merge(stubbed_parameters)}, token)
+      response = request.make(:post,
+                              'invoices',
+                              {invoice: {storage_key: storage_key, user_token: token}.merge(stubbed_parameters)},
+                              token)
       MultiJson.load(response.body)['id']
     end
 
     def list_invoices(options)
       page = (options[:page] || 1).to_i
       per_page = (options[:per_page] || Kaminari.config.default_per_page).to_i
-
-      response = request.make(:get, 'invoices', {page: page, per_page: per_page, order: (options[:sort] || 'created_at').downcase,
-        direction: (options[:direction] || 'desc').downcase}, options[:token] )
+      params = {page: page,
+                per_page: per_page,
+                order: (options[:sort] || 'created_at').downcase,
+                direction: (options[:direction] || 'desc').downcase}.merge(options)
+      response = request.make(:get, 'invoices', params, options[:token])
       MultiJson.load(response.body)
     end
 
@@ -36,7 +41,6 @@ module KuluService
     end
 
     def update_invoice(id, params, token)
-      p token
       response = request.make(:put, "invoices/#{id}", {invoice: params}, token)
       MultiJson.load(response.body)
     end
@@ -57,8 +61,20 @@ module KuluService
     end
 
     def next_and_prev_invoices(options)
-      response = request.make(:get, "invoices/#{options[:id]}/next_and_prev_invoices", {order: options[:order], direction: options[:direction]}, options[:token])
+      response = request.make(:get,
+                              "invoices/#{options[:id]}/next_and_prev_invoices",
+                              {order: options[:order], direction: options[:direction]}, options[:token])
       MultiJson.load(response.body)
     end
- end
+
+    def signup(options)
+      response = request.make(:post, 'signup', signup: options)
+      MultiJson.load(response.body)
+    end
+
+    def login(options)
+      response = request.make(:post, 'login', creds: options)
+      MultiJson.load(response.body)
+    end
+  end
 end
