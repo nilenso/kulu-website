@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  before_filter :set_organization
   helper_method :sort_column, :sort_direction
 
   def dashboard
@@ -7,7 +8,7 @@ class HomeController < ApplicationController
     if logged_in?
       @invoice = Invoice.new(url_prefix: @pre_signed_post.key)
       params[:token] = current_user_token
-      @invoices = Invoice.list(request_params.merge(organization_name: request.subdomain))
+      @invoices = Invoice.list(@organization_name, request_params)
     else
       render 'home/landing'
     end
@@ -15,15 +16,19 @@ class HomeController < ApplicationController
 
   def login
     set_current_user_token(KuluService::API.new.login(login_params)['token']) unless current_user_token
-    redirect_to root_url
+    redirect_to root_url(subdomain: login_params[:team_name])
   end
 
   def signup
     KuluService::API.new.signup(signup_params)
-    redirect_to root_url
+    redirect_to root_url(subdomain: signup_params[:name])
   end
 
   private
+
+  def set_organization
+    @organization_name = request.subdomain
+  end
 
   def sort_column
     %w(name amount currency remarks date expense_type status conflict).include?((params[:sort] || '').downcase) ? params[:sort] : 'created_at'

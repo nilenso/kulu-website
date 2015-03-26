@@ -1,7 +1,5 @@
 class InvoicesController < ApplicationController
-  helper_method :sort_column, :sort_direction
-
-  before_filter :require_login
+  before_filter :set_organization, :require_login
 
   def create
     url_prefix, filename = params[:invoice].values_at(:url_prefix, :filename)
@@ -15,24 +13,31 @@ class InvoicesController < ApplicationController
   end
 
   def show
-    @invoice = Invoice.find(params[:id], current_user_token).decorate
+    @invoice = Invoice.find(@organization_name, params[:id], current_user_token).decorate
     @currencies = Currency.all
-    @invoice_states = InvoiceStates.all
-    @invoices = Invoices.next_and_prev_invoices(params.merge({token: current_user_token}))
+    @invoice_states = KuluService::API.new.list_of_states({organization_name: @organization_name,
+                                                           token: current_user_token})
+    # @invoices = Invoices.next_and_prev_invoices(params.merge({organization_name: @organization_name,
+    #                                                           token: current_user_token}))
   end
 
   def update
-    @invoice = Invoice.update(params[:id], params[:invoice], current_user_token)
+    @invoice = Invoice.update(@organization_name, params[:id], params[:invoice], current_user_token)
     flash.notice = 'Invoice updated.'
     render json: { invoice: @invoice }
   end
 
   def destroy
-    Invoice.destroy(params[:id], current_user_token)
+    Invoice.destroy(@organization_name, params[:id], current_user_token)
     flash[:notice] = 'Invoice deleted'
     redirect_to root_path, notice: 'Invoice deleted'
   end
 
+  private
+
+  def set_organization
+    @organization_name = request.subdomain
+  end
 
   def require_login
     unless logged_in?

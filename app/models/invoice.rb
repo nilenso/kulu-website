@@ -1,72 +1,59 @@
 class Invoice
   include ActiveModel::Model
 
-  attr_accessor :id, :url_prefix, :filename, :name, :currency,
+  attr_accessor :id, :organization_id, :url_prefix, :filename, :name, :currency,
                 :amount, :date, :attachment_url, :status, :expense_type,
                 :remarks, :user_name, :email, :status, :conflict
 
   class << self
-    def create(url_prefix, filename, opts = {})
-      object = new(url_prefix: url_prefix, filename: Pathname.new(filename).basename.to_s)
+    def create(organization_name, url_prefix, filename, opts = {})
+      params = {
+          organization_name: organization_name,
+          storage_key: storage_key(url_prefix, filename),
+          user_token: opts[:user_token]
+      }
 
       begin
-        object.id = KuluService::API.new.create_invoice(object.storage_key, opts[:user_token])
+        new(KuluService::API.new.create_invoice(params))
       rescue HTTPService::Error => e
-        object.errors.add(:base, e.message)
+        errors.add(:base, e.message)
       end
-
-      object
     end
 
-    def list(options = {})
-      PaginatedInvoices.new(KuluService::API.new.list_invoices(options))
+    def list(organization_name, options = {})
+      begin
+        PaginatedInvoices.new(KuluService::API.new.list_invoices(options.merge(organization_name: organization_name)))
+      rescue HTTPService::Error => e
+        errors.add(:base, e.message)
+      end
     end
 
-    def find(id, token)
-      raw_data = KuluService::API.new.find_invoice(id, token)
-      o = new(id: raw_data['id'],
-          name: raw_data['name'],
-          amount: raw_data['amount'],
-          currency: raw_data['currency'],
-          attachment_url: raw_data['attachment_url'],
-          expense_type: raw_data['expense_type'],
-          remarks: raw_data['remarks'],
-          status: raw_data['status'],
-          conflict: raw_data['conflict'])
-      o.date = raw_data['date'] if raw_data['date']
-      o
+    def find(organization_name, id, token)
+      begin
+        new(KuluService::API.new.find_invoice({organization_name: organization_name, id: id, token: token}))
+      rescue HTTPService::Error => e
+        errors.add(:base, e.message)
+      end
     end
 
-    def update(id, params, token)
-      params_with_date = params.merge(date: Date.parse(params[:date]).iso8601) if params[:date]
-      raw_data = KuluService::API.new.update_invoice(id, params_with_date || params, token)
-      o = new(id: raw_data['id'],
-          name: raw_data['name'],
-          amount: raw_data['amount'],
-          currency: raw_data['currency'],
-          expense_type: raw_data['expense_type'],
-          remarks: raw_data['remarks'],
-          status: raw_data['status'],
-          conflict: raw_data['conflict'])
-      o.date = raw_data['date'] if raw_data['date']
-      o
+    def update(organization_name, id, params, token)
+      base_params = params.merge({organization_name: organization_name, id: id, token: token})
+      params_with_date = base_params.merge(date: Date.parse(params[:date]).iso8601) if params[:date]
+      new(KuluService::API.new.update_invoice(params_with_date || base_params))
     end
 
-    def destroy(id, token)
-      KuluService::API.new.delete_invoice(id, token)
+    def destroy(organization_name, id, token)
+      new(KuluService::API.new.delete_invoice(id, token))
     end
-  
-    def next_and_prev_invoices(options)
-      KuluService::API.new.next_and_prev_invoices(options)
-    end
-  end
-
-  def storage_key
-    File.join(url_prefix.gsub('${filename}', ''), filename)
   end
 
   def decorate
     InvoiceDecorator.new(self)
   end
 
+  private
+
+  def storage_key(url_prefix, filename)
+    File.join(url_prefix.gsub('${filename}', ''), filename)
+  end
 end

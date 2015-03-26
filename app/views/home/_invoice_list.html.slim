@@ -2,14 +2,14 @@
 
 table.table.table-striped.table-hover.expenses-table
   thead
-    th = sortable "Merchant Name"
-    th = sortable "Expense Date"
-    th = sortable "Amount"
-    th = sortable "Expense Type"
-    th = sortable "Remarks"
-    th = sortable "Status"
-    th = sortable "Conflict"
-    th = "Spender"
+    th = sortable 'Merchant Name'
+    th = sortable 'Expense Date'
+    th = sortable 'Amount'
+    th = sortable 'Expense Type'
+    th = sortable 'Remarks'
+    th = sortable 'Status'
+    th = sortable 'Conflict'
+    th = 'Spender'
   tbody
     - invoices.each do |i|
       tr.invoice-table-row data-invoice-url="#{invoice_path(i.id)}?#{sorted_params(params)}"
@@ -39,4 +39,4 @@ table.table.table-striped.table-hover.expenses-table
 javascript:
   new Kulu.Paginator($('#form-per-page')).setupPerPageForm();
   new Kulu.Utils().clickableRows($(".invoice-table-row"));
-  new Kulu.FixTopTableHeader($('.expenses-table'), $('.navbar').height())
+  new Kulu.FixTopTableHeader($('.expenses-table'), $('.navbar').height());
