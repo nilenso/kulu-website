@@ -3,7 +3,7 @@ class InvoicesController < ApplicationController
 
   def create
     url_prefix, filename = params[:invoice].values_at(:url_prefix, :filename)
-    invoice = Invoice.create(url_prefix, filename, user_token: current_user_token)
+    invoice = Invoice.create(@organization_name, url_prefix, filename, user_token: current_user_token)
 
     if invoice.valid?
       redirect_to invoice_path(invoice.id)

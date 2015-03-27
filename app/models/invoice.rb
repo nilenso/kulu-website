@@ -9,12 +9,12 @@ class Invoice
     def create(organization_name, url_prefix, filename, opts = {})
       params = {
           organization_name: organization_name,
-          storage_key: storage_key(url_prefix, filename),
-          user_token: opts[:user_token]
+          storage_key: File.join(url_prefix.gsub('${filename}', ''), filename),
+          token: opts[:user_token]
       }
 
       begin
-        new(KuluService::API.new.create_invoice(params))
+        new(id: KuluService::API.new.create_invoice(params))
       rescue HTTPService::Error => e
         errors.add(:base, e.message)
       end
@@ -49,11 +49,5 @@ class Invoice
 
   def decorate
     InvoiceDecorator.new(self)
-  end
-
-  private
-
-  def storage_key(url_prefix, filename)
-    File.join(url_prefix.gsub('${filename}', ''), filename)
-  end
+    end
 end
