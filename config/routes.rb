@@ -9,7 +9,13 @@ Rails.application.routes.draw do
     resources :expenses, controller: 'invoices', :as => 'invoices'
   end
 
-  post '/login',  to: 'home#login'
-  post '/signup', to: 'home#signup'
+  post '/login',   to: 'home#auth'
+  get  '/login',   to: 'home#login'
+  post '/signin',  to: 'home#signin'
+  get  '/signin',  to: 'home#team_signin'
+
+  get  '/logout',  to: 'home#logout'
+  post '/signup',  to: 'home#signup'
+
   root 'home#dashboard'
 end

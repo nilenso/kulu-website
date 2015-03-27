@@ -19,7 +19,7 @@ html
               - if logged_in?
                  = link_to 'Logout', '/logout', 'data-no-turbolink' => true
               - else
-                 = link_to 'Login', '/login', 'data-no-turbolink' => true
+                 = link_to 'Login',  '/signin', 'data-no-turbolink' => true
     .container
       - if flash[:error]
         p.error = h flash[:error]

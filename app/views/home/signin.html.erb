@@ -1,0 +1,20 @@
+<div class="page-wrap">
+  <div class="content">
+
+    <%= image_tag 'logo.png', class: 'image-logo' %>
+
+    <div class="panel" id="login">
+      <%= form_tag 'signin', :method => :post do %>
+        <div class="form-group">
+          <%= text_field_tag :team_name, nil, placeholder: 'Team Name', autofocus: true %>
+        </div>
+
+        <%= submit_tag 'Continue' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+  $('.image-logo').show();
+<% end %>

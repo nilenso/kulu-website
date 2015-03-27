@@ -68,7 +68,6 @@ module KuluService
       MultiJson.load(response.body)
     end
 
-
     def signup(options)
       response = request.make(:post, 'signup', signup: options)
       MultiJson.load(response.body)
@@ -76,6 +75,11 @@ module KuluService
 
     def login(options)
       response = request.make(:post, 'login', creds: options)
+      MultiJson.load(response.body)
+    end
+
+    def logout(options)
+      response = request.make(:post, 'logout', token: options[:token])
       MultiJson.load(response.body)
     end
   end

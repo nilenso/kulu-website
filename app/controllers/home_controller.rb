@@ -5,23 +5,48 @@ class HomeController < ApplicationController
   def dashboard
     @pre_signed_post = KuluAWS.new.presigned_post
 
-    if logged_in?
+    if logged_in? and @organization_name.present?
       @invoice = Invoice.new(url_prefix: @pre_signed_post.key)
       params[:token] = current_user_token
       @invoices = Invoice.list(@organization_name, request_params)
-    else
+    end
+
+    if !logged_in? and @organization_name.blank?
       render 'home/landing'
     end
   end
 
   def login
-    set_current_user_token(KuluService::API.new.login(login_params)['token']) unless current_user_token
-    redirect_to root_url(subdomain: login_params[:team_name])
+    render 'home/login'
+  end
+
+  def auth
+    auth_params = login_params.merge(team_name: @organization_name)
+    set_current_user_token(KuluService::API.new.login(auth_params)['token']) unless current_user_token
+    redirect_to root_url(subdomain: @organization_name)
+  end
+
+  def team_signin
+    if @organization_name.present?
+      render 'home/login'
+    else
+      render 'home/signin'
+    end
+  end
+
+  def signin
+    redirect_to root_url(subdomain: login_params[:team_name]) + 'login'
   end
 
   def signup
     KuluService::API.new.signup(signup_params)
     redirect_to root_url(subdomain: signup_params[:name])
+  end
+
+  def logout
+    KuluService::API.new.logout(token: current_user_token)
+    session[:current_user_token] = nil if current_user_token
+    redirect_to root_url(subdomain: login_params[:team_name])
   end
 
   private
