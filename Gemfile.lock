@@ -72,6 +72,7 @@ GEM
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
     formatador (0.2.5)
+    gritter (1.1.0)
     guard (2.6.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -253,6 +254,7 @@ DEPENDENCIES
   faraday
   figaro
   font-awesome-rails
+  gritter (= 1.1.0)
   guard-rspec
   hashie (~> 3.2.0)
   jbuilder (~> 2.0)

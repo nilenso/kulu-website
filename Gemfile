@@ -31,6 +31,7 @@ gem 'bootswatch-rails'
 gem 'nprogress-rails'
 gem 'mimemagic'
 gem 'pikaday-gem'
+gem 'gritter', '1.1.0'
 gem 'momentjs-rails'
 gem 'font-awesome-rails'
 

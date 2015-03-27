@@ -21,9 +21,15 @@ class HomeController < ApplicationController
   end
 
   def auth
-    auth_params = login_params.merge(team_name: @organization_name)
-    set_current_user_token(KuluService::API.new.login(auth_params)['token']) unless current_user_token
-    redirect_to root_url(subdomain: @organization_name)
+    begin
+      auth_params = login_params.merge(team_name: @organization_name)
+      set_current_user_token(KuluService::API.new.login(auth_params)['token']) unless current_user_token
+      redirect_to root_url(subdomain: @organization_name)
+    rescue HTTPService::Error
+      gflash :now, :error => 'Problems in logging in.'
+      redirect_to team_signin_url(subdomain: @organization_name)
+    end
+
   end
 
   def team_signin
@@ -39,8 +45,13 @@ class HomeController < ApplicationController
   end
 
   def signup
-    KuluService::API.new.signup(signup_params)
-    redirect_to root_url(subdomain: signup_params[:name])
+    begin
+      KuluService::API.new.signup(signup_params)
+      redirect_to root_url(subdomain: signup_params[:name])
+    rescue HTTPService::Error
+      gflash :now, :error => 'Problems in signing up.'
+      redirect_to root_url
+    end
   end
 
   def logout

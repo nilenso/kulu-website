@@ -21,9 +21,5 @@ html
               - else
                  = link_to 'Login',  '/signin', 'data-no-turbolink' => true
     .container
-      - if flash[:error]
-        p.error = h flash[:error]
-      - if flash[:notice]
-        p.notice = h flash[:notice]
-
+      = gflash
       == yield

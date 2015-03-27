@@ -21,5 +21,7 @@ module KuluWebsite
     # config.i18n.default_locale = :de
 
     config.autoload_paths += %W(#{config.root}/app/decorators)
+    Rails.application.config.assets.precompile += %w( error.png )
+    Gritter.rails_flash_fallback = true
   end
 end

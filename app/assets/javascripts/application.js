@@ -23,5 +23,6 @@
 //= require jquery.colorbox
 //= require moment
 //= require pikaday
+//= require gritter
 //= require kulu
 //= require_tree .

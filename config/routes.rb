@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post '/login',   to: 'home#auth'
   get  '/login',   to: 'home#login'
   post '/signin',  to: 'home#signin'
-  get  '/signin',  to: 'home#team_signin'
+  get  '/signin',  to: 'home#team_signin', as: :team_signin
 
   get  '/logout',  to: 'home#logout'
   post '/signup',  to: 'home#signup'
