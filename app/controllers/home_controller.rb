@@ -63,7 +63,7 @@ class HomeController < ApplicationController
   private
 
   def set_organization
-    @organization_name = request.subdomain
+    @organization_name = request.subdomain if Subdomain.matches?(request)
   end
 
   def sort_column
@@ -79,7 +79,7 @@ class HomeController < ApplicationController
   end
 
   def signup_params
-    params.permit(:name, :user_email, :user_name, :password, :confirm)
+    params.permit(:name, :team_domain, :user_email, :user_name, :password, :confirm)
   end
 
   def request_params

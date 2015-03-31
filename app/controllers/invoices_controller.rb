@@ -36,7 +36,7 @@ class InvoicesController < ApplicationController
   private
 
   def set_organization
-    @organization_name = request.subdomain
+    @organization_name = request.subdomain if Subdomain.matches?(request)
   end
 
   def require_login

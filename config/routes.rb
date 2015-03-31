@@ -1,9 +1,3 @@
-class Subdomain
-  def self.matches?(request)
-    request.subdomain.present? && request.subdomain != 'www'
-  end
-end
-
 Rails.application.routes.draw do
   constraints(Subdomain) do
     resources :expenses, controller: 'invoices', :as => 'invoices'
