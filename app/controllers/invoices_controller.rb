@@ -8,7 +8,7 @@ class InvoicesController < ApplicationController
     if invoice.valid?
       redirect_to invoice_path(invoice.id)
     else
-      render json: { error_messages: invoice.errors.full_messages }
+      render json: {error_messages: invoice.errors.full_messages}
     end
   end
 
@@ -24,7 +24,7 @@ class InvoicesController < ApplicationController
   def update
     @invoice = Invoice.update(@organization_name, params[:id], params[:invoice], current_user_token)
     flash.notice = 'Invoice updated.'
-    render json: { invoice: @invoice }
+    render json: {invoice: @invoice}
   end
 
   def destroy

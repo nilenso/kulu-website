@@ -37,9 +37,9 @@ class Invoice
     end
 
     def update(organization_name, id, params, token)
-      base_params = params.merge({organization_name: organization_name, id: id, token: token})
-      params_with_date = base_params.merge(date: Date.parse(params[:date]).iso8601) if params[:date]
-      new(KuluService::API.new.update_invoice(params_with_date || base_params))
+      auth_params = {organization_name: organization_name, id: id, token: token}
+      params_with_date = params.merge(date: Date.parse(params[:date]).iso8601) if params[:date]
+      new(KuluService::API.new.update_invoice(auth_params, params_with_date || params))
     end
 
     def destroy(organization_name, id, token)

@@ -42,8 +42,10 @@ module KuluService
       MultiJson.load(response.body)
     end
 
-    def update_invoice(options)
-      response = request.make(:put, "invoices/#{options[:id]}", {invoice: params}, options[:token])
+    def update_invoice(auth_options, options)
+      response = request.make(:put, "invoices/#{auth_options[:id]}", {organization_name: auth_options[:organization_name],
+                                                                      invoice: options},
+                              auth_options[:token])
       MultiJson.load(response.body)
     end
 
