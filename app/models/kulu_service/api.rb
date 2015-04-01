@@ -49,8 +49,8 @@ module KuluService
       MultiJson.load(response.body)
     end
 
-    def delete_invoice(id, token)
-      response = request.make(:delete, "invoices/#{id}", {}, token)
+    def delete_invoice(org_name, id, token)
+      response = request.make(:delete, "invoices/#{id}", {organization_name: org_name}, token)
       response.status == 204
     end
 

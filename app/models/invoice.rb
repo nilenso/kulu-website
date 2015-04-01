@@ -43,7 +43,7 @@ class Invoice
     end
 
     def destroy(organization_name, id, token)
-      new(KuluService::API.new.delete_invoice(id, token))
+      KuluService::API.new.delete_invoice(organization_name, id, token)
     end
   end
 

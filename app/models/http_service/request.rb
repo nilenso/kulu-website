@@ -44,6 +44,7 @@ module HTTPService
     def delete(request_url, request_body = {}, token)
       connection.delete do |req|
         req.url(request_url)
+        req.params = request_body
         req.headers['Content-Type'] = 'application/json'
         req.headers['X-Auth-Token'] = token
       end

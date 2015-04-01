@@ -67,6 +67,9 @@
 
 .expense-pager {
   text-align: left;
+  li {
+    margin-right: 10px;
+  }
 }
 
 .expense-pdf-container {
@@ -82,7 +85,7 @@
 }
 
 .expenses-nav-btn {
-  margin-left: 50px;
+  margin-right: 10px;
 }
 
 .well.row {

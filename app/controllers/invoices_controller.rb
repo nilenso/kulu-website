@@ -17,8 +17,8 @@ class InvoicesController < ApplicationController
     @currencies = Currency.all
     @invoice_states = KuluService::API.new.list_of_states({organization_name: @organization_name,
                                                            token: current_user_token})
-    # @invoices = Invoices.next_and_prev_invoices(params.merge({organization_name: @organization_name,
-    #                                                           token: current_user_token}))
+    @invoices = Invoices.next_and_prev_invoices(params.merge({organization_name: @organization_name,
+                                                              token: current_user_token}))
   end
 
   def update
