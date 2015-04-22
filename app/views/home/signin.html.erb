@@ -4,9 +4,9 @@
     <%= image_tag 'logo.png', class: 'image-logo' %>
 
     <div class="panel" id="login">
-      <%= form_tag 'signin', :method => :post do %>
+      <%= form_tag 'signin', id: 'team-signin-form', :method => :post do %>
         <div class="form-group">
-          <%= text_field_tag :team_name, nil, placeholder: 'Team Name', autofocus: true %>
+          <%= text_field_tag :team_name, nil, placeholder: 'Team Name', autofocus: true, class: 'form-control' %>
         </div>
 
         <%= submit_tag 'Continue' %>

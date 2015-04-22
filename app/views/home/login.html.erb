@@ -3,9 +3,9 @@
     <%= image_tag 'logo.png', class: 'image-logo' %>
 
     <div class="panel" id="login">
-      <%= form_tag 'login', :method => :post do %>
+      <%= form_tag 'login', id: 'login-form', :method => :post do %>
         <div class="form-group">
-          <%= text_field_tag :user_name, nil, placeholder: 'User Name' %>
+          <%= text_field_tag :user_name, nil, autofocus: true, placeholder: 'User Name' %>
         </div>
 
         <div class="form-group">
