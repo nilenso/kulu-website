@@ -30,3 +30,17 @@
   color: #204489;
   opacity: 0.6;
 }
+
+.panel-title {
+  h3 {
+    font-size: 25px;
+    display: inline-block;
+  }
+
+  span {
+    color: white;
+    font-size: 13px;
+    text-decoration: underline;
+    margin-left: 70px;
+  }
+}

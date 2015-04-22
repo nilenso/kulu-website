@@ -58,6 +58,10 @@ $nprogress-new-z-index: 100;
   display: inline-block;
 }
 
+.navbar-nav > li > a {
+  border: 1px solid #18BFD6;
+}
+
 .navbar {
   position: fixed;
   width: 100%;
