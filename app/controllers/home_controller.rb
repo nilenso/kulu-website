@@ -57,7 +57,7 @@ class HomeController < ApplicationController
   def logout
     KuluService::API.new.logout(token: current_user_token)
     session[:current_user_token] = nil if current_user_token
-    redirect_to root_url(subdomain: login_params[:team_name])
+    redirect_to root_url(subdomain: 'www')
   end
 
   private

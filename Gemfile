@@ -34,6 +34,7 @@ gem 'pikaday-gem'
 gem 'gritter', '1.1.0'
 gem 'momentjs-rails'
 gem 'font-awesome-rails'
+gem 'formvalidation-rails'
 
 group 'development' do
   gem 'spring'

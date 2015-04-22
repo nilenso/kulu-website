@@ -24,5 +24,7 @@
 //= require moment
 //= require pikaday
 //= require gritter
+//= require formvalidation
+//= require formvalidation/framework/bootstrap
 //= require kulu
 //= require_tree .

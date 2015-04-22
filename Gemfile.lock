@@ -72,6 +72,9 @@ GEM
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
     formatador (0.2.5)
+    formvalidation-rails (0.6.1.2)
+      jquery-rails (>= 3.0)
+      railties (>= 3.0)
     gritter (1.1.0)
     guard (2.6.1)
       formatador (>= 0.2.4)
@@ -254,6 +257,7 @@ DEPENDENCIES
   faraday
   figaro
   font-awesome-rails
+  formvalidation-rails
   gritter (= 1.1.0)
   guard-rspec
   hashie (~> 3.2.0)

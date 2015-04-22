@@ -1,3 +1,4 @@
+@import "bootstrap-sprockets";
 @import "bootswatch/readable/variables";
 @import "bootstrap";
 @import "bootswatch/readable/bootswatch";
@@ -5,6 +6,7 @@
 @import "nprogress-bootstrap";
 @import "pikaday";
 @import "gritter";
+@import "formvalidation.min";
 @import "common";
 @import "home";
 @import "invoices";
