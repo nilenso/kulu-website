@@ -49,5 +49,5 @@ class Invoice
 
   def decorate
     InvoiceDecorator.new(self)
-    end
+  end
 end

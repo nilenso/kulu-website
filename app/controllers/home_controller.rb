@@ -17,7 +17,11 @@ class HomeController < ApplicationController
   end
 
   def login
-    render 'home/login'
+    if request.subdomain == 'www'
+      render 'home/signin'
+    else
+      render 'home/login'
+    end
   end
 
   def auth
@@ -79,7 +83,7 @@ class HomeController < ApplicationController
   end
 
   def signup_params
-    params.permit(:name, :team_domain, :user_email, :user_name, :password, :confirm)
+    params.permit(:name, :user_email, :user_name, :password, :confirm)
   end
 
   def request_params
