@@ -8,7 +8,12 @@ class HomeController < ApplicationController
     if logged_in? and @organization_name.present?
       @invoice = Invoice.new(url_prefix: @pre_signed_post.key)
       params[:token] = current_user_token
-      @invoices = Invoice.list(@organization_name, request_params)
+
+      begin
+        @invoices = Invoice.list(@organization_name, request_params)
+      rescue HTTPService::ClientError
+        logout
+      end
     end
 
     if !logged_in? and @organization_name.blank?

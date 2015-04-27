@@ -21,11 +21,7 @@ class Invoice
     end
 
     def list(organization_name, options = {})
-      begin
-        PaginatedInvoices.new(KuluService::API.new.list_invoices(options.merge(organization_name: organization_name)))
-      rescue HTTPService::Error => e
-        errors.add(:base, e.message)
-      end
+      PaginatedInvoices.new(KuluService::API.new.list_invoices(options.merge(organization_name: organization_name)))
     end
 
     def find(organization_name, id, token)
