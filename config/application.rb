@@ -22,6 +22,5 @@ module KuluWebsite
 
     config.autoload_paths += %W(#{config.root}/app/decorators)
     Rails.application.config.assets.precompile += %w( error.png )
-    Gritter.rails_flash_fallback = true
   end
 end

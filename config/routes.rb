@@ -17,5 +17,7 @@ Rails.application.routes.draw do
   get  '/logout',  to: 'home#logout'
   post '/signup',  to: 'home#signup'
 
+  get 'admin', to: 'admin#index'
+
   root 'home#dashboard'
 end
