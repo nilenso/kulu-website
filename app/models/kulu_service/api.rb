@@ -84,5 +84,22 @@ module KuluService
       response = request.make(:post, 'logout', token: options[:token])
       MultiJson.load(response.body)
     end
+
+    def forgot(options)
+      params = { organization_name: options[:organization_name], user_email: options[:user_email] }
+      response = request.make(:post, 'forgot_password', params)
+      MultiJson.load(response.body)
+    end
+
+    def verify_password(options)
+      params = { token: options[:token], user_email: options[:user_email] }
+      response = request.make(:get, 'verify_password', params)
+      MultiJson.load(response.body)
+    end
+
+    def update_password(options)
+      response = request.make(:post, 'update_password', options)
+      MultiJson.load(response.body)
+    end
   end
 end

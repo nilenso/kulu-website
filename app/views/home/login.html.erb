@@ -9,10 +9,6 @@
 
       <%= form_tag 'login', id: 'login-form', :method => :post do %>
         <div class="form-group">
-          <%= text_field_tag :user_name, nil, autofocus: true, placeholder: 'User Name' %>
-        </div>
-
-        <div class="form-group">
           <%= email_field_tag :user_email, nil, placeholder: 'User Email' %>
         </div>
 

@@ -69,6 +69,27 @@ class HomeController < ApplicationController
     redirect_to root_url(subdomain: 'www')
   end
 
+  def forgot_password
+    render 'home/forgot_password'
+  end
+
+  def forgot
+    KuluService::API.new.forgot(forgot_password_params)
+    render 'home/signin'
+  end
+
+  def verify_password
+    @token   = params[:token]
+    @user_email = params[:user_email]
+    KuluService::API.new.verify_password(verify_password_params)
+    render 'home/update_password'
+  end
+
+  def update_password
+    KuluService::API.new.update_password(update_password_params)
+    render 'home/signin'
+  end
+
   private
 
   def set_organization
@@ -84,11 +105,23 @@ class HomeController < ApplicationController
   end
 
   def login_params
-    params.permit(:team_name, :user_email, :user_name, :password)
+    params.permit(:team_name, :user_email, :password)
   end
 
   def signup_params
     params.permit(:name, :user_email, :user_name, :password, :confirm)
+  end
+
+  def forgot_password_params
+    params.permit(:organization_name, :user_email)
+  end
+
+  def verify_password_params
+    params.permit(:token, :user_email)
+  end
+
+  def update_password_params
+    params.permit(:password, :confirm, :user_email, :token)
   end
 
   def request_params
