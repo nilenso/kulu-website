@@ -83,6 +83,22 @@ class HomeController < ApplicationController
     render 'home/update_password'
   end
 
+  def verify_invite
+    @token = params[:token]
+    @user_email = params[:user_email]
+    @organization_name = params[:organization_name]
+    KuluService::API.new.verify_invite(verify_invite_params)
+    render 'home/new_user'
+  end
+
+  def new_user
+  end
+
+  def member_signup
+    KuluService::API.new.member_signup(member_signup_params)
+    render 'home/signin'
+  end
+
   def update_password
     KuluService::API.new.update_password(update_password_params)
     render 'home/signin'
@@ -118,8 +134,16 @@ class HomeController < ApplicationController
     params.permit(:token, :user_email)
   end
 
+  def verify_invite_params
+    params.permit(:token, :user_email, :organization_name)
+  end
+
   def update_password_params
     params.permit(:password, :confirm, :user_email, :token)
+  end
+
+  def member_signup_params
+    params.permit(:password, :confirm, :user_email, :user_name, :organization_name, :token)
   end
 
   def request_params

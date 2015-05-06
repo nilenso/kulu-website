@@ -5,6 +5,11 @@ class AdminController < ApplicationController
     render 'admin/index'
   end
 
+  def invite
+    KuluService::API.new.invite(invite_params)
+    render :nothing => true
+  end
+
   private
 
   def set_organization
@@ -16,5 +21,9 @@ class AdminController < ApplicationController
       flash[:error] = 'You must be logged in to access this section'
       redirect_to root_url # halts request cycle
     end
+  end
+
+  def invite_params
+    params.permit(:token, :user_email, :organization_name)
   end
 end

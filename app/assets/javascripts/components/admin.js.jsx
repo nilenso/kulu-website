@@ -1,6 +1,14 @@
 var Admin = React.createClass({
-  submitInvitation: function () {
-    
+  submitInvitation: function (e) {
+    e.preventDefault();
+
+    var email = this.refs["email"].getDOMNode().value;
+
+    $.post('/invite', {
+      token: this.props.token,
+      organization_name: this.props.organization_name,
+      user_email: email
+    })
   },
 
   render: function () {

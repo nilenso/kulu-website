@@ -101,5 +101,27 @@ module KuluService
       response = request.make(:post, 'update_password', options)
       MultiJson.load(response.body)
     end
+
+    def verify_invite(options)
+      params = { token: options[:token],
+                 user_email: options[:user_email],
+                 organization_name: options[:organization_name] }
+      response = request.make(:get, 'verify_invite', params)
+      MultiJson.load(response.body)
+    end
+
+    def invite(options)
+      params = { user_email: options[:user_email],
+                 organization_name: options[:organization_name] }
+
+      response = request.make(:post, 'admin/invite', params, options[:token])
+      MultiJson.load(response.body)
+    end
+
+    def member_signup(options)
+      response = request.make(:post, 'member_signup', signup: options)
+      MultiJson.load(response.body)
+    end
+
   end
 end

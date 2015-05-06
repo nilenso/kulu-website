@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   post '/signin',  to: 'home#signin'
   get  '/signin',  to: 'home#team_signin', as: :team_signin
 
-  get  '/forgot_password',  to: 'home#forgot_password'
+  get  '/forgot_password',  to: 'home#forgot_password', as: :forgot_password
   post '/forgot',  to: 'home#forgot'
 
   get  '/verify_password',  to: 'home#verify_password'
@@ -17,7 +17,10 @@ Rails.application.routes.draw do
   get  '/logout',  to: 'home#logout'
   post '/signup',  to: 'home#signup'
 
-  get 'admin', to: 'admin#index'
+  get  '/admin', to: 'admin#index'
+  post '/invite', to: 'admin#invite'
+  post '/member_signup', to: 'home#member_signup'
+  get  '/verify_invite', to: 'home#verify_invite'
 
   root 'home#dashboard'
 end
