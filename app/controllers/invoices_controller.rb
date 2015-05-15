@@ -1,9 +1,8 @@
 class InvoicesController < ApplicationController
-  before_filter :set_organization, :require_login
+  before_filter :require_login, :set_organization
 
   def create
-    url_prefix, filename = params[:invoice].values_at(:url_prefix, :filename)
-    invoice = Invoice.create(@organization_name, url_prefix, filename, user_token: current_user_token)
+    invoice = Invoice.create(api_params(create_params))
 
     if invoice.valid?
       redirect_to invoice_path(invoice.id)
@@ -13,23 +12,21 @@ class InvoicesController < ApplicationController
   end
 
   def show
-    @invoice = Invoice.find(@organization_name, params[:id], current_user_token).decorate
+    @invoice = Invoice.find(api_params(show_params)).decorate
     @currencies = Currency.all
-    @invoice_states = KuluService::API.new.list_of_states({organization_name: @organization_name,
-                                                           token: current_user_token})
-    @invoices = Invoices.next_and_prev_invoices(params.merge({organization_name: @organization_name,
-                                                              token: current_user_token}))
+    @invoice_states =
+        KuluService::API.new.list_of_states(organization_name: @organization_name, token: current_user_token)
+    @invoices =
+        Invoices.next_and_prev_invoices(api_params(params))
   end
 
   def update
-    @invoice = Invoice.update(@organization_name, params[:id], params[:invoice], current_user_token)
-    flash.notice = 'Invoice updated.'
-    render json: {invoice: @invoice}
+    @invoice = Invoice.update(api_params(update_params))
+    render json: { invoice: @invoice }
   end
 
   def destroy
-    Invoice.destroy(@organization_name, params[:id], current_user_token)
-    flash[:notice] = 'Invoice deleted'
+    Invoice.destroy(api_params(delete_params))
     redirect_to root_path, notice: 'Invoice deleted'
   end
 
@@ -40,9 +37,26 @@ class InvoicesController < ApplicationController
   end
 
   def require_login
-    unless logged_in?
-      flash[:error] = 'You must be logged in to access this section'
-      redirect_to root_url # halts request cycle
-    end
+    redirect_to root_url unless logged_in? # halts request cycle
+  end
+
+  def api_params(base_params)
+    base_params.merge(organization_name: @organization_name, token: current_user_token)
+  end
+
+  def create_params
+    params.permit(invoice: [:url_prefix, :filename])
+  end
+
+  def update_params
+    params.permit(invoice: [:id, :name, :currency, :amount, :date, :status, :conflict, :remarks])
+  end
+
+  def show_params
+    params.permit(:id, :direction, :order)
+  end
+
+  def delete_params
+    params.permit(:id)
   end
 end

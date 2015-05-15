@@ -1,7 +1,7 @@
 class Kulu.InvoiceEdit
   constructor: (@formContainer) ->
     @updateButton = @formContainer.find(".invoice-edit-submit")
-    @invoiceID = @formContainer.find('input[name="invoice-id"]').val()
+    @invoiceID = @formContainer.find('input[name="invoice[:id]"]').val()
     @dateGroup = @formContainer.find('.invoice-details-date-group')
     @deleteButton = @formContainer.find('.invoice-edit-delete')
 
@@ -23,6 +23,7 @@ class Kulu.InvoiceEdit
       return false
 
     data = {
+      id: @formContainer.find('input[name="invoice[:id]"]').val()
       name: @formContainer.find('input[name="invoice[:name]"]').val()
       currency: @formContainer.find('select[name="invoice[:currency]"]').val()
       amount: Number(@formContainer.find('input[name="invoice[:amount]"]').val())

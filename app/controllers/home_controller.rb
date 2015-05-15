@@ -10,7 +10,7 @@ class HomeController < ApplicationController
       params[:token] = current_user_token
 
       begin
-        @invoices = Invoice.list(@organization_name, request_params)
+        @invoices = Invoice.list(request_params.merge(organization_name: @organization_name))
       rescue HTTPService::ClientError
         logout
       end
