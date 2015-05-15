@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
-  before_filter :set_organization
+  before_filter :set_organization, :login_not_required
+  skip_before_filter :login_not_required, :only => [:dashboard, :logout]
   helper_method :sort_column, :sort_direction
 
   def dashboard
@@ -108,6 +109,10 @@ class HomeController < ApplicationController
 
   def set_organization
     @organization_name = request.subdomain if Subdomain.matches?(request)
+  end
+
+  def login_not_required
+    redirect_to root_url if logged_in? # halts request cycle
   end
 
   def sort_column
