@@ -7,6 +7,7 @@ class AdminController < ApplicationController
 
   def invite
     KuluService::API.new.invite(invite_params)
+    flash.notice = "Sent an invite to #{invite_params[:user_email]}"
     render :nothing => true
   end
 

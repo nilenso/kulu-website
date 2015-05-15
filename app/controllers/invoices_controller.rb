@@ -22,7 +22,7 @@ class InvoicesController < ApplicationController
 
   def update
     @invoice = Invoice.update(api_params(update_params))
-    flash.alert = 'Expense successfully updated'
+    flash.notice = 'Expense successfully updated'
     render json: { invoice: @invoice }
   end
 

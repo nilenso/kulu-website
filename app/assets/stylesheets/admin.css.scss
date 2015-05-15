@@ -1,3 +1,7 @@
+.admin-panel {
+  margin-top: 150px;
+}
+
 .invite-form {
    margin-top: 50px;
 
@@ -26,19 +30,10 @@
     height: 46px;
     width: 80px;
     text-align: center;
-    border: 1px solid #18BFD6;
-    color: #FFF;
-    margin: 0 -10px 0 20px;
-    padding: 0 28px 0 15px;
-    background-image: -moz-linear-gradient(left, #18BFD6 0, #204489 100%);
-    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #18BFD6), color-stop(100%, #204489));
-    background-image: -webkit-linear-gradient(left, #18BFD6 0, #204489 100%);
-    background-image: -o-linear-gradient(left, #18BFD6 0, #204489 100%);
-    background: -ms-linear-gradient(left, #18BFD6 0, #204489 100%);
-    background: linear-gradient(to right, #18BFD6 0, #204489 100%);
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    margin: 0 0 5px 10px;
   }
 }
