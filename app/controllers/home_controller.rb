@@ -55,7 +55,7 @@ class HomeController < ApplicationController
   def signup
     begin
       KuluService::API.new.signup(signup_params)
-      redirect_to root_url(subdomain: signup_params[:name])
+      redirect_to root_url(subdomain: signup_params[:organization_name])
     rescue HTTPService::Error
       redirect_to root_url
     end
@@ -123,7 +123,7 @@ class HomeController < ApplicationController
   end
 
   def signup_params
-    params.permit(:name, :user_email, :user_name, :password, :confirm)
+    params.permit(:organization_name, :user_email, :user_name, :password, :confirm)
   end
 
   def forgot_password_params

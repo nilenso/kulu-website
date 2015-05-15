@@ -71,7 +71,7 @@ module KuluService
     end
 
     def signup(options)
-      response = request.make(:post, 'signup', signup: options)
+      response = request.make(:post, 'signup', params: options)
       MultiJson.load(response.body)
     end
 
@@ -87,26 +87,25 @@ module KuluService
 
     def forgot(options)
       params = { organization_name: options[:organization_name], user_email: options[:user_email] }
-      response = request.make(:post, 'forgot_password', params)
+      response = request.make(:post, 'forgot_password', params: params)
       MultiJson.load(response.body)
     end
 
     def verify_password(options)
-      params = { token: options[:token], user_email: options[:user_email] }
-      response = request.make(:get, 'verify_password', params)
+      params = { user_email: options[:user_email] }
+      response = request.make(:get, "verify_password/#{options[:token]}", params)
       MultiJson.load(response.body)
     end
 
     def update_password(options)
-      response = request.make(:post, 'update_password', options)
+      response = request.make(:post, 'update_password', params: options)
       MultiJson.load(response.body)
     end
 
     def verify_invite(options)
-      params = { token: options[:token],
-                 user_email: options[:user_email],
+      params = { user_email: options[:user_email],
                  organization_name: options[:organization_name] }
-      response = request.make(:get, 'verify_invite', params)
+      response = request.make(:get, "verify_invite/#{options[:token]}", params)
       MultiJson.load(response.body)
     end
 
@@ -119,9 +118,8 @@ module KuluService
     end
 
     def member_signup(options)
-      response = request.make(:post, 'member_signup', signup: options)
+      response = request.make(:post, 'member_signup', params: options)
       MultiJson.load(response.body)
     end
-
   end
 end

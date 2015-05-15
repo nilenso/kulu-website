@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get  '/forgot_password',  to: 'home#forgot_password', as: :forgot_password
   post '/forgot',  to: 'home#forgot'
 
-  get  '/verify_password',  to: 'home#verify_password'
+  get  '/verify_password/:token',  to: 'home#verify_password'
   post '/update_password',  to: 'home#update_password'
 
   get  '/logout',  to: 'home#logout'
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   get  '/admin', to: 'admin#index'
   post '/invite', to: 'admin#invite'
   post '/member_signup', to: 'home#member_signup'
-  get  '/verify_invite', to: 'home#verify_invite'
+  get  '/verify_invite/:token', to: 'home#verify_invite'
 
   root 'home#dashboard'
 end

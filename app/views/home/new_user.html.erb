@@ -7,7 +7,7 @@
         <h3>Enter your details</h3>
       </div>
 
-      <%= form_tag 'member_signup', id: 'user-signup-form', :method => :post do %>
+      <%= form_tag member_signup_path, id: 'user-signup-form', :method => :post do %>
         <%= hidden_field_tag :organization_name, @organization_name %>
         <%= hidden_field_tag :token, @token %>
 
