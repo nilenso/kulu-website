@@ -9,18 +9,19 @@ html
     = csrf_meta_tags
 
   body
-    nav.navbar.navbar-inverse role="navigation"
+    nav.navbar.navbar-inverse role="navigation" id="nav" class=(notice ? 'flash-background notice' : '') class=(alert ? 'flash-background error' : '')
       .navbar-header
         a.navbar-brand href="#{root_path}" Kulu
-      .collapse.navbar-collapse
-        ul.nav.navbar-nav.navbar-right
-          li.navbar-menu
-            - if logged_in?
-              = link_to 'Admin', '/admin'
-          li.navbar-menu
-            - if logged_in?
-              = link_to 'Logout', '/logout', 'data-no-turbolink' => true
-            - else
-              = link_to 'Login', '/signin', 'data-no-turbolink' => true
+      ul.nav.navbar-nav.navbar-right
+        li.navbar-menu
+          - if logged_in?
+            = link_to 'Admin', '/admin'
+        li.navbar-menu
+          - if logged_in?
+            = link_to 'Logout', '/logout', 'data-no-turbolink' => true
+          - else
+            = link_to 'Login', '/signin', 'data-no-turbolink' => true
+      = render '/flash'
+
     .container
       == yield

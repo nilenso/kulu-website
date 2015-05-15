@@ -47,6 +47,14 @@ $nprogress-new-z-index: 100;
   overflow-wrap: break-word
 }
 
+.navbar-left {
+  float: left
+}
+
+.navbar-header {
+  width: 25%
+}
+
 .navbar-nav .navbar-menu a {
   display: inline-block;
 }
@@ -56,6 +64,7 @@ $nprogress-new-z-index: 100;
 }
 
 .navbar {
+  position: fixed;
   width: 100%;
   margin-bottom: 10px;
   z-index: 10;
@@ -66,4 +75,30 @@ $nprogress-new-z-index: 100;
   width: 100%;
   text-align: center;
   font-size: 1.5em;
+}
+
+.flash-background {
+  cursor: pointer;
+
+  &.error {
+    background-color: rgb(225, 180, 160);
+  }
+
+  &.notice {
+    background-color: #DAF1AA;
+  }
+}
+
+.flash-message {
+  color: black;
+  z-index: 999;
+  overflow: hidden;
+  margin: 0 auto;
+  width: 30%;
+
+  p {
+    color: white;
+    font-size: 110%;
+    margin: 15px 0;
+  }
 }

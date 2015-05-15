@@ -22,12 +22,13 @@ class InvoicesController < ApplicationController
 
   def update
     @invoice = Invoice.update(api_params(update_params))
+    flash.alert = 'Expense successfully updated'
     render json: { invoice: @invoice }
   end
 
   def destroy
     Invoice.destroy(api_params(delete_params))
-    redirect_to root_path, notice: 'Invoice deleted'
+    redirect_to root_path, notice: 'Expense successfully deleted'
   end
 
   private
