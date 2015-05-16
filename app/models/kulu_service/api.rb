@@ -102,7 +102,8 @@ module KuluService
     end
 
     def verify_password(options)
-      params = {user_email: options[:user_email]}
+      params = {user_email: options[:user_email],
+                organization_name: options[:organization_name]}
       response = request.make(:get, "verify_password/#{options[:token]}", params)
       MultiJson.load(response.body)
     end
