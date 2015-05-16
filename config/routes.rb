@@ -3,6 +3,13 @@ Rails.application.routes.draw do
     resources :expenses, controller: 'invoices', :as => 'invoices'
   end
 
+  resources :extractor, controller: 'extractor', :as => 'extractor' do
+    collection do
+      get  :login
+      post :authorize
+    end
+  end
+
   post '/login',   to: 'home#auth'
   get  '/login',   to: 'home#login'
   post '/signin',  to: 'home#signin'

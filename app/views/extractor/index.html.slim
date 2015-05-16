@@ -1,0 +1,7 @@
+- if logged_in?
+  .invoice-list
+    = render 'extractor/invoice_list', invoices: @invoices, params: params
+
+- else
+  p.welcome-text
+    | Welcome to Kulu. Please login to manage your expenses.

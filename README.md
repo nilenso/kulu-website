@@ -24,3 +24,12 @@ headers XML nodes (retain  everything else):
 ```
 
 Remember to do this for both dev and prod buckets.
+
+## Extractor API
+
+The extractor interface, which is used to extract/transcribe expenses for all organizations is separated out from the rest of the code. 
+As we may not need a different end-point for this to work as it could just be regular user-role later on. For easy removal of this, it's split into these files:
+
+* `models/kulu_service/extractor_api.rb`
+* `controllers/extractor_controller.rb`
+* `views/extractor/`
