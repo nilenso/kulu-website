@@ -47,29 +47,6 @@ $nprogress-new-z-index: 100;
   overflow-wrap: break-word
 }
 
-.navbar-left {
-  float: left
-}
-
-.navbar-header {
-  width: 25%
-}
-
-.navbar-nav .navbar-menu a {
-  display: inline-block;
-}
-
-.navbar-nav > li > a {
-  border: 1px solid #18BFD6;
-}
-
-.navbar {
-  position: fixed;
-  width: 100%;
-  margin-bottom: 10px;
-  z-index: 10;
-}
-
 .welcome-text {
   margin: 300px auto;
   width: 100%;

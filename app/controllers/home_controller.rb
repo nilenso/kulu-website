@@ -34,7 +34,7 @@ class HomeController < ApplicationController
     begin
       auth_params = login_params.merge(team_name: @organization_name)
       set_current_user_token(KuluService::API.new.login(auth_params)['token']) unless current_user_token
-      redirect_to root_url(subdomain: @organization_name)
+      redirect_to root_url(subdomain: @organization_name), :notice => "Logged into #{@organization_name} successfully"
     rescue HTTPService::Error
       redirect_to team_signin_url(subdomain: @organization_name)
     end
