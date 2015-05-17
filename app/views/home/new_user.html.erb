@@ -4,14 +4,13 @@
 
     <div class="panel" id="login">
       <div class="panel-title">
-        <h3>Create a new team</h3>
-        <span><a href=<%= signin_path %>>or login</a></span>
+        <h3>Enter your details</h3>
       </div>
 
-      <%= form_tag 'signup', id: 'team-signup-form', :method => :post do %>
-        <div class="form-group">
-          <%= text_field_tag :organization_name, nil, placeholder: 'Company Name', autofocus: true, class: 'form-control' %>
-        </div>
+      <%= form_tag member_signup_path, id: 'user-signup-form', :method => :post do %>
+        <%= hidden_field_tag :organization_name, @organization_name %>
+        <%= hidden_field_tag :token, @token %>
+
         <div class="form-group">
           <%= text_field_tag :user_name, nil, placeholder: 'User Name', class: 'form-control' %>
         </div>
@@ -31,5 +30,5 @@
 </div>
 
 <%= javascript_tag do %>
-  $('.image-logo').fadeIn(1200);
+  $('.image-logo').show();
 <% end %>

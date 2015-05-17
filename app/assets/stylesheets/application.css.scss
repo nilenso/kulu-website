@@ -1,12 +1,18 @@
+@import "bootstrap-variables-overrides";
 @import "bootstrap-sprockets";
-@import "bootswatch/readable/variables";
+@import "bootswatch/cosmo/variables";
 @import "bootstrap";
-@import "bootswatch/readable/bootswatch";
+@import "bootswatch/cosmo/bootswatch";
+@import "bootstrap-overrides";
+
 @import "nprogress";
 @import "nprogress-bootstrap";
+
 @import "pikaday";
 @import "formvalidation.min";
+
 @import "common";
+@import "admin";
 @import "home";
 @import "invoices";
 @import "font-awesome";

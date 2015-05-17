@@ -41,32 +41,10 @@ $nprogress-new-z-index: 100;
   background-position: right center;
 }
 
-.asc {
-  background-image: url(/images/up_arrow.gif);
-}
-
-.desc {
-  background-image: url(/images/down_arrow.gif);
-}
 
 .table {
   table-layout:fixed;
   overflow-wrap: break-word
-}
-
-.navbar-nav .navbar-menu a {
-  display: inline-block;
-}
-
-.navbar-nav > li > a {
-  border: 1px solid #18BFD6;
-}
-
-.navbar {
-  position: fixed;
-  width: 100%;
-  margin-bottom: 300px;
-  z-index: 10;
 }
 
 .welcome-text {
@@ -74,4 +52,30 @@ $nprogress-new-z-index: 100;
   width: 100%;
   text-align: center;
   font-size: 1.5em;
+}
+
+.flash-background {
+  cursor: pointer;
+
+  &.error {
+    background-color: rgb(225, 180, 160);
+  }
+
+  &.notice {
+    background-color: #99C16B;
+  }
+}
+
+.flash-message {
+  color: black;
+  z-index: 999;
+  overflow: hidden;
+  margin: 0 auto;
+  width: 30%;
+
+  p {
+    color: white;
+    font-size: 110%;
+    margin: 15px 0;
+  }
 }

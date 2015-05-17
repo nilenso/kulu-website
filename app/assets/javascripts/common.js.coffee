@@ -14,3 +14,15 @@ $(document).on "page:restore", removeSpinner
 $(document).on "page:receive", stopSpinner
 $(document).on "ajax:before", startSpinner
 $(document).on "ajax:complete", stopSpinner
+
+$ ->
+  Kulu.flash = ->
+    flashCallback = =>
+      $(".flash-message").fadeOut 700, =>
+        $("#nav").removeClass('flash-background notice error')
+
+    $(".flash-background").bind 'click', flashCallback
+
+    setTimeout flashCallback, 2500
+
+  Kulu.flash()

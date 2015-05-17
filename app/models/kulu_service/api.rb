@@ -9,6 +9,7 @@ module KuluService
     end
 
     def create_invoice(options)
+      ##
       #
       # FIXME:
       # Because we updated the create API to take these extra parameters without making them optional,
@@ -17,9 +18,13 @@ module KuluService
       # Until then, this hack will do - kit
       #
       stubbed_parameters = {remarks: '', expense_type: '', date: Date.today.iso8601}
-      params = {organization_name: options[:organization_name],
-                :invoice => {storage_key: options[:storage_key],
-                             user_token: options[:token]}.merge(stubbed_parameters)}
+      #
+      ##
+      params = {
+          organization_name: options[:organization_name],
+          :invoice => {
+              storage_key: options[:invoice][:storage_key],
+              user_token: options[:token]}.merge(stubbed_parameters)}
 
       response = request.make(:post, 'invoices', params, options[:token])
       MultiJson.load(response.body)['id']
@@ -42,20 +47,25 @@ module KuluService
       MultiJson.load(response.body)
     end
 
-    def update_invoice(auth_options, options)
-      response = request.make(:put, "invoices/#{auth_options[:id]}", {organization_name: auth_options[:organization_name],
-                                                                      invoice: options},
-                              auth_options[:token])
+    def update_invoice(options)
+      invoice_params = options[:invoice].except(:id)
+      response = request.make(:put, "invoices/#{options[:invoice][:id]}", {
+                                      organization_name: options[:organization_name], invoice: invoice_params
+                                  }, options[:token])
       MultiJson.load(response.body)
     end
 
-    def delete_invoice(org_name, id, token)
-      response = request.make(:delete, "invoices/#{id}", {organization_name: org_name}, token)
+    def delete_invoice(options)
+      response = request.make(:delete, "invoices/#{options[:id]}", {
+                                         organization_name: options[:organization_name]
+                                     }, options[:token])
       response.status == 204
     end
 
     def list_of_states(options)
-      response = request.make(:get, 'invoices/states', {organization_name: options[:organization_name]}, options[:token])
+      response = request.make(:get, 'invoices/states', {
+                                      organization_name: options[:organization_name]
+                                  }, options[:token])
       MultiJson.load(response.body)
     end
 
@@ -71,7 +81,7 @@ module KuluService
     end
 
     def signup(options)
-      response = request.make(:post, 'signup', signup: options)
+      response = request.make(:post, 'signup', params: options)
       MultiJson.load(response.body)
     end
 
@@ -86,19 +96,40 @@ module KuluService
     end
 
     def forgot(options)
-      params = { organization_name: options[:organization_name], user_email: options[:user_email] }
-      response = request.make(:post, 'forgot_password', params)
+      params = {organization_name: options[:organization_name], user_email: options[:user_email]}
+      response = request.make(:post, 'forgot_password', params: params)
       MultiJson.load(response.body)
     end
 
     def verify_password(options)
-      params = { token: options[:token], user_email: options[:user_email] }
-      response = request.make(:get, 'verify_password', params)
+      params = {user_email: options[:user_email],
+                organization_name: options[:organization_name]}
+      response = request.make(:get, "verify_password/#{options[:token]}", params)
       MultiJson.load(response.body)
     end
 
     def update_password(options)
-      response = request.make(:post, 'update_password', options)
+      response = request.make(:post, 'update_password', params: options)
+      MultiJson.load(response.body)
+    end
+
+    def verify_invite(options)
+      params = {user_email: options[:user_email],
+                organization_name: options[:organization_name]}
+      response = request.make(:get, "verify_invite/#{options[:token]}", params)
+      MultiJson.load(response.body)
+    end
+
+    def invite(options)
+      params = {user_email: options[:user_email],
+                organization_name: options[:organization_name]}
+
+      response = request.make(:post, 'admin/invite', params, options[:token])
+      MultiJson.load(response.body)
+    end
+
+    def member_signup(options)
+      response = request.make(:post, 'member_signup', params: options)
       MultiJson.load(response.body)
     end
   end

@@ -25,5 +25,8 @@
 //= require pikaday
 //= require formvalidation
 //= require formvalidation/framework/bootstrap
+//= require react
+//= require react_ujs
+//= require components
 //= require kulu
 //= require_tree .

@@ -37,7 +37,7 @@ $(document).ready(->
       invalid: 'glyphicon glyphicon-remove'
       validating: 'glyphicon glyphicon-refresh'
     fields:
-      name:
+      organization_name:
         message: 'The Team Name is not valid'
         validators:
           notEmpty: message: 'The Team Name is required and can\'t be empty'
