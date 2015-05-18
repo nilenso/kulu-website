@@ -16,6 +16,16 @@ class AdminController < ApplicationController
     end
   end
 
+
+  def users
+    begin
+      render json: KuluService::API.new.users(users_params).to_json
+    rescue HTTPService::ClientError => e
+      flash.alert = "#{e}"
+      render json: e.to_json, status: 400 and return
+    end
+  end
+
   private
 
   def set_organization
@@ -32,4 +42,9 @@ class AdminController < ApplicationController
   def invite_params
     params.permit(:token, :user_email, :organization_name)
   end
+
+  def users_params
+    params.permit(:token, :organization_name)
+  end
+
 end
