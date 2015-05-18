@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :expenses, controller: 'invoices', :as => 'invoices'
   end
 
-  resources :extractor, controller: 'extractor', :as => 'extractor' do
+  resources :transcriber, controller: 'transcriber', :as => 'transcriber' do
     collection do
       get  :login
       post :authorize
