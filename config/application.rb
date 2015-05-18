@@ -22,5 +22,6 @@ module KuluWebsite
 
     config.autoload_paths += %W(#{config.root}/app/decorators)
     Rails.application.config.assets.precompile += %w( error.png )
+    config.browserify_rails.commandline_options = "--transform reactify --extension=\".jsx\""
   end
 end

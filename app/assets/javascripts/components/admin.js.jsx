@@ -11,6 +11,9 @@ Admin = React.createClass({
       token: this.props.token,
       organization_name: this.props.organization_name,
       user_email: email
+    }).fail(function(e) {
+      Turbolinks.visit(self.props.admin_root_path);
+      Kulu.flash();
     }).success(function() {
       Turbolinks.visit(self.props.admin_root_path);
       Kulu.flash();
