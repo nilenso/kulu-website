@@ -40,6 +40,10 @@ class TranscriberController < ActionController::Base
     end
   end
 
+  def login
+    redirect_to transcriber_index_path if logged_in?
+  end
+
   def update
     date = params[:invoice][:date]
     params[:invoice].merge!(date: Date.parse(date).iso8601) if date
