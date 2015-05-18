@@ -7,3 +7,16 @@
     background: white;
   }
 }
+
+.invoice-status-marker {
+  &.submitted {
+    background-color: indianred;
+  }
+
+  &.extracted {
+    background-color: darkgreen;
+  }
+  padding: 5px;
+  color: white;
+  opacity: 0.8;
+}

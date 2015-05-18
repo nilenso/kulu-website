@@ -15,7 +15,8 @@ table.table.table-striped.table-hover.expenses-table
         td = i.display_date
         td = i.amount_with_currency
         td = i.remarks
-        td = i.status
+        td.invoice-status-marker class="#{i.status == 'Extracted' ? 'extracted' : 'submitted'}"
+          = i.status
         - if i.conflict?
           td Yes
         - else
