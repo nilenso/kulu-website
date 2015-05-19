@@ -73,7 +73,7 @@ var Admin = React.createClass({
 
         <Tabs.Panel title='Users'>
           <div>
-            <h3>Active Users</h3>
+            <h3>Active users</h3>
 
             <p>
               <ul>
@@ -89,8 +89,9 @@ var Admin = React.createClass({
         </Tabs.Panel>
 
         <Tabs.Panel title='Support'>
-          <p>You can reach out to us through <a href="mailto:kulu@nilenso.com" target="_top">mail</a>.
-            Or call us at +918553427344</p>
+          <h3>Reach out to us</h3>
+          <p>If you're facing any issues in using Kulu, feel free to drop us a <a href="mailto:kulu@nilenso.com" target="_top">mail</a>.
+            Or call us at <a href="tel:+918553427344">+91 8553 427 344</a></p>
         </Tabs.Panel>
       </Tabs>
     </div>);
