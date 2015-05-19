@@ -154,13 +154,13 @@ $nprogress-new-z-index: 100;
 }
 
 .tabs-menu-item:not(.is-active) a:hover {
-  color: #3498db;
+  color: $brand-primary;
 }
 
 .tabs-menu-item.is-active a {
   background: #fff;
   border: 1px solid #DDD;
-  border-top: 2px solid #3498db;
+  border-top: 2px solid $brand-primary;
   border-bottom: 0;
   color: #333;
 }

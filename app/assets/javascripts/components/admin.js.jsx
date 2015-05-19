@@ -79,7 +79,7 @@ var Admin = React.createClass({
               <ul>
                 {
                   this.state.users.map(function(o, i) {
-                    return <li key={i}>{o}</li>;
+                    return <li key={i}>{o["user-email"]} ({o["role"]})</li>;
                   })
                 }
               </ul>
