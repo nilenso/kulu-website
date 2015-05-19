@@ -46,5 +46,4 @@ class AdminController < ApplicationController
   def users_params
     params.permit(:token, :organization_name)
   end
-
 end
