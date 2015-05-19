@@ -6,9 +6,24 @@ class AdminController < ApplicationController
   end
 
   def invite
-    KuluService::API.new.invite(invite_params)
-    flash.notice = "Sent an invite to #{invite_params[:user_email]}"
-    render :nothing => true
+    begin
+      KuluService::API.new.invite(invite_params)
+      flash.notice = "Sent an invite to #{invite_params[:user_email]}"
+      render :nothing => true
+    rescue HTTPService::ClientError => e
+      flash.alert = "#{invite_params[:user_email]} is already a member"
+      render json: e.to_json, status: 400 and return
+    end
+  end
+
+
+  def users
+    begin
+      render json: KuluService::API.new.users(users_params).to_json
+    rescue HTTPService::ClientError => e
+      flash.alert = "#{e}"
+      render json: e.to_json, status: 400 and return
+    end
   end
 
   private
@@ -26,5 +41,9 @@ class AdminController < ApplicationController
 
   def invite_params
     params.permit(:token, :user_email, :organization_name)
+  end
+
+  def users_params
+    params.permit(:token, :organization_name)
   end
 end

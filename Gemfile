@@ -53,3 +53,4 @@ end
 gem 'unicorn'
 gem 'rack-timeout'
 gem 'rails_12factor', group: :production
+gem 'browserify-rails', '~>0.5'

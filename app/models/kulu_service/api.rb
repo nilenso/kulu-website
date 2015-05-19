@@ -132,5 +132,11 @@ module KuluService
       response = request.make(:post, 'member_signup', params: options)
       MultiJson.load(response.body)
     end
+
+    def users(options)
+      params = {organization_name: options[:organization_name]}
+      response = request.make(:get, 'admin/users', params, options[:token])
+      MultiJson.load(response.body)
+    end
   end
 end

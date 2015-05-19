@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   post '/signup',  to: 'home#signup'
 
   get  '/admin', to: 'admin#index'
+  get  '/users', to: 'admin#users'
   post '/invite', to: 'admin#invite'
   post '/member_signup', to: 'home#member_signup'
   get  '/verify_invite/:token', to: 'home#verify_invite'
