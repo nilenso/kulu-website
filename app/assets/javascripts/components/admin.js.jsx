@@ -55,8 +55,7 @@ var Admin = React.createClass({
 
             <p>
               <ul>
-                <li>Members you invite will be able to see all their expenses</li>
-                <li>Accountants can manage all your expenses</li>
+                <li>Members you invite will be able to see all the expenses of the company</li>
               </ul>
             </p>
           </div>
