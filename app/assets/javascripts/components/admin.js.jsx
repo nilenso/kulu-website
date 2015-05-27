@@ -1,5 +1,6 @@
 var React = require('react');
 var Tabs = require('react-simpletabs');
+var Records = require('./records.js.jsx');
 
 var Admin = React.createClass({
   getInitialState: function (e) {
@@ -49,6 +50,11 @@ var Admin = React.createClass({
   render: function () {
     return (<div className="invite">
       <Tabs onBeforeChange={this.handleBefore} tabActive={this.state.activeTab}>
+        <Tabs.Panel title='Categories'>
+          <h4>Add new</h4>
+          <Records data={[{id: 1, name: 'who'}, {id: 2, name: 'are you'}]}/>
+        </Tabs.Panel>
+
         <Tabs.Panel title='Invite'>
           <div>
             <h3>Invite new team members</h3>

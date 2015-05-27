@@ -12,9 +12,11 @@
     "node": "0.12.x"
   },
   "dependencies": {
-    "reactify": "^0.17.1",
     "browserify": "~>6.3",
     "browserify-incremental": "^1.4.0",
-    "react-simpletabs": "^0.6.1"
+    "colr": "^1.2.1",
+    "react-simple-colorpicker": "^1.0.1",
+    "react-simpletabs": "^0.6.1",
+    "reactify": "^0.17.1"
   }
 }
