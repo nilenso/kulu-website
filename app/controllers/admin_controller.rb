@@ -26,6 +26,33 @@ class AdminController < ApplicationController
     end
   end
 
+  def categories
+    begin
+      render json: KuluService::API.new.categories(categories_params).to_json
+    rescue HTTPService::ClientError => e
+      flash.alert = "#{e}"
+      render json: e.to_json, status: 400 and return
+    end
+  end
+
+  def update_categories
+    begin
+      render json: KuluService::API.new.update_category(category_params).to_json
+    rescue HTTPService::ClientError => e
+      flash.alert = "#{e}"
+      render json: e.to_json, status: 400 and return
+    end
+  end
+
+  def delete_categories
+    begin
+      render json: KuluService::API.new.delete_category(delete_category_params).to_json
+    rescue HTTPService::ClientError => e
+      flash.alert = "#{e}"
+      render json: e.to_json, status: 400 and return
+    end
+  end
+
   private
 
   def set_organization
@@ -45,5 +72,17 @@ class AdminController < ApplicationController
 
   def users_params
     params.permit(:token, :organization_name)
+  end
+
+  def categories_params
+    params.permit(:token, :organization_name)
+  end
+
+  def category_params
+    params.permit(:token, :organization_name, :id, :name)
+  end
+
+  def delete_category_params
+    params.permit(:token, :organization_name, :id)
   end
 end

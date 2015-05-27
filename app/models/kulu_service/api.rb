@@ -138,5 +138,23 @@ module KuluService
       response = request.make(:get, 'admin/users', params, options[:token])
       MultiJson.load(response.body)
     end
+
+    def categories(options)
+      params = {organization_name: options[:organization_name]}
+      response = request.make(:get, 'organizations/categories', params, options[:token])
+      MultiJson.load(response.body)
+    end
+
+    def update_category(options)
+      params = {organization_name: options[:organization_name], name: options[:name]}
+      response = request.make(:put, "organizations/categories/#{options[:id]}", params, options[:token])
+      MultiJson.load(response.body)
+    end
+
+    def delete_category(options)
+      params = {organization_name: options[:organization_name]}
+      response = request.make(:delete, "organizations/categories/#{options[:id]}", params, options[:token])
+      response.status == 204
+    end
   end
 end

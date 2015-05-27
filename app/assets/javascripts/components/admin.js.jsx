@@ -5,7 +5,8 @@ var Records = require('./records.js.jsx');
 var Admin = React.createClass({
   getInitialState: function (e) {
     return {
-      users: []
+      users: [],
+      activeTab: 1
     }
   },
 
@@ -16,8 +17,8 @@ var Admin = React.createClass({
     var email = this.refs["email"].getDOMNode().value;
 
     $.post('/invite', {
-      token: this.props.token,
-      organization_name: this.props.organization_name,
+      token: this.props.auth.token,
+      organization_name: this.props.auth.organization_name,
       user_email: email
     }).fail(function (e) {
       Turbolinks.visit(self.props.admin_root_path);
@@ -29,21 +30,37 @@ var Admin = React.createClass({
   },
 
   handleBefore: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
-    if (selectedIndex === 2) {
+    if (selectedIndex == 2) {
       this.listUsers();
     }
+  },
+
+  componentWillMount: function() {
+    this.listCategories();
   },
 
   listUsers: function () {
     var self = this;
 
     $.get('/users', {
-      token: this.props.token,
-      organization_name: this.props.organization_name
+      token: this.props.auth.token,
+      organization_name: this.props.auth.organization_name
     }).fail(function (e) {
       console.log(e);
-    }).success(function (e) {
-      self.setState({users: e, activeTab: 2});
+    }).success(function (d) {
+      self.setState({users: d, activeTab: 2});
+    });
+  },
+
+  listCategories: function () {
+    var self = this;
+    $.get('/categories', {
+      token: this.props.auth.token,
+      organization_name: this.props.auth.organization_name
+    }).fail(function (e) {
+      console.log(e);
+    }).success(function (d) {
+      self.setState({categories: d});
     });
   },
 
@@ -52,7 +69,7 @@ var Admin = React.createClass({
       <Tabs onBeforeChange={this.handleBefore} tabActive={this.state.activeTab}>
         <Tabs.Panel title='Categories'>
           <h4>Add new</h4>
-          <Records data={[{id: 1, name: 'who'}, {id: 2, name: 'are you'}]}/>
+          <Records data={this.state.categories || []} auth={this.props.auth}/>
         </Tabs.Panel>
 
         <Tabs.Panel title='Invite'>

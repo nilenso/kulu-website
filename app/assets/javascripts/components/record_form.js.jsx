@@ -1,19 +1,15 @@
 var React = require('react');
 
 var RecordForm = React.createClass({
-  getInitialState: function() {
-    return {
-      name: '',
-      date: '',
-      amount: ''
-    };
+  getInitialState: function () {
+    return {name: ''};
   },
 
-  valid: function() {
+  valid: function () {
     return this.state.name && this.state.date && this.state.amount;
   },
 
-  handleChange: function(e) {
+  handleChange: function (e) {
     var name, obj;
     name = e.target.name;
     return this.setState((
@@ -23,19 +19,19 @@ var RecordForm = React.createClass({
     ));
   },
 
-  handleSubmit: function(e) {
+  handleSubmit: function (e) {
     e.preventDefault();
-    return $.post('', {
+    return $.post('/categories', {
       record: this.state
-    }, (function(_this) {
-      return function(data) {
+    }, (function (_this) {
+      return function (data) {
         _this.props.handleNewRecord(data);
         return _this.setState(_this.getInitialState());
       };
     })(this), 'JSON');
   },
 
-  render: function() {
+  render: function () {
     return React.DOM.form({
       className: 'form-inline',
       onSubmit: this.handleSubmit
