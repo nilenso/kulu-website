@@ -1,7 +1,7 @@
 {
   "name": "kulu-website",
   "devDependencies": {
-    "react": "^0.12.0",
+    "react": "0.13.3",
     "react-tools": "^0.12.1"
   },
   "repository": {
