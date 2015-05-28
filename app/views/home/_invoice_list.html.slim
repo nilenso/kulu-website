@@ -31,8 +31,8 @@ table.table.table-striped.table-hover.expenses-table
 .pagination-per-page
   = form_tag root_path, method: :get, id: 'form-per-page'
     = hidden_field_tag :page, params[:page] || 1
-    = hidden_field_tag :direction, params[:direction] || "desc"
-    = hidden_field_tag :sort, params[:sort] || "created_at"
+    = hidden_field_tag :direction, params[:direction] || 'desc'
+    = hidden_field_tag :order, params[:order] || 'created_at'
 
 javascript:
   new Kulu.Paginator($('#form-per-page')).setupPerPageForm();
