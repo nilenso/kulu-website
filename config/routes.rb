@@ -28,8 +28,9 @@ Rails.application.routes.draw do
   get  '/users', to: 'admin#users'
 
   get     '/categories', to: 'admin#categories'
-  put     '/categories/:id', to: 'admin#update_categories'
-  delete  '/categories/:id', to: 'admin#delete_categories'
+  post    '/categories', to: 'admin#create_category'
+  put     '/categories/:id', to: 'admin#update_category'
+  delete  '/categories/:id', to: 'admin#delete_category'
 
   post '/invite', to: 'admin#invite'
   post '/member_signup', to: 'home#member_signup'

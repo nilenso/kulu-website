@@ -145,6 +145,12 @@ module KuluService
       MultiJson.load(response.body)
     end
 
+    def create_category(options)
+      params = {organization_name: options[:organization_name], name: options[:name]}
+      response = request.make(:post, 'organizations/categories', params, options[:token])
+      MultiJson.load(response.body)
+    end
+
     def update_category(options)
       params = {organization_name: options[:organization_name], name: options[:name]}
       response = request.make(:put, "organizations/categories/#{options[:id]}", params, options[:token])

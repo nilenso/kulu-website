@@ -35,7 +35,16 @@ class AdminController < ApplicationController
     end
   end
 
-  def update_categories
+  def create_category
+    begin
+      render json: KuluService::API.new.create_category(api_params(category_params)).to_json
+    rescue HTTPService::ClientError => e
+      flash.alert = "#{e}"
+      render json: e.to_json, status: 400 and return
+    end
+  end
+
+  def update_category
     begin
       render json: KuluService::API.new.update_category(category_params).to_json
     rescue HTTPService::ClientError => e
@@ -44,7 +53,7 @@ class AdminController < ApplicationController
     end
   end
 
-  def delete_categories
+  def delete_category
     begin
       render json: KuluService::API.new.delete_category(delete_category_params).to_json
     rescue HTTPService::ClientError => e
@@ -57,6 +66,10 @@ class AdminController < ApplicationController
 
   def set_organization
     @organization_name = request.subdomain if Subdomain.matches?(request)
+  end
+
+  def api_params(base_params)
+    base_params.merge(organization_name: @organization_name, token: current_user_token)
   end
 
   def require_login

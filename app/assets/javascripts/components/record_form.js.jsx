@@ -6,7 +6,7 @@ var RecordForm = React.createClass({
   },
 
   valid: function () {
-    return this.state.name && this.state.date && this.state.amount;
+    return this.state.name;
   },
 
   handleChange: function (e) {
@@ -20,15 +20,16 @@ var RecordForm = React.createClass({
   },
 
   handleSubmit: function (e) {
+    var self = this;
     e.preventDefault();
-    return $.post('/categories', {
-      record: this.state
-    }, (function (_this) {
-      return function (data) {
-        _this.props.handleNewRecord(data);
-        return _this.setState(_this.getInitialState());
-      };
-    })(this), 'JSON');
+
+    return $.post('/categories', this.state).fail(function (e) {
+      Turbolinks.visit(self.props.admin_root_path);
+      Kulu.flash();
+    }).success(function (data) {
+      self.props.handleNewRecord(data);
+      return self.setState(self.getInitialState());
+    });
   },
 
   render: function () {
