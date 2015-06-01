@@ -1,5 +1,6 @@
 //= require_self
 //= require react_ujs
 
-React = require('react');
+React = require('React');
 Admin = require('./components/admin.js.jsx');
+
