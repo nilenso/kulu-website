@@ -3,7 +3,7 @@ class Invoice
 
   attr_accessor :id, :organization_id, :url_prefix, :filename, :name, :currency,
                 :amount, :date, :attachment_url, :status, :expense_type,
-                :remarks, :user_name, :email, :status, :conflict
+                :remarks, :user_name, :email, :status, :conflict, :category_name
 
   class << self
     def create(options)

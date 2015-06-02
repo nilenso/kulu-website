@@ -14,6 +14,8 @@ class InvoicesController < ApplicationController
   def show
     @invoice = Invoice.find(api_params(show_params)).decorate
     @currencies = Currency.all
+    @categories = select_categories(KuluService::API.new.categories(organization_name: @organization_name,
+                                                  token: current_user_token))
     @invoice_states =
         KuluService::API.new.list_of_states(organization_name: @organization_name, token: current_user_token)
     @invoices =
@@ -23,7 +25,7 @@ class InvoicesController < ApplicationController
   def update
     @invoice = Invoice.update(api_params(update_params))
     flash.notice = 'Expense successfully updated'
-    render json: { invoice: @invoice }
+    render json: {invoice: @invoice}
   end
 
   def destroy
@@ -32,6 +34,14 @@ class InvoicesController < ApplicationController
   end
 
   private
+
+  def select_categories(categories)
+    categories.inject({}) do |acc, v|
+      map = {v['name'] => v['id']}
+      acc.merge!(map)
+      acc
+    end
+  end
 
   def set_organization
     @organization_name = request.subdomain if Subdomain.matches?(request)
@@ -50,7 +60,7 @@ class InvoicesController < ApplicationController
   end
 
   def update_params
-    params.permit(invoice: [:id, :name, :currency, :amount, :date, :status, :conflict, :remarks])
+    params.permit(:id, invoice: [:id, :name, :currency, :expense_type, :amount, :date, :status, :conflict, :remarks, :category_id])
   end
 
   def show_params

@@ -1,6 +1,6 @@
 class InvoiceDecorator < Draper::Decorator
   delegate :id, :organization_name, :attachment_url, :name, :date, :amount, :currency,
-           :expense_type, :remarks, :user_name, :email, :status, :conflict
+           :expense_type, :remarks, :user_name, :email, :status, :conflict, :category_name
 
   def attachment_url
     u = object.attachment_url

@@ -35,6 +35,7 @@ gem 'momentjs-rails'
 gem 'gaffe'
 gem 'font-awesome-rails'
 gem 'formvalidation-rails'
+gem 'chosen-rails'
 
 group 'development' do
   gem 'spring'

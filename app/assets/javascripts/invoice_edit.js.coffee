@@ -32,6 +32,7 @@ class Kulu.InvoiceEdit
       status: @formContainer.find('select[name="invoice[:status]"]').val()
       conflict: @formContainer.find('input[name="invoice[:conflict]"]:checked').val()
       remarks: @formContainer.find('input[name="invoice[:remarks]"]').val()
+      category_id: @formContainer.find('select[name="invoice[:category_id]"]').val()
     }
 
     $.ajax(
