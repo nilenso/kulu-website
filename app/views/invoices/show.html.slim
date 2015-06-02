@@ -44,7 +44,8 @@
 
         .invoice-details-fieldset
           p.invoice-details-label Category
-          = select_tag "invoice[:category_id]", options_for_select(@categories, @invoice.category_name), class: 'chosen-select form-control', tabindex: 8
+          = @invoice.category_name
+          = select_tag "invoice[:category_id]", options_for_select(@categories, @invoice.category_id), class: 'chosen-select form-control', tabindex: 8
 
         .invoice-details-fieldset
           p.invoice-details-label Remarks
