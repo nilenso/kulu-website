@@ -10,14 +10,12 @@ table.table.table-striped.table-hover.expenses-table
     th = sortable 'Status'
     th = sortable 'Conflict'
     th = 'Spender'
+    th = 'Category'
   tbody
     - invoices.each do |i|
       tr.invoice-table-row data-invoice-url="#{invoice_path(i.id)}?#{sorted_params(params)}"
         td
           = i.name
-          - if i.category_name.present?
-            span.category-name
-              = i.category_name
         td = i.display_date
         td = i.amount_with_currency
         td = i.expense_type
@@ -28,7 +26,10 @@ table.table.table-striped.table-hover.expenses-table
         - else
           td No
         td = i.user_name
-
+        td
+          - if i.category_name.present?
+            span.category-name
+              = i.category_name
 
 = paginate invoices, theme: 'twitter-bootstrap-3'
 
