@@ -50,7 +50,7 @@ class InvoicesController < ApplicationController
   end
 
   def update_params
-    params.permit(invoice: [:id, :name, :currency, :amount, :date, :status, :conflict, :remarks])
+    params.permit(:id, invoice: [:id, :name, :currency, :amount, :date, :status, :conflict, :remarks, :expense_type])
   end
 
   def show_params
