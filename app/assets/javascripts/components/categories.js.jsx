@@ -1,5 +1,4 @@
 var React = require('react');
-var ColorPicker = require('react-simple-colorpicker');
 
 var app = {
   listener: null,

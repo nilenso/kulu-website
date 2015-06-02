@@ -49,7 +49,7 @@ var RecordForm = React.createClass({
       type: 'submit',
       className: 'btn btn-primary',
       disabled: !this.valid()
-    }, 'Create record'));
+    }, 'Create'));
   }
 });
 
