@@ -1,25 +1,43 @@
 var React = require('react/addons');
 var RecordForm = require('./record_form.js.jsx');
 var Record = require('./record.js.jsx');
+var LoadingIcon = require('./loading-icon.js.jsx');
 
 var Records = React.createClass({
   getInitialState: function () {
     return {
-      records: this.props.data
+      records: []
     };
   },
 
   getDefaultProps: function () {
     return {
-      records: []
+      auth: {}
     };
+  },
+
+  listCategories: function () {
+    var self = this;
+
+    $.get('/categories', {
+      token: this.props.auth.token,
+      organization_name: this.props.auth.organization_name
+    }).fail(function (e) {
+      console.log(e);
+    }).success(function (d) {
+      self.setState({records: d});
+    });
+  },
+
+  componentWillMount: function() {
+    this.listCategories();
   },
 
   addRecord: function (record) {
     var records;
 
     records = React.addons.update(this.state.records, {
-      $push: [record]
+      $push: record
     });
 
     return this.setState({
@@ -35,7 +53,7 @@ var Records = React.createClass({
       $splice: [[index, 1]]
     });
 
-    return this.replaceState({
+    return this.setState({
       records: records
     });
   },
@@ -48,13 +66,18 @@ var Records = React.createClass({
     recordItr[index] = {$merge: data};
     records = React.addons.update(this.state.records, recordItr);
 
-    return this.replaceState({
+    return this.setState({
       records: records
     });
   },
 
   render: function () {
     var record;
+
+    if (!this.state.records) {
+      return <LoadingIcon/>
+    }
+
     return React.DOM.div({
       className: 'records'
     }, React.createElement(RecordForm, {
@@ -64,7 +87,7 @@ var Records = React.createClass({
       }, React.DOM.thead(null,
         React.DOM.tr(null,
           React.DOM.th(null, 'Name'),
-          React.DOM.th(null, 'Actions'))),
+          React.DOM.th({style: {width: "12%"}}, 'Actions'))),
       React.DOM.tbody(null, (function () {
         var i, len, ref, results;
         ref = this.state.records;

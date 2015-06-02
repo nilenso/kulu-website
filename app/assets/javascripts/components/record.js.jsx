@@ -24,6 +24,11 @@ var Record = React.createClass({
     var self = this;
     e.preventDefault();
 
+    if (!window.confirm("Are you sure?")) {
+      e.stopPropagation();
+      return false;
+    }
+
     return $.ajax({
       method: 'DELETE',
       url: "/categories/" + this.props.record.id,
@@ -66,10 +71,10 @@ var Record = React.createClass({
     return React.DOM.tr(null, React.DOM.td(null, this.props.record.name), React.DOM.td(null, React.DOM.a({
       className: 'btn btn-default',
       onClick: this.handleToggle
-    }, 'Edit'), React.DOM.a({
+    }, React.DOM.i({className: 'fa fa-pencil-square-o'})), React.DOM.a({
       className: 'btn btn-danger',
       onClick: this.handleDelete
-    }, 'Delete')));
+    }, React.DOM.i({className: 'fa fa-trash-o'}))));
   },
 
   recordForm: function () {
@@ -81,10 +86,10 @@ var Record = React.createClass({
     })), React.DOM.td(null, React.DOM.a({
       className: 'btn btn-default',
       onClick: this.handleEdit
-    }, 'Update'), React.DOM.a({
+    }, React.DOM.i({className: 'fa fa-check-square'})), React.DOM.a({
       className: 'btn btn-danger',
       onClick: this.handleToggle
-    }, 'Cancel')));
+    }, React.DOM.i({className: 'fa fa-times'}))));
   },
 
   render: function () {

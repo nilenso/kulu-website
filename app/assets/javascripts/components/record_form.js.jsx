@@ -43,7 +43,7 @@ var RecordForm = React.createClass({
       className: 'form-control',
       placeholder: 'Title',
       name: 'name',
-      value: this.state.title,
+      value: this.state.name,
       onChange: this.handleChange
     })), React.DOM.button({
       type: 'submit',

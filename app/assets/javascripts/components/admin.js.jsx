@@ -32,11 +32,8 @@ var Admin = React.createClass({
   handleBefore: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
     if (selectedIndex == 2) {
       this.listUsers();
+      this.setState({activeTab: 2});
     }
-  },
-
-  componentWillMount: function() {
-    this.listCategories();
   },
 
   listUsers: function () {
@@ -48,19 +45,7 @@ var Admin = React.createClass({
     }).fail(function (e) {
       console.log(e);
     }).success(function (d) {
-      self.setState({users: d, activeTab: 2});
-    });
-  },
-
-  listCategories: function () {
-    var self = this;
-    $.get('/categories', {
-      token: this.props.auth.token,
-      organization_name: this.props.auth.organization_name
-    }).fail(function (e) {
-      console.log(e);
-    }).success(function (d) {
-      self.setState({categories: d});
+      self.setState({users: d});
     });
   },
 
@@ -69,7 +54,7 @@ var Admin = React.createClass({
       <Tabs onBeforeChange={this.handleBefore} tabActive={this.state.activeTab}>
         <Tabs.Panel title='Categories'>
           <h4>Add new</h4>
-          <Records data={this.state.categories || []} auth={this.props.auth}/>
+          <Records auth={this.props.auth}/>
         </Tabs.Panel>
 
         <Tabs.Panel title='Invite'>
