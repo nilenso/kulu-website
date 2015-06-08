@@ -40,4 +40,5 @@ class Kulu.InvoiceEdit
       data: JSON.stringify({invoice: data})
       contentType: "application/json"
     ).success =>
+      Turbolinks.visit(@formContainer.data('invoices-url'));
       Kulu.flash()

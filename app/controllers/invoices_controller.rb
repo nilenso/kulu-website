@@ -43,8 +43,8 @@ class InvoicesController < ApplicationController
 
   def update
     @invoice = Invoice.update(api_params(update_params))
-    flash.now[:notice] = 'Expense successfully updated'
-    render json: {invoice: @invoice}
+    flash.notice = 'Expense successfully updated'
+    render :nothing => true
   end
 
   def destroy
