@@ -48,7 +48,7 @@ module KuluService
     end
 
     def update_invoice(options)
-      invoice_params = options[:invoice].except(:id)
+      invoice_params = options[:invoice].except(:id).delete_if { |_, v| v.blank? }
       response = request.make(:put, "invoices/#{options[:invoice][:id]}", {
                                       organization_name: options[:organization_name], invoice: invoice_params
                                   }, options[:token])
