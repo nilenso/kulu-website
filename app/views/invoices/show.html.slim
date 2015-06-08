@@ -7,7 +7,7 @@
 
   .span12
     .invoice-details.col-md-6
-      form.invoice-details-form action="#{invoice_path(@invoice.id)}" data-invoices-url="#{root_path}"
+      form.invoice-details-form action="#{invoice_path(@invoice.id)}" data-invoices-url="#{root_path(@page_params)}"
         input type="hidden" name="invoice[:id]" value="#{@invoice.id}"
         .invoice-details-fieldset.form-group
           p.invoice-details-label Merchant Name
@@ -26,8 +26,6 @@
           p.invoice-details-label Expense Type
           = radio_button_tag "invoice[:expense_type]", 'Company' , @invoice.expense_type == "Company", class: 'invoice-details-expense-type', tabindex: 4
           label_tag.invoice-expense-type-label Company
-          = radio_button_tag "invoice[:expense_type]", 'Personal', @invoice.expense_type == "Personal", class: 'invoice-details-expense-type', tabindex: 5
-          label_tag.invoice-expense-type-label Personal
           = radio_button_tag "invoice[:expense_type]", 'Reimbursement', @invoice.expense_type == "Reimbursement", class: 'invoice-details-expense-type', tabindex: 6
           label_tag.invoice-expense-type-label Reimbursement
 
@@ -48,7 +46,7 @@
 
         .invoice-edit-actions
           input.btn.btn-primary.invoice-edit-submit type='submit' value="Update" tabindex=9
-          = link_to "Cancel", root_path, class: 'btn btn-link', tabindex: 10
+          = link_to 'Back to list', invoices_path(@page_params), class: 'btn btn-link', tabindex: 10
           a.btn.btn-default.invoice-edit-delete data-method="delete" rel="nofollow" tabindex="11" href="#{invoice_path(@invoice.id)}"
             i.fa.fa-trash-o
 

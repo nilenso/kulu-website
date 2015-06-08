@@ -1,26 +1,6 @@
 class HomeController < ApplicationController
   before_filter :set_organization, :login_not_required
-  skip_before_filter :login_not_required, :only => [:dashboard, :logout]
-  helper_method :sort_column, :sort_direction
-
-  def dashboard
-    @pre_signed_post = KuluAWS.new.presigned_post
-
-    if logged_in? and @organization_name.present?
-      @invoice = Invoice.new(url_prefix: @pre_signed_post.key)
-      params[:token] = current_user_token
-
-      begin
-        @invoices = Invoice.list(request_params.merge(organization_name: @organization_name))
-      rescue HTTPService::ClientError
-        logout
-      end
-    end
-
-    if !logged_in? and @organization_name.blank?
-      render 'home/landing'
-    end
-  end
+  skip_before_filter :login_not_required, :only => [:logout]
 
   def login
     if request.subdomain == 'www'
@@ -114,14 +94,6 @@ class HomeController < ApplicationController
     redirect_to root_url if logged_in? # halts request cycle
   end
 
-  def sort_column
-    %w(name amount currency remarks date expense_type status conflict).include?((params[:order] || '').downcase) ? params[:order] : 'created_at'
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
-  end
-
   def login_params
     params.permit(:team_name, :user_email, :password)
   end
@@ -148,9 +120,5 @@ class HomeController < ApplicationController
 
   def member_signup_params
     params.permit(:password, :confirm, :user_email, :user_name, :organization_name, :token)
-  end
-
-  def request_params
-    params.permit(:order, :direction, :per_page, :page, :token)
   end
 end

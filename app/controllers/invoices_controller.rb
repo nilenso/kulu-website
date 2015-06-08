@@ -1,5 +1,25 @@
 class InvoicesController < ApplicationController
   before_filter :require_login, :set_organization
+  helper_method :sort_column, :sort_direction
+
+  def index
+    @pre_signed_post = KuluAWS.new.presigned_post
+
+    if logged_in? and @organization_name.present?
+      @invoice = Invoice.new(url_prefix: @pre_signed_post.key)
+      params[:token] = current_user_token
+
+      begin
+        @invoices = Invoice.list(request_params.merge(organization_name: @organization_name))
+      rescue HTTPService::ClientError
+        logout
+      end
+    end
+
+    if !logged_in? and @organization_name.blank?
+      render 'home/landing'
+    end
+  end
 
   def create
     invoice = Invoice.create(api_params(create_params))
@@ -13,6 +33,7 @@ class InvoicesController < ApplicationController
 
   def show
     @invoice = Invoice.find(api_params(show_params)).decorate
+    @page_params = params.slice(:direction, :order, :page, :per_page)
     @currencies = Currency.all
     @invoice_states =
         KuluService::API.new.list_of_states(organization_name: @organization_name, token: current_user_token)
@@ -22,8 +43,8 @@ class InvoicesController < ApplicationController
 
   def update
     @invoice = Invoice.update(api_params(update_params))
-    flash.notice = 'Expense successfully updated'
-    render json: { invoice: @invoice }
+    flash.now[:notice] = 'Expense successfully updated'
+    render json: {invoice: @invoice}
   end
 
   def destroy
@@ -32,6 +53,14 @@ class InvoicesController < ApplicationController
   end
 
   private
+
+  def sort_column
+    %w(name amount currency remarks date expense_type status conflict).include?((params[:order] || '').downcase) ? params[:order] : 'created_at'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
+  end
 
   def set_organization
     @organization_name = request.subdomain if Subdomain.matches?(request)
@@ -59,5 +88,9 @@ class InvoicesController < ApplicationController
 
   def delete_params
     params.permit(:id)
+  end
+
+  def request_params
+    params.permit(:order, :direction, :per_page, :page, :token)
   end
 end
