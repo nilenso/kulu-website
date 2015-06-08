@@ -54,7 +54,7 @@ class HomeController < ApplicationController
 
   def forgot
     KuluService::API.new.forgot(forgot_password_params)
-    render 'home/signin'
+    render 'home/sent_reset_mail'
   end
 
   def verify_password
@@ -76,12 +76,12 @@ class HomeController < ApplicationController
 
   def member_signup
     KuluService::API.new.member_signup(member_signup_params)
-    render 'home/signin'
+    team_signin
   end
 
   def update_password
     KuluService::API.new.update_password(update_password_params)
-    render 'home/signin'
+    team_signin
   end
 
   private

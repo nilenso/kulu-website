@@ -1,5 +1,6 @@
 class InvoicesController < ApplicationController
   before_filter :require_login, :set_organization
+  skip_before_filter :require_login, :only => [:index]
   helper_method :sort_column, :sort_direction
 
   def index
