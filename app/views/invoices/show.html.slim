@@ -38,7 +38,7 @@
 
         .invoice-details-fieldset
           p.invoice-details-label Status
-          = select_tag 'invoice[:status]', options_for_select(@invoice_states, @invoice.status), class: 'form-control', tabindex: 8
+          = select_tag 'invoice[:status]', options_for_select(@invoice_states, @invoice.status), class: 'chosen-select form-control', tabindex: 8
 
         .invoice-details-fieldset
           p.invoice-details-label Category
