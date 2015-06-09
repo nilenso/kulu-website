@@ -23,6 +23,7 @@
 //= require jquery.colorbox
 //= require moment
 //= require pikaday
+//= require chosen-jquery
 //= require formvalidation
 //= require formvalidation/framework/bootstrap
 //= require components

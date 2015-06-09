@@ -1,10 +1,12 @@
 var React = require('react');
 var Tabs = require('react-simpletabs');
+var Records = require('./records.js.jsx');
 
 var Admin = React.createClass({
   getInitialState: function (e) {
     return {
-      users: []
+      users: [],
+      activeTab: 1
     }
   },
 
@@ -15,8 +17,8 @@ var Admin = React.createClass({
     var email = this.refs["email"].getDOMNode().value;
 
     $.post('/invite', {
-      token: this.props.token,
-      organization_name: this.props.organization_name,
+      token: this.props.auth.token,
+      organization_name: this.props.auth.organization_name,
       user_email: email
     }).fail(function (e) {
       Turbolinks.visit(self.props.admin_root_path);
@@ -28,8 +30,9 @@ var Admin = React.createClass({
   },
 
   handleBefore: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
-    if (selectedIndex === 2) {
+    if (selectedIndex == 2) {
       this.listUsers();
+      this.setState({activeTab: 2});
     }
   },
 
@@ -37,18 +40,23 @@ var Admin = React.createClass({
     var self = this;
 
     $.get('/users', {
-      token: this.props.token,
-      organization_name: this.props.organization_name
+      token: this.props.auth.token,
+      organization_name: this.props.auth.organization_name
     }).fail(function (e) {
       console.log(e);
-    }).success(function (e) {
-      self.setState({users: e, activeTab: 2});
+    }).success(function (d) {
+      self.setState({users: d});
     });
   },
 
   render: function () {
     return (<div className="invite">
       <Tabs onBeforeChange={this.handleBefore} tabActive={this.state.activeTab}>
+        <Tabs.Panel title='Categories'>
+          <h4>Add new</h4>
+          <Records auth={this.props.auth}/>
+        </Tabs.Panel>
+
         <Tabs.Panel title='Invite'>
           <div>
             <h3>Invite new team members</h3>

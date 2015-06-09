@@ -48,7 +48,7 @@ module KuluService
     end
 
     def update_invoice(options)
-      invoice_params = options[:invoice].except(:id)
+      invoice_params = options[:invoice].except(:id).delete_if { |_, v| v.blank? }
       response = request.make(:put, "invoices/#{options[:invoice][:id]}", {
                                       organization_name: options[:organization_name], invoice: invoice_params
                                   }, options[:token])
@@ -137,6 +137,30 @@ module KuluService
       params = {organization_name: options[:organization_name]}
       response = request.make(:get, 'admin/users', params, options[:token])
       MultiJson.load(response.body)
+    end
+
+    def categories(options)
+      params = {organization_name: options[:organization_name]}
+      response = request.make(:get, 'organizations/categories', params, options[:token])
+      MultiJson.load(response.body)
+    end
+
+    def create_category(options)
+      params = {organization_name: options[:organization_name], name: options[:name]}
+      response = request.make(:post, 'organizations/categories', params, options[:token])
+      MultiJson.load(response.body)
+    end
+
+    def update_category(options)
+      params = {organization_name: options[:organization_name], name: options[:name]}
+      response = request.make(:put, "organizations/categories/#{options[:id]}", params, options[:token])
+      MultiJson.load(response.body)
+    end
+
+    def delete_category(options)
+      params = {organization_name: options[:organization_name]}
+      response = request.make(:delete, "organizations/categories/#{options[:id]}", params, options[:token])
+      response.status == 204
     end
   end
 end

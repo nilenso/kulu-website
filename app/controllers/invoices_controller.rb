@@ -36,6 +36,8 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.find(api_params(show_params)).decorate
     @page_params = params.slice(:direction, :order, :page, :per_page)
     @currencies = Currency.all
+    @categories = select_categories(KuluService::API.new.categories(organization_name: @organization_name,
+                                                  token: current_user_token))
     @invoice_states =
         KuluService::API.new.list_of_states(organization_name: @organization_name, token: current_user_token)
     @invoices =
@@ -63,6 +65,14 @@ class InvoicesController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
 
+  def select_categories(categories)
+    categories.inject({}) do |acc, v|
+      map = {v['name'] => v['id']}
+      acc.merge!(map)
+      acc
+    end
+  end
+
   def set_organization
     @organization_name = request.subdomain if Subdomain.matches?(request)
   end
@@ -80,7 +90,7 @@ class InvoicesController < ApplicationController
   end
 
   def update_params
-    params.permit(:id, invoice: [:id, :name, :currency, :amount, :date, :status, :conflict, :remarks, :expense_type])
+    params.permit(:id, invoice: [:id, :name, :currency, :expense_type, :amount, :date, :status, :conflict, :remarks, :category_id])
   end
 
   def show_params

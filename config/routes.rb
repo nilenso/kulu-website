@@ -26,6 +26,12 @@ Rails.application.routes.draw do
 
   get  '/admin', to: 'admin#index'
   get  '/users', to: 'admin#users'
+
+  get     '/categories', to: 'admin#categories'
+  post    '/categories', to: 'admin#create_category'
+  put     '/categories/:id', to: 'admin#update_category'
+  delete  '/categories/:id', to: 'admin#delete_category'
+
   post '/invite', to: 'admin#invite'
   post '/member_signup', to: 'home#member_signup'
   get  '/verify_invite/:token', to: 'home#verify_invite'

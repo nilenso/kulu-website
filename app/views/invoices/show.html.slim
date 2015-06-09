@@ -41,13 +41,18 @@
           = select_tag 'invoice[:status]', options_for_select(@invoice_states, @invoice.status), class: 'form-control', tabindex: 8
 
         .invoice-details-fieldset
+          p.invoice-details-label Category
+          = @invoice.category_name
+          = select_tag "invoice[:category_id]", options_for_select(@categories, @invoice.category_id), class: 'chosen-select form-control', tabindex: 9, include_blank: true
+
+        .invoice-details-fieldset
           p.invoice-details-label Remarks
-          input.form-control name="invoice[:remarks]" value="#{@invoice.remarks}" tabindex=9
+          input.form-control name="invoice[:remarks]" value="#{@invoice.remarks}" tabindex=10
 
         .invoice-edit-actions
-          input.btn.btn-primary.invoice-edit-submit type='submit' value="Update" tabindex=10
-          = link_to 'Back to list', invoices_path(@page_params), class: 'btn btn-link', tabindex: 11
-          a.btn.btn-default.invoice-edit-delete data-method="delete" rel="nofollow" tabindex="12" href="#{invoice_path(@invoice.id)}"
+          input.btn.btn-primary.invoice-edit-submit type='submit' value="Update" tabindex=11
+          = link_to 'Back to list', invoices_path(@page_params), class: 'btn btn-link', tabindex: 12
+          a.btn.btn-default.invoice-edit-delete data-method="delete" rel="nofollow" tabindex="13" href="#{invoice_path(@invoice.id)}"
             i.fa.fa-trash-o
 
     .invoice-image-container.col-md-6
@@ -78,4 +83,9 @@ javascript:
   var picker = new Pikaday({
       field: $('.invoice-details-date')[0],
       format: 'DD-MM-YYYY'
+  });
+
+  $('.chosen-select').chosen({
+    allow_single_deselect: true,
+    no_results_text: 'No results matched'
   });
