@@ -1,4 +1,7 @@
 class InvoicesController < ApplicationController
+  require 'open-uri'
+  require 'uri'
+
   before_filter :require_login, :set_organization
   skip_before_filter :require_login, :only => [:index]
   helper_method :sort_column, :sort_direction
@@ -37,11 +40,18 @@ class InvoicesController < ApplicationController
     @page_params = params.slice(:direction, :order, :page, :per_page)
     @currencies = Currency.all
     @categories = select_categories(KuluService::API.new.categories(organization_name: @organization_name,
-                                                  token: current_user_token))
+                                                                    token: current_user_token))
     @invoice_states =
         KuluService::API.new.list_of_states(organization_name: @organization_name, token: current_user_token)
     @invoices =
         Invoices.next_and_prev_invoices(api_params(params))
+  end
+
+  def fetch_attachment
+    url = URI.unescape(params[:attachment_url])
+    open(url) do |f|
+      send_data Base64.encode64(f.read)
+    end
   end
 
   def update

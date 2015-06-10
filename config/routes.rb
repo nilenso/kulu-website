@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   constraints(Subdomain) do
-    resources :expenses, controller: 'invoices', :as => 'invoices'
+    resources :expenses, controller: 'invoices', :as => 'invoices' do
+      collection do
+        post :fetch_attachment
+      end
+    end
   end
 
   resources :transcriber, controller: 'transcriber', :as => 'transcriber' do
@@ -9,6 +13,8 @@ Rails.application.routes.draw do
       post :authorize
     end
   end
+
+  mount PdfjsViewer::Rails::Engine => '/pdfjs', as: 'pdfjs'
 
   post '/login',   to: 'home#auth'
   get  '/login',   to: 'home#login'

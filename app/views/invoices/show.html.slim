@@ -56,34 +56,17 @@
             i.fa.fa-trash-o
 
     .invoice-image-container.col-md-6
-      ul.pager.expense-pager
-        li
-          a id="prev" href="#"
-            | ← Previous
-        li
-          a id="next" href="#"
-            | Next →
-        | &nbsp; &nbsp;
-        | Page:
-        span id="page-num"
-        |/
-        span id="page-count"
-
-      .expense-pdf-container
-        canvas id="expense-canvas-pdf" data-mime-type="#{@invoice.attachment_mime_type}"
-        img.loading-icon src="#{asset_path('loading-icon.gif')}"
-
-      div class="expense-image-container"
-        img class="expense-image" src="#{@invoice.attachment_url}"
+      iframe class="expense-image-container"
 
 javascript:
   new Kulu.InvoiceEdit($(".invoice-details-form"));
-  new Kulu.ExpenseViewer($('.expense-pdf-container'), 'prev', 'next', 'page-num', 'page-count').view("#{@invoice.attachment_url}");
-  
+
   var picker = new Pikaday({
       field: $('.invoice-details-date')[0],
       format: 'DD-MM-YYYY'
   });
+
+  new Kulu.InvoiceAttachment($('.expense-image-container'), encodeURI("#{@invoice.attachment_url}")).fetch();
 
   $('.chosen-select').chosen({
     allow_single_deselect: true,
