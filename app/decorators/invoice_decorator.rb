@@ -14,7 +14,16 @@ class InvoiceDecorator < Draper::Decorator
 
   def attachment_mime_type
     return '' unless attachment_url.present?
-    MimeMagic.by_path(URI.parse(attachment_url.html_safe).path).try(:type) || ''
+    @type ||= MimeMagic.by_path(URI.parse(attachment_url.html_safe).path).try(:type)
+    @type || ''
+  end
+
+  def image?
+    attachment_mime_type == 'image/png' or attachment_mime_type == 'image/jpeg'
+  end
+
+  def document?
+    attachment_mime_type == 'application/pdf'
   end
 
   def name

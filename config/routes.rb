@@ -14,8 +14,6 @@ Rails.application.routes.draw do
     end
   end
 
-  mount PdfjsViewer::Rails::Engine => '/pdfjs', as: 'pdfjs'
-
   post '/login',   to: 'home#auth'
   get  '/login',   to: 'home#login'
   post '/signin',  to: 'home#signin'

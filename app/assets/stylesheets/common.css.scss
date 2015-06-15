@@ -21,15 +21,17 @@ $nprogress-new-z-index: 100;
   right: 25px;
 }
 
-.expense-image-container {
-  width: 100%;
-  height: 890px;
+.expense-doc-container {
+  width: 101%;
+  height: 920px;
 }
 
 .expense-image {
-  width: 500px;
-  max-height: 500px;
-  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100% !important;
+  height: auto !important;
 }
 
 .current {

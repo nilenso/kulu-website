@@ -19,21 +19,21 @@
 
         .invoice-details-fieldset
           p.invoice-details-label Amount
-          = select_tag 'invoice[:currency]', options_for_select(@currencies, @invoice.currency || "INR"), class: 'form-control invoice-details-currency', tabindex: 3
+          = select_tag 'invoice[:currency]', options_for_select(@currencies, @invoice.currency || 'INR'), class: 'form-control invoice-details-currency', tabindex: 3
           input name="invoice[:amount]" value="#{@invoice.amount}" tabindex=4
 
         .invoice-details-fieldset
           p.invoice-details-label Expense Type
-          = radio_button_tag "invoice[:expense_type]", 'Company' , @invoice.expense_type == "Company", class: 'invoice-details-expense-type', tabindex: 4
+          = radio_button_tag 'invoice[:expense_type]', 'Company' , @invoice.expense_type == 'Company', class: 'invoice-details-expense-type', tabindex: 4
           label_tag.invoice-expense-type-label Company
-          = radio_button_tag "invoice[:expense_type]", 'Reimbursement', @invoice.expense_type == "Reimbursement", class: 'invoice-details-expense-type', tabindex: 5
+          = radio_button_tag 'invoice[:expense_type]', 'Reimbursement', @invoice.expense_type == 'Reimbursement', class: 'invoice-details-expense-type', tabindex: 5
           label_tag.invoice-expense-type-label Reimbursement
 
         .invoice-details-fieldset
           p.invoice-details-label Conflict
-          = radio_button_tag "invoice[:conflict]", true , @invoice.conflict? , class: 'invoice-details-expense-type', tabindex: 6
+          = radio_button_tag 'invoice[:conflict]', true , @invoice.conflict? , class: 'invoice-details-expense-type', tabindex: 6
           label_tag.invoice-expense-type-label Yes
-          = radio_button_tag "invoice[:conflict]", false , !@invoice.conflict? , class: 'invoice-details-expense-type', tabindex: 7
+          = radio_button_tag 'invoice[:conflict]', false , !@invoice.conflict? , class: 'invoice-details-expense-type', tabindex: 7
           label_tag.invoice-expense-type-label No
 
         .invoice-details-fieldset
@@ -43,7 +43,7 @@
         .invoice-details-fieldset
           p.invoice-details-label Category
           = @invoice.category_name
-          = select_tag "invoice[:category_id]", options_for_select(@categories, @invoice.category_id), class: 'chosen-select form-control', tabindex: 9, include_blank: true
+          = select_tag 'invoice[:category_id]', options_for_select(@categories, @invoice.category_id), class: 'chosen-select form-control', tabindex: 9, include_blank: true
 
         .invoice-details-fieldset
           p.invoice-details-label Remarks
@@ -55,8 +55,13 @@
           a.btn.btn-default.invoice-edit-delete data-method="delete" rel="nofollow" tabindex="13" href="#{invoice_path(@invoice.id)}"
             i.fa.fa-trash-o
 
-    .invoice-image-container.col-md-6
-      iframe class="expense-image-container"
+    .expense-attachment-container.col-md-6
+      - if @invoice.image?
+        div class="expense-image-container"
+          img class="expense-image" src="#{@invoice.attachment_url}"
+      - elsif @invoice.document?
+        iframe class="expense-doc-container" frameBorder="0" src="#{@invoice.attachment_url}"
+
 
 javascript:
   new Kulu.InvoiceEdit($(".invoice-details-form"));
@@ -66,9 +71,9 @@ javascript:
       format: 'DD-MM-YYYY'
   });
 
-  new Kulu.InvoiceAttachment($('.expense-image-container'), encodeURI("#{@invoice.attachment_url}")).fetch();
-
   $('.chosen-select').chosen({
     allow_single_deselect: true,
     no_results_text: 'No results matched'
   });
+
+  new Kulu.ExpenseViewer($(".expense-attachment-container"));

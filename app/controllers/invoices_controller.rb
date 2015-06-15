@@ -1,14 +1,10 @@
 class InvoicesController < ApplicationController
-  require 'open-uri'
-  require 'uri'
-
   before_filter :require_login, :set_organization
   skip_before_filter :require_login, :only => [:index]
   helper_method :sort_column, :sort_direction
 
   def index
     @pre_signed_post = KuluAWS.new.presigned_post
-
     if logged_in? and @organization_name.present?
       @invoice = Invoice.new(url_prefix: @pre_signed_post.key)
       params[:token] = current_user_token
@@ -27,7 +23,6 @@ class InvoicesController < ApplicationController
 
   def create
     invoice = Invoice.create(api_params(create_params))
-
     if invoice.valid?
       redirect_to invoice_path(invoice.id)
     else
@@ -45,13 +40,6 @@ class InvoicesController < ApplicationController
         KuluService::API.new.list_of_states(organization_name: @organization_name, token: current_user_token)
     @invoices =
         Invoices.next_and_prev_invoices(api_params(params))
-  end
-
-  def fetch_attachment
-    url = URI.unescape(params[:attachment_url])
-    open(url) do |f|
-      send_data Base64.encode64(f.read)
-    end
   end
 
   def update
@@ -114,4 +102,5 @@ class InvoicesController < ApplicationController
   def request_params
     params.permit(:order, :direction, :per_page, :page, :token)
   end
+
 end

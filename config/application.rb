@@ -21,7 +21,11 @@ module KuluWebsite
     # config.i18n.default_locale = :de
 
     config.autoload_paths += %W(#{config.root}/app/decorators)
+
     Rails.application.config.assets.precompile += %w( error.png )
+
     config.browserify_rails.commandline_options = "--transform reactify --extension=\".jsx\""
+
+    config.action_controller.perform_caching = true
   end
 end
