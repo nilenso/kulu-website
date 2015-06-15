@@ -9,21 +9,27 @@ class Kulu.FileUploader
 
   setupUpload: =>
     @fileInput.fileupload
+      add: (e, data) =>
+        @formData['Content-Type'] = data.files[0].type
+        @fileNameInput.val(data.files[0].name)
+        data.formData = @formData
+        data.submit()
+
       fileInput: @fileInput
       url: @url
       type: "POST"
       autoUpload: true
       formData: @formData
-      paramName: "file" # S3 does not like nested name fields i.e. name="user[avatar_url]"
-      dataType: "XML" # S3 returns XML if success_action_status is set to 201
+      paramName: "file"
+      dataType: "XML"
       replaceFileInput: false
+
       done: (e, data) =>
-        @formData["Content-Type"] = data.files[0].type;
-        @fileNameInput.val(data.files[0].name)
         @form.formData = @formData
         @form.submit()
+        console.log('The expense was uploaded successfully.')
 
-      fail: (e, data) ->
+      fail: (e, data) =>
         alert("There was a problem in uploading your expense. Please try again.")
 
       progressall: (e, data) =>
