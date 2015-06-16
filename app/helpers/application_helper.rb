@@ -11,14 +11,15 @@ module ApplicationHelper
 
   def convert(column)
     {
-        'Merchant Name' => 'name',
+        'Merchant' => 'name',
         'Expense Date' => 'date',
-        'created_at' => 'created_at',
+        'Submission Date' => 'created_at',
         'Amount' => 'amount',
         'Remarks' => 'remarks',
-        'Expense Type' => 'expense_type',
+        'Type' => 'expense_type',
         'Status' => 'status',
-        'Conflict' => 'conflict'
+        'Conflict' => 'conflict',
+        'Spender' => 'user_name'
     }[column]
   end
 

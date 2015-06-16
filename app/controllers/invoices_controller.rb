@@ -56,7 +56,7 @@ class InvoicesController < ApplicationController
   private
 
   def sort_column
-    %w(name amount currency remarks date expense_type status conflict).include?((params[:order] || '').downcase) ? params[:order] : 'created_at'
+    %w(name amount currency remarks date created_at expense_type status conflict user_name).include?((params[:order] || '').downcase) ? params[:order] : 'created_at'
   end
 
   def sort_direction

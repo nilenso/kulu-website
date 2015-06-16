@@ -1,6 +1,12 @@
 $nprogress-new-color: #E99002;
 $nprogress-new-z-index: 100;
 
+@media (min-width: 1200px) {
+  .container {
+    width: 90%;
+  }
+}
+
 #nprogress .bar {
   background: $nprogress-new-color;
 

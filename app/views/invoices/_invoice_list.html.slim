@@ -2,23 +2,23 @@
 
 table.table.table-striped.table-hover.expenses-table
   thead.expenses-table-head
-    th = sortable 'Merchant Name'
+    th = sortable 'Merchant'
     th = sortable 'Expense Date'
+    th = sortable 'Submission Date'
     th = sortable 'Amount'
-    th = sortable 'Expense Type'
-    th = sortable 'Remarks'
+    th = sortable 'Type'
     th = sortable 'Status'
     th = sortable 'Conflict'
-    th = 'Spender'
+    th = sortable 'Spender'
     th = 'Category'
   tbody
     - invoices.each do |i|
       tr.invoice-table-row data-invoice-url="#{invoice_path(i.id)}?#{sorted_params}"
         td = i.name
         td = i.display_date
-        td = i.amount_with_currency
+        td = i.submission_date
+        td.small = i.amount_with_currency
         td = i.expense_type
-        td = i.remarks
         td = i.status
         - if i.conflict?
           td Yes

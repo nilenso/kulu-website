@@ -1,5 +1,5 @@
 class InvoiceDecorator < Draper::Decorator
-  delegate :id, :organization_name, :attachment_url, :name, :date, :amount, :currency,
+  delegate :id, :organization_name, :attachment_url, :name, :date, :created_at, :amount, :currency,
            :expense_type, :remarks, :user_name, :email, :status, :conflict, :category_name, :category_id
 
   def attachment_url
@@ -31,11 +31,15 @@ class InvoiceDecorator < Draper::Decorator
   end
 
   def display_date
-    formatted_date('%d %b %Y')
+    formatted_date(object.date, '%d %b %Y')
+  end
+
+  def submission_date
+    formatted_date(object.created_at, '%d %b %Y')
   end
 
   def input_date
-    formatted_date('%d-%m-%Y')
+    formatted_date(object.date, '%d-%m-%Y')
   end
 
   def amount_with_currency
@@ -57,9 +61,7 @@ class InvoiceDecorator < Draper::Decorator
 
   private
 
-  def formatted_date(format)
-    d = object.date
-
+  def formatted_date(d, format)
     if d.blank?
       '-'
     else
