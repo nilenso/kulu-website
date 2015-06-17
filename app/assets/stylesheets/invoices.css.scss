@@ -156,4 +156,20 @@ tr.invoice-table-row {
   border: 1px solid black;
 }
 
+.expense-attachment-container {
+  margin-top: 30px;
+}
 
+.expense-attachment-metadata {
+  background-color: $brand-primary-alpha;
+  width: 101%;
+  padding: 5px;
+  margin-bottom: 5px;
+  .name {
+    font-weight: bold;
+  }
+
+  .separator {
+    padding: 0 5px 0 5px;
+  }
+}

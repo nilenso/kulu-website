@@ -29,14 +29,16 @@ $nprogress-new-z-index: 100;
 
 .expense-doc-container {
   width: 101%;
-  height: 920px;
+  height: 855px;
 }
 
 .expense-image {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 100% !important;
+  max-height: 855px;
+  max-width: 101%;
+  width: auto !important;
   height: auto !important;
 }
 

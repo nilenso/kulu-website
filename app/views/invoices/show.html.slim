@@ -56,12 +56,23 @@
             i.fa.fa-trash-o
 
     .expense-attachment-container.col-md-6
+      .expense-attachment-metadata
+        span
+          | by
+          | &nbsp;
+        span.name
+          = @invoice.user_name
+        span.separator
+          | •
+        span
+        span.created_at
+          = @invoice.submission_date
+
       - if @invoice.image?
         div class="expense-image-container"
           img class="expense-image" src="#{@invoice.attachment_url}"
       - elsif @invoice.document?
         iframe class="expense-doc-container" frameBorder="0" src="#{@invoice.attachment_url}"
-
 
 javascript:
   new Kulu.InvoiceEdit($(".invoice-details-form"));
