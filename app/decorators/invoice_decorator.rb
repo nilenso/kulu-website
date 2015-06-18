@@ -1,6 +1,5 @@
 class InvoiceDecorator < Draper::Decorator
-  delegate :id, :organization_name, :attachment_url, :name, :date, :created_at, :amount, :currency,
-           :expense_type, :remarks, :user_name, :email, :status, :conflict, :category_name, :category_id
+  delegate_all
 
   def attachment_url
     u = object.attachment_url
@@ -10,20 +9,6 @@ class InvoiceDecorator < Draper::Decorator
     else
       helpers.asset_path('placeholder-portrait-450x600.jpg')
     end
-  end
-
-  def attachment_mime_type
-    return '' unless attachment_url.present?
-    @type ||= MimeMagic.by_path(URI.parse(attachment_url.html_safe).path).try(:type)
-    @type || ''
-  end
-
-  def image?
-    attachment_mime_type == 'image/png' or attachment_mime_type == 'image/jpeg'
-  end
-
-  def document?
-    attachment_mime_type == 'application/pdf'
   end
 
   def name

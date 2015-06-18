@@ -102,5 +102,4 @@ class InvoicesController < ApplicationController
   def request_params
     params.permit(:order, :direction, :per_page, :page, :token)
   end
-
 end

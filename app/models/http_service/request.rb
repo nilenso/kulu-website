@@ -10,7 +10,7 @@ module HTTPService
       end
     end
 
-    def make(verb, request_url, request_body = {}, token="")
+    def make(verb, request_url, request_body = {}, token='')
       response = send(verb, request_url, request_body, token)
       Response.new(response.status, response.body, response.headers)
     end
