@@ -50,6 +50,8 @@ var Admin = React.createClass({
   },
 
   render: function () {
+    var forwardMail = "expenses." + this.props.auth.organization_name + "@kulu.in";
+
     return (<div className="invite">
       <Tabs onBeforeChange={this.handleBefore} tabActive={this.state.activeTab}>
         <Tabs.Panel title='Categories'>
@@ -92,7 +94,19 @@ var Admin = React.createClass({
               </ul>
             </p>
           </div>
+        </Tabs.Panel>
 
+        <Tabs.Panel title='Receipts'>
+          <div className='mail-receipt-container'>
+            <div className="receipt-icon"><i className="fa fa-envelope-o"></i></div>
+            <h4>
+              Forward your inbox receipts to <a href="mailto:{forwardMail}" target="_top">{forwardMail}</a><br/> using your account email.
+            </h4>
+            <br/>
+            <h4>
+              We'll process them and put them in Kulu.
+            </h4>
+          </div>
         </Tabs.Panel>
 
         <Tabs.Panel title='Support'>
