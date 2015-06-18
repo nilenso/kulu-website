@@ -19,8 +19,8 @@
 
         .invoice-details-fieldset
           p.invoice-details-label Amount
-          = select_tag 'invoice[:currency]', options_for_select(@currencies, @invoice.currency || 'INR'), class: 'form-control invoice-details-currency', tabindex: 3
-          input name="invoice[:amount]" value="#{@invoice.amount}" tabindex=4
+          = select_tag 'invoice[:currency]', options_for_select(@currencies, @invoice.currency || 'INR'), class: 'chosen-select form-control invoice-details-currency', tabindex: 3
+          input.invoice-details-amount name="invoice[:amount]" value="#{@invoice.amount}" tabindex=4
 
         .invoice-details-fieldset
           p.invoice-details-label Expense Type
