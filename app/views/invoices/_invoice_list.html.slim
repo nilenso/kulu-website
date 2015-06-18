@@ -2,22 +2,23 @@
 
 table.table.table-striped.table-hover.expenses-table
   thead.expenses-table-head
-    th = sortable 'Merchant'
+    th.large = sortable 'Merchant'
     th = sortable 'Expense Date'
     th = sortable 'Submission Date'
     th = sortable 'Amount'
     th = sortable 'Type'
-    th = sortable 'Status'
+    th.medium = sortable 'Status'
     th = sortable 'Conflict'
     th = sortable 'Spender'
-    th = 'Category'
+    th.large = 'Category'
+    th.tiny
   tbody
     - invoices.each do |i|
       tr.invoice-table-row data-invoice-url="#{invoice_path(i.id)}?#{sorted_params}"
         td = i.name
         td = i.display_date
         td = i.submission_date
-        td.small = i.amount_with_currency
+        td = i.amount_with_currency
         td = i.expense_type
         td = i.status
         - if i.conflict?
@@ -29,6 +30,10 @@ table.table.table-striped.table-hover.expenses-table
           - if i.category_name.present?
             span.category-name
               = i.category_name
+        td
+          - if i.remarks.present?
+            div class="remarks-bubble hint--right" data-hint="#{i.remarks}"
+              i.fa.fa-comment-o
 
 = paginate invoices, theme: 'twitter-bootstrap-3'
 
