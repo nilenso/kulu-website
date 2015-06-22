@@ -4,9 +4,6 @@ class Kulu.TranscriberInvoiceEdit
     @invoiceID = @formContainer.find('input[name="invoice[:id]"]').val()
     @dateGroup = @formContainer.find('.invoice-details-date-group')
 
-    console.log(@updateButton)
-    console.log(@invoiceID)
-
     @updateButton.click (e) =>
       e.preventDefault()
       @formSubmit()
@@ -35,6 +32,5 @@ class Kulu.TranscriberInvoiceEdit
       data: JSON.stringify({invoice: data})
       contentType: "application/json"
     ).success =>
-      console.log(@formContainer.data('invoices-url'))
       Turbolinks.visit(@formContainer.data('invoices-url'))
       Kulu.flash()

@@ -34,26 +34,11 @@
           = link_to "Cancel", transcriber_index_path, class: 'btn btn-link', tabindex: 10
 
     .invoice-image-container.col-md-6
-      ul.pager.expense-pager
-        li
-          a id="prev" href="#"
-            | ← Previous
-        li
-          a id="next" href="#"
-            | Next →
-        | &nbsp; &nbsp;
-        | Page:
-        span id="page-num"
-        |/
-        span id="page-count"
-
-      .expense-pdf-container
-        canvas id="expense-canvas-pdf" data-mime-type="#{@invoice.attachment_mime_type}"
-        img.loading-icon src="#{asset_path('loading-icon.gif')}"
-
-      div class="expense-image-container"
-        img class="expense-image" src="#{@invoice.attachment_url}"
-
+      - if @invoice.image?
+        div class="expense-image-container"
+          img class="expense-image" src="#{@invoice.attachment_url}"
+      - elsif @invoice.document?
+        iframe class="expense-doc-container" frameBorder="0" src="#{@invoice.attachment_url}"
 javascript:
   new Kulu.TranscriberInvoiceEdit($(".transcriber-invoice-details-form"));
   new Kulu.ExpenseViewer($('.expense-pdf-container'), 'prev', 'next', 'page-num', 'page-count').view("#{@invoice.attachment_url}");
