@@ -162,5 +162,11 @@ module KuluService
       response = request.make(:delete, "organizations/categories/#{options[:id]}", params, options[:token])
       response.status == 204
     end
+
+    def dashboard_report(options)
+      params = {organization_name: options[:organization_name], from: Date.parse(options[:from]).iso8601, to: Date.parse(options[:to]).iso8601}
+      response = request.make(:get, 'reports/dashboard/all', params, options[:token])
+      MultiJson.load(response.body)
+    end
   end
 end

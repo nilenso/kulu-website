@@ -1,0 +1,80 @@
+<div class="page-wrap">
+  <div class="content">
+    <h2>Dashboard</h2>
+    <br/>
+    <h4>General</h4>
+    <%= @organization_name %> incurred <%= @reports.total('currency_breakdown') %> expenses worth
+    <% @reports.currency_breakdown.each do |b| %>
+        <span>
+          <%= "#{b['currency']} #{b['sum']}" %>,
+        </span>
+    <% end %>
+
+    <br/>
+    <br/>
+
+    <div>
+      <em>out of which</em>
+    </div>
+
+    <br/>
+
+    <div>
+      <%= @reports.total('awaiting_review') %> expenses worth
+      <% @reports.awaiting_review.each do |b| %>
+        <span>
+          <%= "#{b['currency']} #{b['sum']}" %>,
+        </span>
+      <% end %>
+      are awaiting your review
+    </div>
+
+    <div>
+      <%= @reports.total('awaiting_approval') %> expense(s) worth
+      <% @reports.awaiting_approval.each do |b| %>
+        <span>
+          <%= "#{b['currency']} #{b['sum']}" %>,
+        </span>
+      <% end %>
+      needs to be approved by you
+    </div>
+    <div>
+      <%= @reports.total('reviewed') %> have been reviewed
+    </div>
+
+    <br/>
+
+    <div>
+      this excludes <%= @reports.total('submitted') %> submitted expense(s)
+    </div>
+    <div>
+      and <%= @reports.total('conflicted') %> expense(s) that are in dispute
+    </div>
+
+    <br/>
+    <br/>
+
+    <h4>Categories</h4>
+    <div>
+      <table class="table table-striped table-hover">
+        <tbody>
+        <% @reports.category_breakdown.each do |k, v| %>
+          <tr>
+            <td>
+              <%= k %>
+            </td>
+            <td>
+              <% v.each do |b| %>
+              <span>
+                <%= Money.new(b['sum'].to_i * 100, b['currency']).format %>
+                <br/>
+              </span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

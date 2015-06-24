@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :expenses, controller: 'invoices', :as => 'invoices' do
       collection do
         post :fetch_attachment
+        get  :dashboard
       end
     end
   end
@@ -14,10 +15,10 @@ Rails.application.routes.draw do
     end
   end
 
-  post '/login',   to: 'home#auth'
-  get  '/login',   to: 'home#login'
-  post '/signin',  to: 'home#signin'
-  get  '/signin',  to: 'home#team_signin', as: :team_signin
+  post '/login',     to: 'home#auth'
+  get  '/login',     to: 'home#login'
+  post '/signin',    to: 'home#signin'
+  get  '/signin',    to: 'home#team_signin', as: :team_signin
 
   get  '/forgot_password',  to: 'home#forgot_password', as: :forgot_password
   post '/forgot',  to: 'home#forgot'

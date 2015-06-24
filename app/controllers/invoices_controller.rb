@@ -1,16 +1,30 @@
 class InvoicesController < ApplicationController
   before_filter :require_login, :set_organization
-  skip_before_filter :require_login, :only => [:index]
+  skip_before_filter :require_login, :only => [:index, :dashboard]
   helper_method :sort_column, :sort_direction
+
+  def dashboard
+    if logged_in? and @organization_name.present?
+      begin
+        @reports = Report.new(api_params(report_params))
+        render 'home/dashboard'
+      rescue HTTPService::ClientError
+        logout
+      end
+    end
+
+    if !logged_in? and @organization_name.blank?
+      render 'home/landing'
+    end
+  end
 
   def index
     @pre_signed_post = KuluAWS.new.presigned_post
     if logged_in? and @organization_name.present?
       @invoice = Invoice.new(url_prefix: @pre_signed_post.key)
-      params[:token] = current_user_token
 
       begin
-        @invoices = Invoice.list(request_params.merge(organization_name: @organization_name))
+        @invoices = Invoice.list(api_params(request_params))
       rescue HTTPService::ClientError
         logout
       end
@@ -101,5 +115,9 @@ class InvoicesController < ApplicationController
 
   def request_params
     params.permit(:order, :direction, :per_page, :page, :token)
+  end
+
+  def report_params
+    params.permit(:from, :to)
   end
 end
