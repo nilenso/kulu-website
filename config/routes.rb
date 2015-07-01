@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       collection do
         post :fetch_attachment
         get  :dashboard
+        get  :search
       end
     end
   end
@@ -41,5 +42,7 @@ Rails.application.routes.draw do
   post '/member_signup', to: 'home#member_signup'
   get  '/verify_invite/:token', to: 'home#verify_invite'
 
-  root 'invoices#index'
+  get '/search', to: 'home#search'
+
+  root 'invoices#dashboard'
 end

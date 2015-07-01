@@ -15,12 +15,19 @@ html
       ul.nav.navbar-nav.navbar-right
         li.navbar-menu
           - if logged_in?
-            = link_to 'Admin', '/admin'
+            a href='/expenses/dashboard' data-no-turbolink="true"
+              span class='fa fa-home'
+            a href='/expenses' data-no-turbolink="true"
+              span class='fa fa-list'
+            a href='/admin' data-no-turbolink="true"
+              span class='fa fa-cog'
         li.navbar-menu
           - if logged_in?
-            = link_to 'Logout', '/logout', 'data-no-turbolink' => true
+            a href='/logout' data-no-turbolink="true"
+              span class='fa fa-sign-out'
           - else
-            = link_to 'Login', '/signin', 'data-no-turbolink' => true
+            a href='/signin' data-no-turbolink="true"
+              span class='fa fa-sign-in'
       = render '/flash'
 
     .container

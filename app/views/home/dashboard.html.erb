@@ -1,80 +1,120 @@
-<div class="page-wrap">
-  <div class="content">
-    <h2>Dashboard</h2>
-    <br/>
-    <h4>General</h4>
-    <%= @organization_name %> incurred <%= @reports.total('currency_breakdown') %> expenses worth
-    <% @reports.currency_breakdown.each do |b| %>
-        <span>
-          <%= "#{b['currency']} #{b['sum']}" %>,
+<div class="content dashboard">
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+
+  <div class="generic-widget">
+    <form class="date-entry" action=<%="#{dashboard_invoices_path}"%> method="get">
+      <span class="from-date">
+        <p class="">From</p>
+        <input class="dashboard-report-from-date" name="from" value=<%="#{@from}"%> placeholder="DD-MM-YYYY">
+      </span>
+
+      <span class="to-date">
+        <p class="">To</p>
+        <input class="dashboard-report-to-date" name="to" value=<%="#{@to}"%> placeholder="DD-MM-YYYY">
+      </span>
+
+      <span class="search">
+        <input class="btn btn-primary report-submit" type="submit" value="Update Report"/>
+      </span>
+    </form>
+
+    <div class="entry">
+      <%= @reports.total('currency_breakdown') %> expenses incurred
+      <div class="currency-breakdown">
+        <% @reports.currency_breakdown.each do |b| %>
+        <span class="currency-breakdown-item">
+          <%= "#{b['currency']} #{b['sum']}" %>
         </span>
-    <% end %>
-
-    <br/>
-    <br/>
-
-    <div>
-      <em>out of which</em>
+        <% end %>
+      </div>
     </div>
 
-    <br/>
+    <hr class="separator"/>
 
-    <div>
-      <%= @reports.total('awaiting_review') %> expenses worth
-      <% @reports.awaiting_review.each do |b| %>
-        <span>
-          <%= "#{b['currency']} #{b['sum']}" %>,
+    <div class="entry">
+      <%= @reports.total('awaiting_review') %> expense(s) needs reviewing
+      <div class="currency-breakdown">
+        <% @reports.awaiting_review.each do |b| %>
+        <span class="currency-breakdown-item">
+          <%= "#{b['currency']} #{b['sum']}" %>
         </span>
-      <% end %>
-      are awaiting your review
+        <% end %>
+      </div>
     </div>
 
-    <div>
-      <%= @reports.total('awaiting_approval') %> expense(s) worth
-      <% @reports.awaiting_approval.each do |b| %>
-        <span>
-          <%= "#{b['currency']} #{b['sum']}" %>,
+    <div class="entry">
+      <%= @reports.total('awaiting_approval') %> expense(s) need to be reimbursed
+      <div class="currency-breakdown">
+        <% @reports.awaiting_approval.each do |b| %>
+        <span class="currency-breakdown-item">
+          <%= "#{b['currency']} #{b['sum']}" %>
         </span>
-      <% end %>
-      needs to be approved by you
-    </div>
-    <div>
-      <%= @reports.total('reviewed') %> have been reviewed
+        <% end %>
+      </div>
     </div>
 
-    <br/>
+    <div class="entry">
+      <%= @reports.total('reviewed') %> have already been reviewed
+      <div class="currency-breakdown">
+        <% @reports.reviewed.each do |b| %>
+        <span class="currency-breakdown-item">
+          <%= "#{b['currency']} #{b['sum']}" %>
+        </span>
+        <% end %>
+      </div>
+    </div>
 
-    <div>
+    <hr class="separator"/>
+
+    <div class="entry">
       this excludes <%= @reports.total('submitted') %> submitted expense(s)
-    </div>
-    <div>
       and <%= @reports.total('conflicted') %> expense(s) that are in dispute
     </div>
+  </div>
 
-    <br/>
-    <br/>
+  <hr class="separator"/>
 
-    <h4>Categories</h4>
-    <div>
-      <table class="table table-striped table-hover">
-        <tbody>
+  <div class="category-widget">
+    <div class="category-table">
+      <ul class="items">
         <% @reports.category_breakdown.each do |k, v| %>
-          <tr>
-            <td>
+          <li class="item-row">
+            <span class="item-key">
               <%= k %>
-            </td>
-            <td>
+            </span>
+
+            <div class="item-value">
               <% v.each do |b| %>
               <span>
                 <%= Money.new(b['sum'].to_i * 100, b['currency']).format %>
                 <br/>
               </span>
               <% end %>
-            </td>
-          </tr>
+            </div>
+          </li>
         <% end %>
-        </tbody>
-      </table>
+      </ul>
     </div>
   </div>
+
+  <br/>
+  <br/>
+  <br/>
+  <br/>
 </div>
+
+
+<%= javascript_tag do %>
+  new Pikaday({
+    field: $('.dashboard-report-from-date')[0],
+    format: 'YYYY-MM-DD'
+  });
+
+  new Pikaday({
+    field: $('.dashboard-report-to-date')[0],
+    format: 'YYYY-MM-DD'
+  });
+<% end %>

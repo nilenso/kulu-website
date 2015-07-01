@@ -1,15 +1,33 @@
 class InvoicesController < ApplicationController
   before_filter :require_login, :set_organization
-  skip_before_filter :require_login, :only => [:index, :dashboard]
+  skip_before_filter :require_login, :only => [:index, :dashboard, :search]
   helper_method :sort_column, :sort_direction
 
-  def dashboard
+  def search
     if logged_in? and @organization_name.present?
       begin
-        @reports = Report.new(api_params(report_params))
+        @invoices = Invoice.search(api_params(search_params))
+      rescue HTTPService::ClientError
+        logout # FIXME
+      end
+    end
+
+    if !logged_in? and @organization_name.blank?
+      render 'home/landing'
+    end
+  end
+
+  def dashboard
+    now = Date.current
+    @from = params[:from] || (now - 30).iso8601
+    @to = params[:to] || now.iso8601
+
+    if logged_in? and @organization_name.present?
+      begin
+        @reports = Report.new(api_params(report_params.merge(from: @from, to: @to)))
         render 'home/dashboard'
       rescue HTTPService::ClientError
-        logout
+        logout # FIXME
       end
     end
 
@@ -114,7 +132,11 @@ class InvoicesController < ApplicationController
   end
 
   def request_params
-    params.permit(:order, :direction, :per_page, :page, :token)
+    params.permit(:order, :direction, :per_page, :page)
+  end
+
+  def search_params
+    params.permit(:q, :order, :direction, :per_page, :page)
   end
 
   def report_params

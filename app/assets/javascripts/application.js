@@ -28,4 +28,5 @@
 //= require formvalidation/framework/bootstrap
 //= require components
 //= require kulu
+//= require dashboard-reports
 //= require_tree .
