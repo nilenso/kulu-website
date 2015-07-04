@@ -42,7 +42,5 @@ Rails.application.routes.draw do
   post '/member_signup', to: 'home#member_signup'
   get  '/verify_invite/:token', to: 'home#verify_invite'
 
-  get '/search', to: 'home#search'
-
   root 'invoices#dashboard'
 end

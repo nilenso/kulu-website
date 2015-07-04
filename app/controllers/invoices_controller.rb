@@ -6,7 +6,8 @@ class InvoicesController < ApplicationController
   def search
     if logged_in? and @organization_name.present?
       begin
-        @invoices = Invoice.search(api_params(search_params))
+        params = search_params.reject { |_, v| v.blank? }
+        @invoices = Invoice.search(api_params(params))
       rescue HTTPService::ClientError
         logout # FIXME
       end
@@ -136,7 +137,8 @@ class InvoicesController < ApplicationController
   end
 
   def search_params
-    params.permit(:q, :order, :direction, :per_page, :page)
+    params.permit(:q, :order, :direction, :per_page, :page, :name, :amount, :currency, :from_date, :to_date,
+                  :from_submission_date, :to_submission_date, :expense_type, :status, :conflict)
   end
 
   def report_params

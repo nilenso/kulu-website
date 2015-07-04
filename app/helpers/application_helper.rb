@@ -5,7 +5,8 @@ module ApplicationHelper
     css_class = (new_column == sort_column) ? "current #{sort_direction}" : nil
     direction = (new_column == sort_column && sort_direction == 'asc') ? 'desc' : 'asc'
 
-    link_to title, {:order => new_column, :direction => direction,
+    link_to title, {:q => "imli",
+                    :order => new_column, :direction => direction,
                     :page => params[:page] || 1, :per_page => params[:per_page] || 15}, {:class => css_class}
   end
 

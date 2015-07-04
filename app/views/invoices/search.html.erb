@@ -1,0 +1,25 @@
+<br/>
+<br/>
+<br/>
+<br/>
+
+<form id="search-form" action=<%= "#{search_invoices_path}" %> method="get">
+  <%= hidden_field_tag :q, '' %>
+  <%= hidden_field_tag :name, '' %>
+  <%= hidden_field_tag :to_date, '' %>
+  <%= hidden_field_tag :from_date, '' %>
+  <%= hidden_field_tag :to_submission_date, '' %>
+  <%= hidden_field_tag :from_submission_date, '' %>
+  <%= hidden_field_tag :currency, '' %>
+  <%= hidden_field_tag :amount, '' %>
+  <%= hidden_field_tag :expense_type, '' %>
+  <%= hidden_field_tag :status, '' %>
+  <%= hidden_field_tag :conflict, '' %>
+
+  <div class="visual_search"></div>
+  <span class="search">
+    <input id="expenses-search" class="btn btn-primary" type="submit" value="Search"/>
+  </span>
+</form>
+
+<%= render 'invoice_list', invoices: @invoices, params: params %>

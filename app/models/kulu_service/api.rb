@@ -168,5 +168,10 @@ module KuluService
       response = request.make(:get, 'reports/dashboard/all', params, options[:token])
       MultiJson.load(response.body)
     end
+
+    def search(options)
+      response = request.make(:get, 'invoices/search', options, options[:token])
+      MultiJson.load(response.body)
+    end
   end
 end
