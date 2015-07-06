@@ -5,7 +5,7 @@ module KuluService
     attr_reader :request
 
     def initialize
-      @request = HTTPService::Request.new(KULU_BACKEND_SERVICE_URL)
+      @request = HTTPService::Request.new(KULU_BACKEND_SERVICE_URL + '/v1.0.0')
     end
 
     def create_invoice(options)
@@ -33,8 +33,7 @@ module KuluService
     def list_invoices(options)
       page = (options[:page] || 1).to_i
       per_page = (options[:per_page] || Kaminari.config.default_per_page).to_i
-      params = {organization_name: options[:organization_name],
-                page: page,
+      params = {page: page,
                 per_page: per_page,
                 order: (options[:sort] || 'created_at').downcase,
                 direction: (options[:direction] || 'desc').downcase}.merge(options)
@@ -63,14 +62,12 @@ module KuluService
     end
 
     def list_of_states(options)
-      response = request.make(:get, 'invoices/states', {
-                                      organization_name: options[:organization_name]
-                                  }, options[:token])
+      response = request.make(:get, 'invoices/states', {}, options[:token])
       MultiJson.load(response.body)
     end
 
     def next_and_prev_invoices(options)
-      params = {organization_name: options[:organization_name], order: options[:order], direction: options[:direction]}
+      params = {order: options[:order], direction: options[:direction]}
       response = request.make(:get, "invoices/#{options[:id]}/next_and_prev_invoices", params, options[:token])
       MultiJson.load(response.body)
     end
