@@ -4,22 +4,33 @@
 <br/>
 
 <form id="search-form" action=<%= "#{search_invoices_path}" %> method="get">
-  <%= hidden_field_tag :q, '' %>
-  <%= hidden_field_tag :name, '' %>
-  <%= hidden_field_tag :to_date, '' %>
-  <%= hidden_field_tag :from_date, '' %>
-  <%= hidden_field_tag :to_submission_date, '' %>
-  <%= hidden_field_tag :from_submission_date, '' %>
-  <%= hidden_field_tag :currency, '' %>
-  <%= hidden_field_tag :amount, '' %>
-  <%= hidden_field_tag :expense_type, '' %>
-  <%= hidden_field_tag :status, '' %>
-  <%= hidden_field_tag :conflict, '' %>
+  <%= hidden_field_tag :q, params[:q], disabled: true %>
+  <%= hidden_field_tag :name, params[:name], disabled: true %>
+  <%= hidden_field_tag :to_date, params[:to_date], disabled: true %>
+  <%= hidden_field_tag :from_date, params[:from_date], disabled: true %>
+  <%= hidden_field_tag :to_submission_date, params[:to_submission_date], disabled: true %>
+  <%= hidden_field_tag :from_submission_date, params[:from_submission_date], disabled: true %>
+  <%= hidden_field_tag :currency, params[:currency], disabled: true %>
+  <%= hidden_field_tag :min_amount, params[:min_amount], disabled: true %>
+  <%= hidden_field_tag :max_amount, params[:max_amount], disabled: true %>
+  <%= hidden_field_tag :amount, params[:amount], disabled: true %>
+  <%= hidden_field_tag :expense_type, params[:expense_type], disabled: true %>
+  <%= hidden_field_tag :status, params[:status], disabled: true %>
+  <%= hidden_field_tag :category_name, params[:category], disabled: true %>
+  <%= hidden_field_tag :user_name, params[:spender], disabled: true %>
+  <%= hidden_field_tag :conflict, params[:conflict], disabled: true %>
 
   <div class="visual_search"></div>
+
   <span class="search">
     <input id="expenses-search" class="btn btn-primary" type="submit" value="Search"/>
   </span>
 </form>
 
-<%= render 'invoice_list', invoices: @invoices, params: params %>
+<%= render 'invoice_list', invoices: @invoices, params: @params %>
+
+<%= javascript_tag do %>
+  $(document).ready(function () {
+    Kulu.search(<%= @params.to_json.html_safe %>);
+  });
+<% end %>

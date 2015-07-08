@@ -1,4 +1,4 @@
-$(document).ready(function () {
+Kulu.search = function (searchParams) {
   var displayDatepicker = function (callback) {
     var input = $('.search_facet.is_editing input.search_facet_input');
 
@@ -8,7 +8,7 @@ $(document).ready(function () {
 
     var setVisualSearch = function (date) {
       removeDatepicker();
-      // pikaday doesn't appear to return the formatted date onSelect
+      // pikaday doesn't return the formatted date onSelect
       // so we're having to format it manually
       callback([$.datepicker.formatDate('yy-mm-d', date)]);
       $("ul.VS-interface:visible li.ui-menu-item a:first").click()
@@ -33,7 +33,7 @@ $(document).ready(function () {
 
       facetMatches: function (callback) {
         callback([
-          {label: 'query', category: 'general'},
+          {label: 'query'},
           {label: 'merchant name', category: 'general'},
           {label: 'type', category: 'general'},
           {label: 'status', category: 'general'},
@@ -100,12 +100,27 @@ $(document).ready(function () {
     "amount (<)": "max_amount",
     "amount (=)": "amount",
     "type": "expense_type",
-    "text": "q",
+    "category": "category_name",
+    "spender": "user_name",
     "query": "q"
   };
 
+  var paramsToVisualSearch = function (params) {
+    var invertedMappings = _.invert(visualSearchToApiMappings);
+
+    _.each(params, function (v, k) {
+      if (_.has(invertedMappings, k)) {
+        visualSearch.searchBox.addFacet(invertedMappings[k], v + "");
+      } else {
+        visualSearch.searchBox.addFacet(k, v + "");
+      }
+    });
+  };
+
+  paramsToVisualSearch(searchParams);
+
   var formContainer = $('#search-form');
-  var searchButton  = $("#expenses-search");
+  var searchButton = $("#expenses-search");
 
   searchButton.click(function (e) {
     e.preventDefault();
@@ -114,13 +129,13 @@ $(document).ready(function () {
 
   var formSubmit = function () {
     _.each(visualSearch.searchQuery.facets(), function (o) {
-      var key =   _.keys(o)[0];
+      var key = _.keys(o)[0];
       var value = _.values(o)[0];
       var formKeyName = visualSearchToApiMappings[key];
       input = 'input[name="' + (formKeyName ? formKeyName : key) + '"]';
-      formContainer.find(input).val(value);
+      formContainer.find(input).val(value).prop("disabled", false);
     });
 
     return formContainer.submit();
   };
-});
+};

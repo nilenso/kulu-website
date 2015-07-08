@@ -6,10 +6,10 @@ class InvoicesController < ApplicationController
   def search
     if logged_in? and @organization_name.present?
       begin
-        params = search_params.reject { |_, v| v.blank? }
-        @invoices = Invoice.search(api_params(params))
+        @params = search_params.reject { |_, v| v.blank? }
+        @invoices = Invoice.search(api_params(@params))
       rescue HTTPService::ClientError
-        logout # FIXME
+        flash.now[:error] = 'Could not populate any search results'
       end
     end
 
@@ -138,7 +138,8 @@ class InvoicesController < ApplicationController
 
   def search_params
     params.permit(:q, :order, :direction, :per_page, :page, :name, :amount, :currency, :from_date, :to_date,
-                  :from_submission_date, :to_submission_date, :expense_type, :status, :conflict)
+                  :amount, :min_amount, :max_amount, :expense_type, :status, :conflict, :user_name, :category_name,
+                  :from_submission_date, :to_submission_date)
   end
 
   def report_params
