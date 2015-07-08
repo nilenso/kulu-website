@@ -5,15 +5,15 @@
   <br/>
 
   <div class="generic-widget">
-    <form class="date-entry" action=<%="#{dashboard_invoices_path}"%> method="get">
+    <form class="date-entry" action=<%= "#{dashboard_invoices_path}" %> method="get">
       <span class="from-date">
         <p class="">From</p>
-        <input class="dashboard-report-from-date" name="from" value=<%="#{@from}"%> placeholder="DD-MM-YYYY">
+        <input class="dashboard-report-from-date" name="from" value=<%= "#{@from}" %> placeholder="DD-MM-YYYY">
       </span>
 
       <span class="to-date">
         <p class="">To</p>
-        <input class="dashboard-report-to-date" name="to" value=<%="#{@to}"%> placeholder="DD-MM-YYYY">
+        <input class="dashboard-report-to-date" name="to" value=<%= "#{@to}" %> placeholder="DD-MM-YYYY">
       </span>
 
       <span class="search">
@@ -22,7 +22,10 @@
     </form>
 
     <div class="entry">
-      <%= @reports.total('currency_breakdown') %> expenses incurred
+      <a href=<%= search_invoices_path(:conflict => false, :from_date => @from, :to_date => @to) %>>
+        <%= @reports.total('currency_breakdown') %> expenses incurred
+      </a>
+
       <div class="currency-breakdown">
         <% @reports.currency_breakdown.each do |b| %>
         <span class="currency-breakdown-item">
@@ -35,7 +38,11 @@
     <hr class="separator"/>
 
     <div class="entry">
-      <%= @reports.total('awaiting_review') %> expense(s) needs reviewing
+      <a href=<%= search_invoices_path(:status => 'Extracted', :expense_type => 'Company', :conflict => false,
+                                       :from_date => @from, :to_date => @to) %>>
+        <%= @reports.total('awaiting_review') %> expense(s) needs reviewing
+      </a>
+
       <div class="currency-breakdown">
         <% @reports.awaiting_review.each do |b| %>
         <span class="currency-breakdown-item">
@@ -46,7 +53,11 @@
     </div>
 
     <div class="entry">
-      <%= @reports.total('awaiting_approval') %> expense(s) need to be reimbursed
+      <a href=<%= search_invoices_path(:status => 'Extracted', :expense_type => 'Reimbursement', :conflict => false,
+                                       :from_date => @from, :to_date => @to) %>>
+        <%= @reports.total('awaiting_approval') %> expense(s) need to be reimbursed
+      </a>
+
       <div class="currency-breakdown">
         <% @reports.awaiting_approval.each do |b| %>
         <span class="currency-breakdown-item">
@@ -57,7 +68,11 @@
     </div>
 
     <div class="entry">
-      <%= @reports.total('reviewed') %> have already been reviewed
+      <a href=<%= search_invoices_path(:status => 'Reviewed', :conflict => false,
+                                       :from_date => @from, :to_date => @to) %>>
+        <%= @reports.total('reviewed') %> have already been reviewed
+      </a>
+
       <div class="currency-breakdown">
         <% @reports.reviewed.each do |b| %>
         <span class="currency-breakdown-item">
@@ -70,8 +85,17 @@
     <hr class="separator"/>
 
     <div class="entry">
-      this excludes <%= @reports.total('submitted') %> submitted expense(s)
-      and <%= @reports.total('conflicted') %> expense(s) that are in dispute
+      this excludes
+      <a href=<%= search_invoices_path(:status => 'Submitted', :conflict => false,
+                                       :from_date => @from, :to_date => @to) %>>
+        <%= @reports.total('submitted') %> submitted expense(s)
+      </a>
+
+      and
+      <a href=<%= search_invoices_path(:conflict => false) %>>
+        <%= @reports.total('conflicted') %> expense(s)
+      </a>
+      that are in dispute
     </div>
   </div>
 
@@ -109,12 +133,12 @@
 
 <%= javascript_tag do %>
   new Pikaday({
-    field: $('.dashboard-report-from-date')[0],
-    format: 'YYYY-MM-DD'
+  field: $('.dashboard-report-from-date')[0],
+  format: 'YYYY-MM-DD'
   });
 
   new Pikaday({
-    field: $('.dashboard-report-to-date')[0],
-    format: 'YYYY-MM-DD'
+  field: $('.dashboard-report-to-date')[0],
+  format: 'YYYY-MM-DD'
   });
 <% end %>

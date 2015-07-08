@@ -29,6 +29,12 @@ Kulu.search = function (searchParams) {
     query: '',
     callbacks: {
       search: function (query, searchCollection) {
+        var $query = $('.search_query');
+        var count  = searchCollection.size();
+        $query.stop().animate({opacity : 1}, {duration: 300, queue: false});
+        $query.html('<span class="raquo">&raquo;</span> You are searching for: ' +
+          '<b>' + (query || '<i>nothing</i>') + '</b> ' +
+          '(' + count + ' facet' + (count==1 ? '' : 's') + ')');
       },
 
       facetMatches: function (callback) {
@@ -74,7 +80,7 @@ Kulu.search = function (searchParams) {
             }, 0);
             break;
           case 'conflict':
-            callback(['No', 'Yes'], {preserveOrder: true});
+            callback(['false', 'true'], {preserveOrder: true});
             break;
           case 'type':
             callback(['Company', 'Reimbursement'], {preserveOrder: true});
