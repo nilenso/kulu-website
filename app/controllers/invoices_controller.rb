@@ -1,7 +1,11 @@
 class InvoicesController < ApplicationController
   before_filter :require_login, :set_organization
-  skip_before_filter :require_login, :only => [:index]
+  skip_before_filter :require_login, :only => [:index, :main]
   helper_method :sort_column, :sort_direction
+
+  def main
+    render 'static_pages/landing_page'
+  end
 
   def index
     @pre_signed_post = KuluAWS.new.presigned_post
