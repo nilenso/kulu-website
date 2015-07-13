@@ -99,13 +99,13 @@ var Admin = React.createClass({
         <Tabs.Panel title='Receipts'>
           <div className='mail-receipt-container'>
             <div className="receipt-icon"><i className="fa fa-envelope-o"></i></div>
-            <h4>
+            <h5>
               Forward your inbox receipts to <a href="mailto:{forwardMail}" target="_top">{forwardMail}</a><br/> using your account email.
-            </h4>
+            </h5>
             <br/>
-            <h4>
+            <h5>
               We'll process them and put them in Kulu.
-            </h4>
+            </h5>
           </div>
         </Tabs.Panel>
 

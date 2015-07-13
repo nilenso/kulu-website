@@ -1,11 +1,7 @@
 class InvoicesController < ApplicationController
   before_filter :require_login, :set_organization
-  skip_before_filter :require_login, :only => [:index, :main]
+  skip_before_filter :require_login, :only => [:index]
   helper_method :sort_column, :sort_direction
-
-  def main
-    render 'static_pages/landing_page'
-  end
 
   def index
     @pre_signed_post = KuluAWS.new.presigned_post
@@ -21,7 +17,7 @@ class InvoicesController < ApplicationController
     end
 
     if !logged_in? and @organization_name.blank?
-      render 'home/landing'
+      render 'static_pages/landing_page'
     end
   end
 
