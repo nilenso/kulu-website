@@ -10,22 +10,23 @@
         <ul class="feature-list">
           <li><h4>Expense Submission</h4>
 
-            <p>Phone, email, web</p></li>
+            <p>Use the mobile app, the web or a unique email to submit your expenses</p></li>
 
           <li><h4>Data Organization</h4>
 
-            <p>Precise scanning, OCR and human data verification.</p></li>
+            <p>Scanning, OCR and human anonymous data transcription</p></li>
 
           <li><h4>Flexible Categories</h4>
 
-            <p>View your data the way you want.</p></li>
+            <p>View your data the way you want</p></li>
 
           <li><h4>Approvals</h4>
 
-            <p>Flows that mirror your claims processes</p></li>
-          <li><h4>Budgets</h4>
+            <p>Flows that mirror your claims processes and budgets</p></li>
+          <li><h4>Reports</h4>
 
-            <p>budgets and controls help you maintain your zen</p></li>
+            <p></p></li>
+            <p>Make better decisions based on real-time data</p></li>
         </ul>
       </div>
 
@@ -39,17 +40,17 @@
     <section class="landing-container clearfix push-two-top push-four-bottom">
 
       <div class="max-half centered center-block clearfix">
-        <form class="" action="javascript: void(0);" data-source="home-cta" novalidate="novalidate">
+        <form class="" action="javascript: void(0);" data-source="home-cta">
           <div class="space-two-bottom">
           <span class="form__field">
-            <input id="ms--email" class="email-input" type="email" name="email" placeholder="Email Address">
-            <input id="ms--tel" class="tel-input" type="tel" name="tel" placeholder="Mobile Number (optional)">
+            <input id="customer-email" class="email-input" type="email" name="email" placeholder="Email Address">
+            <input id="customer-phone" class="tel-input" type="tel" name="tel" placeholder="Mobile Number (optional)">
             <span class="spinner"></span>
           </span>
           </div>
 
           <div class="measure-6words div-center">
-            <a class="demo-button" target="_blank" href="http://www2.helpshift.com/demo/schedule" alt="Request a Demo and find out how you can start engaging with your users using Helpshift." title="Request a Demo">Request
+            <a class="demo-button" target="_blank" onClick="demo_submit()" alt="Request a Demo" title="Request a Demo">Request
               a Demo</a>
           </div>
         </form>
@@ -61,18 +62,18 @@
 
   </header>
 
-  <hr class="space-three-bottom">
+  <!--<hr class="space-three-bottom">-->
 
   <!-- #header -->
-  <section id="how-it-works" class="landing-container clearfix push-two-top push-four-bottom">
-    <header class="centered">
-      <h2 class="title-extralarge space-three-bottom red">
-        <a class="pad-one push-one" href="#how-it-works">
-          How it works
-        </a>
-      </h2>
-    </header>
-  </section>
+  <!--<section id="how-it-works" class="landing-container clearfix push-two-top push-four-bottom">-->
+  <!--<header class="centered">-->
+  <!--<h2 class="title-extralarge space-three-bottom red">-->
+  <!--<a class="pad-one push-one" href="#how-it-works">-->
+  <!--How it works-->
+  <!--</a>-->
+  <!--</h2>-->
+  <!--</header>-->
+  <!--</section>-->
 
   <hr class="space-three-bottom ">
 
@@ -90,7 +91,7 @@
         <li class="flushleft full half-sm third-md">
           <a
           class="occupy push-line-top push-one-bottom"
-          href="https://twitter.com/abhijeetmk">
+          href="https://www.facebook.com/ChinitaTaqueria">
         <span class="occupy resetcoords">
           <img
           class="center height-full contain-height"
@@ -101,7 +102,7 @@
         <li class="flushleft full half-sm third-md">
           <a
           class="occupy push-line-top push-one-bottom"
-          href="https://twitter.com/nigelbabu">
+          href="http://www.quintype.com/">
         <span class="occupy resetcoords">
           <img
           class="center height-full contain-height"
@@ -112,11 +113,11 @@
         <li class="flushleft full half-sm third-md">
           <a
           class="occupy push-line-top push-one-bottom"
-          href="https://twitter.com/souvikdg">
+          href="http://nilen.so">
         <span class="occupy resetcoords">
           <img
           class="center height-full contain-height"
-          src="/assets/client_logos/quintype.png">
+          src="/assets/client_logos/nilenso.png">
         </span></a>
         </li>
       </ul>
@@ -137,7 +138,10 @@
     <div class="measure-12words center-block clearfix">
       <div class="prose-large lined space-two-bottom">
         <ul class="space-line pad-two-left pad-line-right centered">
-          <li class="occupy space-3q">₹1,500 <span class="gap-1q">/</span> month</li>
+          <li class="occupy space-3q">₹1,500 <span class="gap-1q">/</span> month (25 users)</li>
+        </ul>
+        <ul class="space-line pad-two-left pad-line-right centered">
+          <li class="occupy space-3q">₹3,000 <span class="gap-1q">/</span> month (50 users)</li>
         </ul>
       </div>
 
@@ -147,7 +151,8 @@
         </h3>
 
         <p>
-          Request a demo and use it free for 2 weeks to evaluate whether Kulu is the right fit for your business, free of
+          Request a demo and use it free for 2 weeks to evaluate whether Kulu is the right fit for your business, free
+          of
           cost.
         </p>
       </div>
@@ -187,9 +192,20 @@
       Built and designed in-house by&nbsp;<a class="red calm" href="http://nilen.so/">nilenso</a>
       <br>
         <span class="prose-tiny">
-          Since&nbsp;2014.
+          Since&nbsp;2015.
         </span>
     </p>
   </footer>
 </div>
 </body>
+
+<%= javascript_tag do %>
+  var demo_submit = function() {
+    var email = $("#customer-email").val();
+    var phone = $("#customer-phone").val();
+
+    var myFirebaseRef = new Firebase("https://kulu-signups.firebaseio.com");
+    myFirebaseRef.push({"email": email, "phone": phone});
+  };
+<% end %>
+
