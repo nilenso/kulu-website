@@ -16,6 +16,7 @@ class HomeController < ApplicationController
       set_current_user_token(KuluService::API.new.login(auth_params)['token']) unless current_user_token
       redirect_to root_url(subdomain: @organization_name), :notice => "Logged into #{@organization_name} successfully"
     rescue HTTPService::Error
+      flash.alert = 'Wrong username or password'
       redirect_to team_signin_url(subdomain: @organization_name)
     end
 
@@ -76,14 +77,24 @@ class HomeController < ApplicationController
   end
 
   def member_signup
-    KuluService::API.new.member_signup(member_signup_params)
-    flash.notice = "Your user (#{member_signup_params[:user_email]}) was sucessfully created"
+    begin
+      KuluService::API.new.member_signup(member_signup_params)
+      flash.notice = "Your user (#{member_signup_params[:user_email]}) was sucessfully created"
+    rescue HTTPService::Error
+      flash.alert  = 'There was an error creating the user.'
+    end
+
     team_signin
   end
 
   def update_password
-    KuluService::API.new.update_password(update_password_params)
-    flash.notice = "Password updated (#{update_password_params[:user_email]})"
+    begin
+      KuluService::API.new.update_password(update_password_params)
+      flash.notice = "Password reset for (#{update_password_params[:user_email]})"
+    rescue HTTPService::Error
+      flash.alert  = 'Could not reset the password'
+    end
+
     team_signin
   end
 
