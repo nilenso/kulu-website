@@ -10,6 +10,10 @@ class HomeController < ApplicationController
     end
   end
 
+  def new_signup
+    render 'home/landing'
+  end
+
   def auth
     begin
       auth_params = login_params.merge(team_name: @organization_name)
