@@ -23,7 +23,7 @@ class HomeController < ApplicationController
 
   def team_signin
     if @organization_name.present?
-      render 'home/login'
+      redirect_to root_url(subdomain: @organization_name) + 'login'
     else
       render 'home/signin'
     end
@@ -53,6 +53,7 @@ class HomeController < ApplicationController
   end
 
   def forgot
+    @user_email = forgot_password_params[:user_email]
     KuluService::API.new.forgot(forgot_password_params)
     render 'home/sent_reset_mail'
   end
@@ -76,11 +77,13 @@ class HomeController < ApplicationController
 
   def member_signup
     KuluService::API.new.member_signup(member_signup_params)
+    flash.notice = "Your user (#{member_signup_params[:user_email]}) was sucessfully created"
     team_signin
   end
 
   def update_password
     KuluService::API.new.update_password(update_password_params)
+    flash.notice = "Password updated (#{update_password_params[:user_email]})"
     team_signin
   end
 
