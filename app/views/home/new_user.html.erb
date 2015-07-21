@@ -4,7 +4,7 @@
 
     <div class="panel" id="login">
       <div class="panel-title">
-        <h3>Enter your details</h3>
+        <h3>Sign up as a new user on <span style="font-size:17px;text-decoration:none;margin-left:1px;color:#d35400;"><%= request.host %></span></h3>
       </div>
 
       <%= form_tag member_signup_path, id: 'user-signup-form', :method => :post do %>
@@ -23,7 +23,7 @@
         <div class="form-group">
           <%= password_field_tag :confirm, nil, placeholder: 'Confirm', class: 'form-control' %>
         </div>
-        <%= submit_tag 'Sign Up' %>
+        <%= submit_tag 'Sign up' %>
       <% end %>
     </div>
   </div>
