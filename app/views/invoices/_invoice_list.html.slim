@@ -2,7 +2,7 @@
 
 table.table.table-striped.table-hover.expenses-table
   thead.expenses-table-head
-    th.large = sortable 'Merchant'
+    th.medium = sortable 'Merchant'
     th = sortable 'Expense Date'
     th = sortable 'Submission Date'
     th = sortable 'Amount'
@@ -10,7 +10,7 @@ table.table.table-striped.table-hover.expenses-table
     th.medium = sortable 'Status'
     th = sortable 'Conflict'
     th = sortable 'Spender'
-    th.large = 'Category'
+    th.medium = 'Category'
     th.tiny
   tbody
     - invoices.each do |i|
@@ -46,4 +46,3 @@ table.table.table-striped.table-hover.expenses-table
 javascript:
   new Kulu.Paginator($('#form-per-page')).setupPerPageForm();
   new Kulu.Utils().clickableRows($(".invoice-table-row"));
-  new Kulu.FixTopTableHeader($('.expenses-table'), $('.navbar').height());
