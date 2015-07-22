@@ -5,7 +5,7 @@
   <br/>
 
   <div class="generic-widget">
-    <form class="date-entry" action=<%= "#{dashboard_invoices_path}" %> method="get">
+    <form class="date-entry form_field" action=<%= "#{dashboard_invoices_path}" %> method="get">
       <span class="from-date">
         <p class="">From</p>
         <input class="email-input dashboard-report-from-date" name="from" value=<%= "#{@from}" %> placeholder="DD-MM-YYYY">
@@ -13,7 +13,7 @@
 
       <span class="to-date">
         <p class="">To</p>
-        <input class="email-input dashboard-report-to-date" name="from" value=<%= "#{@to}" %> placeholder="DD-MM-YYYY">
+        <input class="email-input dashboard-report-to-date" name="to" value=<%= "#{@to}" %> placeholder="DD-MM-YYYY">
       </span>
 
       <span class="search">
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <hr class="separator"/>
+    <hr class="space-three-bottom">
 
     <div class="entry">
       <a href=<%= search_invoices_path(:status => 'Extracted', :expense_type => 'Company', :conflict => false,
@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <hr class="separator"/>
+    <hr class="space-three-bottom">
 
     <div class="entry">
       this excludes
@@ -99,7 +99,7 @@
     </div>
   </div>
 
-  <hr class="separator"/>
+  <hr class="space-three-bottom">
 
   <div class="category-widget">
     <div class="category-table">

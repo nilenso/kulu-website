@@ -1,32 +1,62 @@
 Kulu.search = function (searchParams) {
+  var facets = [
+    {label: 'query'},
+    {label: 'merchant name', category: 'general'},
+    {label: 'type', category: 'general'},
+    {label: 'status', category: 'general'},
+    {label: 'conflict', category: 'general'},
+    {label: 'spender', category: 'general'},
+    {label: 'category', category: 'general'},
+    {label: 'expense date (from)', category: 'expense date'},
+    {label: 'expense date (to)', category: 'expense date'},
+    {label: 'submission date (from)', category: 'submission date'},
+    {label: 'submission date (to)', category: 'submission date'},
+    {label: 'currency', category: 'amount'},
+    {label: 'amount (>)', category: 'amount'},
+    {label: 'amount (<)', category: 'amount'},
+    {label: 'amount (=)', category: 'amount'}
+  ];
+  var picker;
+
   var displayDatepicker = function (callback) {
     var input = $('.search_facet.is_editing input.search_facet_input');
 
     var removeDatepicker = function () {
-      picker.hide();
+      input.datepicker("destroy");
     };
 
     var setVisualSearch = function (date) {
       removeDatepicker();
-      // pikaday doesn't return the formatted date onSelect
-      // so we're having to format it manually
-      callback([$.datepicker.formatDate('yy-mm-d', date)]);
+      callback([date]);
       $("ul.VS-interface:visible li.ui-menu-item a:first").click()
     };
 
-    var picker = new Pikaday({
-      field: input[0],
-      format: 'YYYY-MM-DD',
+    input.datepicker({
+      dateFormat: 'yy-mm-dd',
       onSelect: setVisualSearch,
       onClose: removeDatepicker
     });
 
-    picker.show();
+    input.datepicker('show');
   };
 
   var visualSearch = VS.init({
     container: $('.visual_search'),
     query: '',
+    minLength  : 1,
+    remainder   : 'query',
+    placeholder : "Search for your expenses...",
+    unquotable : [
+      'query',
+      'conflict',
+      'type',
+      'status',
+      'currency',
+      'submission date (to)',
+      'submission date (from)',
+      'expense date (to)',
+      'expense date (from)'
+    ],
     callbacks: {
       search: function (query, searchCollection) {
         var $query = $('.search_query');
@@ -34,56 +64,46 @@ Kulu.search = function (searchParams) {
         $query.stop().animate({opacity : 1}, {duration: 300, queue: false});
         $query.html('<span class="raquo">&raquo;</span> You are searching for: ' +
           '<b>' + (query || '<i>nothing</i>') + '</b> ' +
-          '(' + count + ' facet' + (count==1 ? '' : 's') + ')');
+          '(' + count + ' facet' + (count == 1 ? '' : 's') + ')');
       },
 
       facetMatches: function (callback) {
-        callback([
-          {label: 'query'},
-          {label: 'merchant name', category: 'general'},
-          {label: 'type', category: 'general'},
-          {label: 'status', category: 'general'},
-          {label: 'conflict', category: 'general'},
-          {label: 'spender', category: 'general'},
-          {label: 'category', category: 'general'},
-          {label: 'expense date (from)', category: 'expense date'},
-          {label: 'expense date (to)', category: 'expense date'},
-          {label: 'submission date (from)', category: 'submission date'},
-          {label: 'submission date (to)', category: 'submission date'},
-          {label: 'currency', category: 'amount'},
-          {label: 'amount (>)', category: 'amount'},
-          {label: 'amount (<)', category: 'amount'},
-          {label: 'amount (=)', category: 'amount'}
-        ], {preserveOrder: true});
+        var currentFacets = visualSearch.searchQuery.pluck("category");
+        var newFacets = facets.filter(function(el) {
+          var e = el['label'] || el;
+          return currentFacets.indexOf(e) < 0;
+        });
+
+        callback(newFacets, {preserveOrder: true});
       },
 
       valueMatches: function (facet, searchTerm, callback) {
         switch (facet) {
           case 'submission date (to)':
             setTimeout(function () {
-              displayDatepicker(callback)
+              displayDatepicker(callback);
             }, 0);
             break;
           case 'submission date (from)':
             setTimeout(function () {
-              displayDatepicker(callback)
+              displayDatepicker(callback);
             }, 0);
             break;
           case 'expense date (to)':
             setTimeout(function () {
-              displayDatepicker(callback)
+              displayDatepicker(callback);
             }, 0);
             break;
           case 'expense date (from)':
             setTimeout(function () {
-              displayDatepicker(callback)
+              displayDatepicker(callback);
             }, 0);
             break;
           case 'conflict':
             callback(['false', 'true'], {preserveOrder: true});
             break;
           case 'type':
-            callback(['Company', 'Reimbursement'], {preserveOrder: true});
+            callback(['Company', 'Reimbursement']);
             break;
           case 'status':
             callback(['Submitted', 'Extracted', 'Recorded', 'Reimbursed/Deducted', 'Reviewed'], {preserveOrder: true});

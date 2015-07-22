@@ -13,14 +13,16 @@
 //= require jquery
 //= require jquery_ujs
 
+//= require jquery-1.11.0
 //= require jquery.ui.core
 //= require jquery.ui.widget
 //= require jquery.ui.position
 //= require jquery.ui.menu
 //= require jquery.ui.autocomplete
-//= require underscore
-//= require backbone-0.9.10
 //= require jquery.ui.datepicker
+
+//= require underscore-1.5.2
+//= require backbone-1.1.0
 
 //= require visualsearch/js/visualsearch
 //= require visualsearch/js/views/search_box
@@ -37,17 +39,23 @@
 
 //= require turbolinks
 //= require js-routes
+
+
 //= require nprogress
 //= require nprogress-turbolinks
 //= require nprogress-ajax
+
 //= require jquery.fileupload
 //= require jquery.zoom
 //= require jquery.colorbox
+
 //= require moment
 //= require pikaday
 //= require chosen-jquery
+
 //= require formvalidation
 //= require formvalidation/framework/bootstrap
+
 //= require components
 //= require kulu
 //= require dashboard-reports

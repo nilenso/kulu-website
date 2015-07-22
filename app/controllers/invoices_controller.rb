@@ -14,7 +14,7 @@ class InvoicesController < ApplicationController
     end
 
     if !logged_in? and @organization_name.blank?
-      render 'home/landing'
+      render 'static_pages/landing_page'
     end
   end
 
@@ -33,7 +33,7 @@ class InvoicesController < ApplicationController
     end
 
     if !logged_in? and @organization_name.blank?
-      render 'home/landing'
+      render 'static_pages/landing_page'
     end
   end
 

@@ -20,19 +20,17 @@
   <%= hidden_field_tag :user_name, params[:spender], disabled: true %>
   <%= hidden_field_tag :conflict, params[:conflict], disabled: true %>
 
-  <div class="visual_search"></div>
-
-  <span class="search">
-    <input id="expenses-search" class="btn btn-primary" type="submit" value="Search" tabindex=1/>
-  </span>
-
   <div class="search_query">&nbsp;</div>
+  <div class="visual_search"></div>
+  <span class="search"><input id="expenses-search" class="btn btn-primary" type="submit" value="Search" tabindex=1/></span>
 </form>
+
+<br/>
 
 <%= render 'invoice_list', invoices: @invoices, params: @params %>
 
 <%= javascript_tag do %>
   $(document).ready(function () {
-    Kulu.search(<%= @params.to_json.html_safe %>);
+  Kulu.search(<%= @params.to_json.html_safe %>);
   });
 <% end %>

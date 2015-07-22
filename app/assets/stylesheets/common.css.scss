@@ -48,9 +48,8 @@ $nprogress-new-z-index: 100;
   background-position: right center;
 }
 
-
 .table {
-  table-layout:fixed;
+  table-layout: fixed;
   overflow-wrap: break-word
 }
 
@@ -170,4 +169,25 @@ $nprogress-new-z-index: 100;
   border-top: 2px solid $brand-primary;
   border-bottom: 0;
   color: #333;
+}
+
+.visual_search {
+  .VS-search {
+    .VS-search-box {
+      border-radius: 0 !important;
+      -webkit-border-radius: 0 !important;
+      -moz-border-radius: 0 !important;
+      -webkit-box-shadow: none !important;
+      -moz-box-shadow: none !important;
+      box-shadow: none !important;
+      cursor: text !important;
+      position: relative !important;
+      min-height: 30px !important;
+      height: auto !important;
+    }
+  }
+}
+
+div.ui-datepicker{
+  font-size: 86% !important;
 }
