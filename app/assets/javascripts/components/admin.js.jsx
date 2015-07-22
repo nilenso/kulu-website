@@ -56,6 +56,7 @@ var Admin = React.createClass({
       <Tabs onBeforeChange={this.handleBefore} tabActive={this.state.activeTab}>
         <Tabs.Panel title='Categories'>
           <h4>Add new</h4>
+
           <Records auth={this.props.auth}/>
         </Tabs.Panel>
 
