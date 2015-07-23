@@ -29,6 +29,7 @@ Kulu.search = function (searchParams) {
     "type": "expense_type",
     "category": "category_name",
     "spender": "user_name",
+    "currency": "currency",
     "query": "q",
     "conflict": "conflict",
     "status": "status"
@@ -78,9 +79,7 @@ Kulu.search = function (searchParams) {
         var $query = $('.search_query');
         var count  = searchCollection.size();
         $query.stop().animate({opacity : 1}, {duration: 300, queue: false});
-        $query.html('<span class="raquo">&raquo;</span> You are searching for: ' +
-          '<b>' + (query || '<i>nothing</i>') + '</b> ' +
-          '(' + count + ' facet' + (count == 1 ? '' : 's') + ')');
+        $query.html('<span class="raquo">&raquo;</span>' + ' (' + count + ' filter' + (count == 1 ? '' : 's') + ' applied)');
       },
 
       facetMatches: function (callback) {
@@ -125,7 +124,7 @@ Kulu.search = function (searchParams) {
             callback(['Submitted', 'Extracted', 'Recorded', 'Reimbursed/Deducted', 'Reviewed'], {preserveOrder: true});
             break;
           case 'currency':
-            callback(['CAD', 'USD', 'INR'], {preserveOrder: true});
+            callback(['INR', 'USD', 'EUR', 'SGD', 'IDR', 'GBP', 'CAD'], {preserveOrder: true});
             break;
         }
       }

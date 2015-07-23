@@ -37,6 +37,13 @@
                 i.fa.fa-comment-o
 
   = paginate invoices, theme: 'twitter-bootstrap-3'
+
+  .pagination-per-page
+    = form_tag root_path, method: :get, id: 'form-per-page'
+      = hidden_field_tag :page, params[:page] || 1
+      = hidden_field_tag :direction, params[:direction] || 'desc'
+      = hidden_field_tag :order, params[:order] || 'created_at'
+
 - else
     .pagination.info
       | No entries found
@@ -53,12 +60,6 @@
         th = sortable 'Spender'
         th.medium = 'Category'
         th.tiny
-
-.pagination-per-page
-  = form_tag root_path, method: :get, id: 'form-per-page'
-    = hidden_field_tag :page, params[:page] || 1
-    = hidden_field_tag :direction, params[:direction] || 'desc'
-    = hidden_field_tag :order, params[:order] || 'created_at'
 
 javascript:
   new Kulu.Paginator($('#form-per-page')).setupPerPageForm();
