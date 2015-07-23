@@ -1,6 +1,9 @@
 - if invoices
-  .pagination.info = page_entries_info invoices
-
+  div.table-info
+    .flush-left
+      .pagination.info = page_entries_info invoices
+      div class="export"
+        input class="btn export-btn" type="submit" value="Export XLS Data"
   table.table.table-striped.table-hover.expenses-table
     thead.expenses-table-head
       th.medium = sortable 'Merchant'
