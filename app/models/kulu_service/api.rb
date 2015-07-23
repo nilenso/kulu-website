@@ -173,5 +173,10 @@ module KuluService
       response = request.make(:get, 'invoices/search', options, options[:token])
       MultiJson.load(response.body)
     end
+
+    def export(options)
+      response = request.make(:get, 'invoices/export', options, options[:token])
+      response.body
+    end
   end
 end

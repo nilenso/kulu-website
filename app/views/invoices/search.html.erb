@@ -31,6 +31,6 @@
 
 <%= javascript_tag do %>
   $(document).ready(function () {
-  Kulu.search(<%= @params.to_json.html_safe %>);
+    Kulu.search(<%= @params.to_json.html_safe %>);
   });
 <% end %>

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
         post :fetch_attachment
         get  :dashboard
         get  :search
+        get  :export
       end
     end
   end

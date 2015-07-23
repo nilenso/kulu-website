@@ -10,6 +10,15 @@ class InvoicesController < ApplicationController
     flash.now[:alert] = 'Could not populate any search results. Please try again.'
   end
 
+  def export
+    params = search_params.reject { |_, v| v.blank? }
+    search = params.merge(request_params)
+    send_data Invoice.export(api_params(search)), :filename => 'ExportKuluData.xls', :type => 'application/vnd.ms-excel'
+  rescue HTTPService::Error
+    flash.now[:alert] = 'Could not export your data. Please try again.'
+  end
+
+
   def dashboard
     now = Date.current
     @from = params[:from] || (now - 30).iso8601

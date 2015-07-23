@@ -24,6 +24,10 @@ class Invoice
       PaginatedInvoices.new(KuluService::API.new.search(options))
     end
 
+    def export(options)
+      KuluService::API.new.export(options)
+    end
+
     def find(options)
       begin
         new(KuluService::API.new.find_invoice(options))
