@@ -16,7 +16,23 @@ Kulu.search = function (searchParams) {
     {label: 'amount (<)', category: 'amount'},
     {label: 'amount (=)', category: 'amount'}
   ];
-  var picker;
+
+  var visualSearchToApiMappings = {
+    "merchant name": "name",
+    "expense date (from)": "from_date",
+    "expense date (to)": "to_date",
+    "submission date (from)": "from_submission_date",
+    "submission date (to)": "to_submission_date",
+    "amount (>)": "min_amount",
+    "amount (<)": "max_amount",
+    "amount (=)": "amount",
+    "type": "expense_type",
+    "category": "category_name",
+    "spender": "user_name",
+    "query": "q",
+    "conflict": "conflict",
+    "status": "status"
+  };
 
   var displayDatepicker = function (callback) {
     var input = $('.search_facet.is_editing input.search_facet_input');
@@ -116,29 +132,12 @@ Kulu.search = function (searchParams) {
     }
   });
 
-  var visualSearchToApiMappings = {
-    "merchant name": "name",
-    "expense date (from)": "from_date",
-    "expense date (to)": "to_date",
-    "submission date (from)": "from_submission_date",
-    "submission date (to)": "to_submission_date",
-    "amount (>)": "min_amount",
-    "amount (<)": "max_amount",
-    "amount (=)": "amount",
-    "type": "expense_type",
-    "category": "category_name",
-    "spender": "user_name",
-    "query": "q"
-  };
-
   var paramsToVisualSearch = function (params) {
     var invertedMappings = _.invert(visualSearchToApiMappings);
 
     _.each(params, function (v, k) {
       if (_.has(invertedMappings, k)) {
         visualSearch.searchBox.addFacet(invertedMappings[k], v + "");
-      } else {
-        visualSearch.searchBox.addFacet(k, v + "");
       }
     });
   };
@@ -146,7 +145,7 @@ Kulu.search = function (searchParams) {
   paramsToVisualSearch(searchParams);
 
   var formContainer = $('#search-form');
-  var searchButton = $("#expenses-search");
+  var searchButton  = $("#expenses-search");
 
   searchButton.click(function (e) {
     e.preventDefault();

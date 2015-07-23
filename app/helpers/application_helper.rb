@@ -5,9 +5,15 @@ module ApplicationHelper
     css_class = (new_column == sort_column) ? "current #{sort_direction}" : nil
     direction = (new_column == sort_column && sort_direction == 'asc') ? 'desc' : 'asc'
 
-    link_to title, {:q => "imli",
-                    :order => new_column, :direction => direction,
-                    :page => params[:page] || 1, :per_page => params[:per_page] || 15}, {:class => css_class}
+    sort_params = {:order => new_column, :direction => direction}
+
+    if @params
+      link_params = @params.merge(sort_params)
+    else
+      link_params = sort_params
+    end
+
+    link_to title, link_params, {:class => css_class}
   end
 
   def convert(column)

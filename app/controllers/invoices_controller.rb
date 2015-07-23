@@ -1,21 +1,13 @@
 class InvoicesController < ApplicationController
-  before_filter :require_login, :set_organization
-  skip_before_filter :require_login, :only => [:index, :dashboard, :search]
   helper_method :sort_column, :sort_direction
+  before_filter :set_organization, :require_login
 
   def search
-    if logged_in? and @organization_name.present?
-      begin
-        @params = search_params.reject { |_, v| v.blank? }
-        @invoices = Invoice.search(api_params(@params))
-      rescue HTTPService::ClientError
-        flash.now[:error] = 'Could not populate any search results'
-      end
-    end
-
-    if !logged_in? and @organization_name.blank?
-      render 'static_pages/landing_page'
-    end
+    @params = search_params.reject { |_, v| v.blank? }
+    search = @params.merge(request_params)
+    @invoices = Invoice.search(api_params(search))
+  rescue HTTPService::Error
+    flash.now[:alert] = 'Could not populate any search results. Please try again.'
   end
 
   def dashboard
@@ -23,34 +15,22 @@ class InvoicesController < ApplicationController
     @from = params[:from] || (now - 30).iso8601
     @to = params[:to] || now.iso8601
 
-    if logged_in? and @organization_name.present?
-      begin
-        @reports = Report.new(api_params(report_params.merge(from: @from, to: @to)))
-        render 'home/dashboard'
-      rescue HTTPService::ClientError
-        logout # FIXME
-      end
-    end
-
-    if !logged_in? and @organization_name.blank?
-      render 'static_pages/landing_page'
+    begin
+      @reports = Report.new(api_params(report_params.merge(from: @from, to: @to)))
+      render 'home/dashboard'
+    rescue HTTPService::ClientError
+      flash.now[:alert] = 'Could not populate the report. Please try again.'
     end
   end
 
   def index
     @pre_signed_post = KuluAWS.new.presigned_post
-    if logged_in? and @organization_name.present?
-      @invoice = Invoice.new(url_prefix: @pre_signed_post.key)
+    @invoice = Invoice.new(url_prefix: @pre_signed_post.key)
 
-      begin
-        @invoices = Invoice.list(api_params(request_params))
-      rescue HTTPService::ClientError
-        logout
-      end
-    end
-
-    if !logged_in? and @organization_name.blank?
-      render 'static_pages/landing_page'
+    begin
+      @invoices = Invoice.list(api_params(request_params))
+    rescue HTTPService::ClientError
+      flash.now[:alert] = 'There was an error trying to list your expenses. Please try again.'
     end
   end
 
@@ -104,14 +84,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  def set_organization
-    @organization_name = request.subdomain if Subdomain.matches?(request)
-  end
-
-  def require_login
-    redirect_to root_url unless logged_in? # halts request cycle
-  end
-
   def api_params(base_params)
     base_params.merge(organization_name: @organization_name, token: current_user_token)
   end
@@ -137,7 +109,7 @@ class InvoicesController < ApplicationController
   end
 
   def search_params
-    params.permit(:q, :order, :direction, :per_page, :page, :name, :amount, :currency, :from_date, :to_date,
+    params.permit(:q, :name, :amount, :currency, :from_date, :to_date,
                   :amount, :min_amount, :max_amount, :expense_type, :status, :conflict, :user_name, :category_name,
                   :from_submission_date, :to_submission_date)
   end
