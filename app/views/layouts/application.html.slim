@@ -17,13 +17,13 @@ html
         li.navbar-menu
           - if logged_in?
             a href='/expenses/dashboard' data-no-turbolink="true" class="hint--bottom" data-hint="Dashboard"
-              span class='fa fa-home'
+              span class="#{current_page?(controller: 'invoices', action: 'dashboard')} fa fa-home"
             a href='/expenses/search' data-no-turbolink="true" class="hint--bottom" data-hint="Search"
-              span class="fa fa-search"
+              span class="#{current_page?(controller: 'invoices', action: 'search')} fa fa-search"
             a href='/expenses' data-no-turbolink="true" class="hint--bottom" data-hint="List"
-              span class='fa fa-list'
+              span class="#{current_page?(controller: 'invoices')} fa fa-list"
             a href='/admin' data-no-turbolink="true" class="hint--bottom" data-hint="Admin"
-              span class='fa fa-cog'
+              span class='#{current_page?(controller: 'admin')} fa fa-cog'
         li.navbar-menu
           - if logged_in?
             a href='/logout' data-no-turbolink="true"
