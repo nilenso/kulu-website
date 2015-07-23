@@ -43,4 +43,10 @@ module ApplicationHelper
   def sorted_order
     !params[:order].blank? ? params[:order] : 'created_at'
   end
+
+  def amount_with_currency(amount, currency)
+    c = Money::Currency.new(currency)
+    money = Money.new(amount * c.subunit_to_unit, c).format(:with_currency => false, :no_cents_if_whole => true)
+    "#{currency} #{money}"
+  end
 end

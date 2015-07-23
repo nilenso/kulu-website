@@ -2527,6 +2527,10 @@ hr {
     border: 1px solid;
 }
 
+.lined-light {
+    border: 1px solid #ccc;
+}
+
 .line-top {
     border-top: 1px solid;
 }
