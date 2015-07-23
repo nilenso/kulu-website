@@ -1,9 +1,8 @@
-<div class="content dashboard">
-  <br/>
-  <br/>
-  <br/>
-  <br/>
+<br/>
+<br/>
+<br/>
 
+<div class="content dashboard">
   <div class="generic-widget">
     <form class="date-entry form_field" action=<%= "#{dashboard_invoices_path}" %> method="get">
       <span class="from-date">
@@ -133,12 +132,12 @@
 
 <%= javascript_tag do %>
   new Pikaday({
-  field: $('.dashboard-report-from-date')[0],
-  format: 'YYYY-MM-DD'
+    field: $('.dashboard-report-from-date')[0],
+    format: 'YYYY-MM-DD'
   });
 
   new Pikaday({
-  field: $('.dashboard-report-to-date')[0],
-  format: 'YYYY-MM-DD'
+    field: $('.dashboard-report-to-date')[0],
+    format: 'YYYY-MM-DD'
   });
 <% end %>

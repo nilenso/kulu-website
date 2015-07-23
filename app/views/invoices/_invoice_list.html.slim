@@ -3,7 +3,8 @@
     .flush-left
       .pagination.info = page_entries_info invoices
       div class="export"
-        input class="btn export-btn" type="submit" value="Export XLS Data"
+        a class="btn export-btn" href="#{export_invoices_path(params)}" data-no-turbolink="true"
+          | Export as XLS (Excel)
   table.table.table-striped.table-hover.expenses-table
     thead.expenses-table-head
       th.medium = sortable 'Merchant'

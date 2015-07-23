@@ -15,9 +15,8 @@ class InvoicesController < ApplicationController
     search = params.merge(request_params)
     send_data Invoice.export(api_params(search)), :filename => 'ExportKuluData.xls', :type => 'application/vnd.ms-excel'
   rescue HTTPService::Error
-    flash.now[:alert] = 'Could not export your data. Please try again.'
+    render json: {error_messages: 'Could not export your data. Please try again.'}
   end
-
 
   def dashboard
     now = Date.current
