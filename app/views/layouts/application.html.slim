@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title Kulu [Beta]
+    title kulu β
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = javascript_include_tag '/javascripts/pdf'
@@ -12,7 +12,13 @@ html
   body
     nav.navbar.navbar-inverse role="navigation" id="nav" class=(notice ? 'flash-background notice' : '') class=(alert ? 'flash-background error' : '')
       .navbar-header
-        a.navbar-brand href="#{root_path}" Kulu [Beta]
+        a.navbar-brand href="#{root_path}"
+          | kulu β
+          - if @organization_name
+            | &nbsp;
+            | &mdash;
+            | &nbsp;
+            = "#{@organization_name}"
       ul.nav.navbar-nav.navbar-right
         li.navbar-menu
           - if logged_in?

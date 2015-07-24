@@ -10,7 +10,7 @@
   <form class="date-entry form_field" action=<%= "#{dashboard_invoices_path}" %> method="get">
       <span class="from-date">
         <p class="">From</p>
-        <input class="date-input dashboard-report-from-date" name="from" value=<%= "#{@from}" %> placeholder="DD-MM-YYYY" tabindex="0">
+        <input class="date-input dashboard-report-from-date" name="from" value=<%= "#{@from}" %> placeholder="DD-MM-YYYY" tabindex="0" autofocus>
       </span>
 
       <span class="to-date">
