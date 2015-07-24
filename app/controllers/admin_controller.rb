@@ -7,7 +7,7 @@ class AdminController < ApplicationController
 
   def invite
     begin
-      KuluService::API.new.invite(invite_params)
+      KuluService::API.new.invite(api_params(invite_params))
       flash.notice = "Sent an invite to #{invite_params[:user_email]}"
       render :nothing => true
     rescue HTTPService::ClientError => e
@@ -19,7 +19,7 @@ class AdminController < ApplicationController
 
   def users
     begin
-      render json: KuluService::API.new.users(users_params).to_json
+      render json: KuluService::API.new.users(api_params({})).to_json
     rescue HTTPService::ClientError => e
       flash.alert = "#{e}"
       render json: e.to_json, status: 400 and return
@@ -46,7 +46,7 @@ class AdminController < ApplicationController
 
   def update_category
     begin
-      render json: KuluService::API.new.update_category(category_params).to_json
+      render json: KuluService::API.new.update_category(api_params(category_params)).to_json
     rescue HTTPService::ClientError => e
       flash.alert = "#{e}"
       render json: e.to_json, status: 400 and return
@@ -55,7 +55,7 @@ class AdminController < ApplicationController
 
   def delete_category
     begin
-      render json: KuluService::API.new.delete_category(delete_category_params).to_json
+      render json: KuluService::API.new.delete_category(api_params(delete_category_params)).to_json
     rescue HTTPService::ClientError => e
       flash.alert = "#{e}"
       render json: e.to_json, status: 400 and return
@@ -80,11 +80,7 @@ class AdminController < ApplicationController
   end
 
   def invite_params
-    params.permit(:token, :user_email, :organization_name)
-  end
-
-  def users_params
-    params.permit(:token, :organization_name)
+    params.permit(:user_email)
   end
 
   def categories_params
@@ -92,10 +88,10 @@ class AdminController < ApplicationController
   end
 
   def category_params
-    params.permit(:token, :organization_name, :id, :name)
+    params.permit(:id, :name)
   end
 
   def delete_category_params
-    params.permit(:token, :organization_name, :id)
+    params.permit(:id)
   end
 end

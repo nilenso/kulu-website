@@ -1163,7 +1163,7 @@ img {
 }
 
 @media (min-width: 30em) {
-.landing-container, .landing-container-sm {
+    .landing-container, .landing-container-sm {
         padding: 0.2rem 2rem;
     }
 
@@ -1177,7 +1177,7 @@ img {
 }
 
 @media (min-width: 45em) {
-.landing-container, .landing-container-md, .landing-container-sm {
+    .landing-container, .landing-container-md, .landing-container-sm {
         padding: 0.8rem 3rem;
     }
 
@@ -1207,7 +1207,7 @@ img {
 }
 
 @media (min-width: 60em) {
-.landing-container, .landing-container-lg, .landing-container-md, .landing-container-sm {
+    .landing-container, .landing-container-lg, .landing-container-md, .landing-container-sm {
         padding: 1.1rem 4rem;
     }
 
@@ -1245,7 +1245,7 @@ img {
 }
 
 @media (min-width: 80em) {
-.landing-container, .landing-container-lg, .landing-container-md, .landing-container-sm, .landing-container-xl {
+    .landing-container, .landing-container-lg, .landing-container-md, .landing-container-sm, .landing-container-xl {
         margin-left: auto;
         margin-right: auto;
         padding: 1.5rem 5rem;
@@ -2628,7 +2628,7 @@ hr {
     }
 }
 
-input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
+input[type="password"].landing, input[type="date"].landing, input[type="datetime"].landing, input[type="datetime-local.landing"], input[type="month"].landing, input[type="week"].landing, input[type="email"].landing, input[type="number"].landing, input[type="search"].landing, input[type="tel"].landing, input[type="time"].landing, input[type="url"].landing, textarea {
     -webkit-appearance: none;
     -webkit-border-radius: 0;
     background-color: #edf4fa;
@@ -2684,7 +2684,6 @@ input[type="password"], input[type="date"], input[type="datetime"], input[type="
 .feature-list li {
     padding-bottom: 3px;
 }
-
 
 .div-center {
     margin: 0 auto;

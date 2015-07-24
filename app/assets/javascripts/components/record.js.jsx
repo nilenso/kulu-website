@@ -32,10 +32,6 @@ var Record = React.createClass({
     return $.ajax({
       method: 'DELETE',
       url: "/categories/" + this.props.record.id,
-      data: {
-        token: this.props.auth.token,
-        organization_name: this.props.auth.organization_name
-      },
       dataType: 'JSON'
     }).success(function () {
         return self.props.handleDeleteRecord(self.props.record);
@@ -56,8 +52,6 @@ var Record = React.createClass({
       url: "/categories/" + this.props.record.id,
       dataType: 'JSON',
       data: {
-        token: this.props.auth.token,
-        organization_name: this.props.auth.organization_name,
         name: sendData.name
       }
     }).success(function () {

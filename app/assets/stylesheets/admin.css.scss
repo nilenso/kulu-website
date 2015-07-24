@@ -2,48 +2,31 @@
   margin-top: 150px;
 }
 
+.admin-form-input {
+  width: 400px !important;
+}
+
+.admin-form-button {
+  height: 43px;
+  width: 100px;
+  margin-left: 10px;
+  text-align: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .invite-form {
-   margin-top: 50px;
+  margin-top: 25px;
 
-  .invite-form-input {
-    width: 70%;
-    height: 46px;
-    padding: 6px 12px;
-    font-size: 18px;
-    line-height: 31.5px;
-    color: #666;
-    background-color: transparent;
-    background-image: none;
-    border: 2px solid #666;
-    border-radius: 0;
-    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    -webkit-appearance: none;
-    font-weight: 300;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-right: 85px;
-  }
-
-  .invite-form-button {
-    height: 46px;
-    width: 80px;
-    text-align: center;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  .controls {
+    display: inline-flex;
   }
 }
 
 .receipt-icon {
-  font-size: 15em;
-}
-
-.mail-receipt-container {
-  text-align: center;
-  padding: 100px;
+  font-size: 4em;
 }
 
 .records {
@@ -52,3 +35,12 @@
   }
 }
 
+.help-container {
+  a {
+    border-bottom: 1px dotted;
+  }
+}
+
+.admin-input {
+  margin-right: 10px;
+}
