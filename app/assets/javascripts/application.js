@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 
-//= require jquery-1.11.0
 //= require jquery.ui.core
 //= require jquery.ui.widget
 //= require jquery.ui.position

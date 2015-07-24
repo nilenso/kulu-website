@@ -25,7 +25,6 @@ class TranscriberController < ActionController::Base
     begin
       @direction = params[:direction]
       @order = params[:order]
-      puts @direction, " - ", @order
       @invoice = Invoice.new(KuluService::TranscriberAPI.new.find_invoice(id: params[:id],
                                                                         token: current_transcriber_user_token,
                                                                         user_email: current_transcriber_user_email)).decorate

@@ -11,7 +11,7 @@ class HomeController < ApplicationController
   end
 
   def new_signup
-    render 'home/landing'
+    render 'home/signup'
   end
 
   def auth
