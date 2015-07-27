@@ -2,7 +2,7 @@
   .field
     = f.hidden_field(:url_prefix)
     = f.hidden_field(:filename, class: 'filename')
-    input id='file-upload' type='file' name='upload' accept='image/*, .pdf' data-s3-url="#{@pre_signed_post.url}" data-form-data="#{@pre_signed_post.fields.to_json}"
+    input id='file-upload' type='file' name='upload' accept='image/jpeg,image/gif,image/png,application/pdf' data-s3-url="#{@pre_signed_post.url}" data-form-data="#{@pre_signed_post.fields.to_json}"
     label.btn.btn-primary.invoice-file-input-label tabindex=0 for='file-upload' Upload Expense
 
     .progress.invoice-file-upload-progress
