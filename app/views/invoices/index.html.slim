@@ -10,7 +10,17 @@
 
 .invoice-list
   = render 'invoice_list', invoices: @invoices, params: params
+  .pagination-per-page
+    = form_tag invoices_path, method: :get, id: 'form-per-page', enforce_utf8: false
+      = hidden_field_tag :page, params[:page] || 1
+      = hidden_field_tag :direction, params[:direction] || 'desc'
+      = hidden_field_tag :order, params[:order] || 'created_at'
+      = label_tag :per_page, 'Expenses to show per page '
+      | &nbsp;
+      | &mdash;
+      = select_tag :per_page, options_for_select([15, 30, 60, 100], selected: params[:per_page] || Kaminari.config.default_per_page), id: 'per-page'
 
 javascript:
+  new Kulu.Paginator($('#form-per-page')).setupPerPageForm();
   new Kulu.FileUploader($('.direct-upload')).setupUpload();
 

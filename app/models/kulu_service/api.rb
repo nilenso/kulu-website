@@ -42,6 +42,15 @@ module KuluService
       MultiJson.load(response.body)
     end
 
+    def search(options)
+      page = (options[:page] || 1).to_i
+      per_page = (options[:per_page] || Kaminari.config.default_per_page).to_i
+      params = {page: page,
+                per_page: per_page}.merge(options)
+      response = request.make(:get, 'invoices/search', params, options[:token])
+      MultiJson.load(response.body)
+    end
+
     def find_invoice(options)
       response = request.make(:get, "invoices/#{options[:id]}", options, options[:token])
       MultiJson.load(response.body)
@@ -166,11 +175,6 @@ module KuluService
     def dashboard_report(options)
       params = {organization_name: options[:organization_name], from: Date.parse(options[:from]).iso8601, to: Date.parse(options[:to]).iso8601}
       response = request.make(:get, 'reports/dashboard/all', params, options[:token])
-      MultiJson.load(response.body)
-    end
-
-    def search(options)
-      response = request.make(:get, 'invoices/search', options, options[:token])
       MultiJson.load(response.body)
     end
 

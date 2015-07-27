@@ -2,22 +2,6 @@ class InvoicesController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_filter :set_organization, :require_login
 
-  def search
-    @params = search_params.reject { |_, v| v.blank? }
-    search = @params.merge(request_params)
-    @invoices = Invoice.search(api_params(search))
-  rescue HTTPService::Error
-    flash.now[:alert] = 'Could not populate any search results. Please try again.'
-  end
-
-  def export
-    params = search_params.reject { |_, v| v.blank? }
-    search = params.merge(request_params)
-    send_data Invoice.export(api_params(search)), :filename => 'ExportKuluData.xls', :type => 'application/vnd.ms-excel'
-  rescue HTTPService::Error
-    render json: {error_messages: 'Could not export your data. Please try again.'}
-  end
-
   def dashboard
     now = Date.current
     @from = params[:from] || (now - 30).iso8601
@@ -31,13 +15,21 @@ class InvoicesController < ApplicationController
     end
   end
 
+  def search
+    @params = search_params.reject { |_, v| v.blank? }
+    @search = @params.merge(request_params)
+    @invoices = Invoice.search(api_params(@search))
+  rescue HTTPService::Error
+    flash.now[:alert] = 'Could not populate any search results. Please try again.'
+  end
+
   def index
     @pre_signed_post = KuluAWS.new.presigned_post
     @invoice = Invoice.new(url_prefix: @pre_signed_post.key)
 
     begin
       @invoices = Invoice.list(api_params(request_params))
-    rescue HTTPService::ClientError
+     rescue HTTPService::ClientError
       flash.now[:alert] = 'There was an error trying to list your expenses. Please try again.'
     end
   end
@@ -72,6 +64,14 @@ class InvoicesController < ApplicationController
   def destroy
     Invoice.destroy(api_params(delete_params))
     redirect_to invoices_path(request_params), notice: 'Expense successfully deleted'
+  end
+
+  def export
+    params = search_params.reject { |_, v| v.blank? }
+    search = params.merge(request_params)
+    send_data Invoice.export(api_params(search)), :filename => 'ExportKuluData.xls', :type => 'application/vnd.ms-excel'
+  rescue HTTPService::Error
+    render json: {error_messages: 'Could not export your data. Please try again.'}
   end
 
   private

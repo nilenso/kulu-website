@@ -45,6 +45,7 @@ module ApplicationHelper
   end
 
   def amount_with_currency(amount, currency)
+    return '-' if amount.blank? or currency.blank?
     c = Money::Currency.new(currency)
     money = Money.new(amount * c.subunit_to_unit, c).format(:with_currency => false, :no_cents_if_whole => true)
     "#{currency} #{money}"
