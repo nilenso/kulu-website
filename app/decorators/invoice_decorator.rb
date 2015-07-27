@@ -27,19 +27,6 @@ class InvoiceDecorator < Draper::Decorator
     formatted_date(object.date, '%d-%m-%Y')
   end
 
-  def amount_with_currency
-    c = object.currency
-    a = object.amount
-
-    if c.blank? or a.blank?
-      '-'
-    else
-      currency = Money::Currency.new(c)
-      money = Money.new(a * currency.subunit_to_unit, currency)
-      "#{money.symbol} #{money.amount}"
-    end
-  end
-
   def conflict?
     conflict
   end

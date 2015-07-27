@@ -11,7 +11,7 @@
       th.medium = sortable 'Merchant'
       th = sortable 'Expense Date'
       th = sortable 'Submission Date'
-      th = sortable 'Amount'
+      th.amount = sortable 'Amount'
       th = sortable 'Type'
       th.medium = sortable 'Status'
       th = sortable 'Conflict'
@@ -24,7 +24,7 @@
           td = i.name
           td = i.display_date
           td = i.submission_date
-          td = i.amount_with_currency
+          td.amount = amount_with_currency(i.amount, i.currency)
           td = i.expense_type
           td = i.status
           - if i.conflict?

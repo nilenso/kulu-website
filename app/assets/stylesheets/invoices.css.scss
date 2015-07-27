@@ -103,12 +103,15 @@ tr.invoice-table-row {
   &:hover {
     cursor: pointer;
   }
+
+  td.amount {
+    text-align: right;
+  }
 }
 
 .expenses-table tbody {
   font-size: 14px;
 }
-
 
 .expenses-table thead.expenses-table-head {
   background: white;
@@ -132,6 +135,11 @@ tr.invoice-table-row {
 
     &.tiny {
       width: 5%;
+    }
+
+    &.amount {
+      width: 7%;
+      text-align: right;
     }
 
     a.current.asc {
@@ -211,6 +219,7 @@ tr.invoice-table-row {
 .hint--right:before {
   border-right-color: transparent !important;
 }
+
 //
 // end customize hint.css
 //
