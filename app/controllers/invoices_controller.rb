@@ -71,7 +71,7 @@ class InvoicesController < ApplicationController
 
   def destroy
     Invoice.destroy(api_params(delete_params))
-    redirect_to root_path, notice: 'Expense successfully deleted'
+    redirect_to invoices_path(request_params), notice: 'Expense successfully deleted'
   end
 
   private

@@ -52,7 +52,7 @@
         .invoice-edit-actions
           input.btn.btn-primary.invoice-edit-submit type='submit' value="Update" tabindex=11
           = link_to 'Back to list', invoices_path(@page_params), class: 'btn btn-link', tabindex: 12
-          a.btn.btn-default.invoice-edit-delete data-method="delete" rel="nofollow" tabindex="13" href="#{invoice_path(@invoice.id)}"
+          a.btn.btn-default.invoice-edit-delete data-method="delete" rel="nofollow" tabindex="13" href="#{invoice_path(@invoice.id, @page_params)}"
             i.fa.fa-trash-o
 
     .expense-attachment-container.col-md-6
