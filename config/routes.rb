@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   constraints(Subdomain) do
-    resources :expenses, controller: 'invoices', :as => 'invoices' do
+    concern :paginatable do
+      get '(page/:page)', :action => :index, :on => :collection, :as => ''
+    end
+
+    resources :expenses, controller: 'invoices', :concerns => :paginatable, :as => 'invoices' do
       collection do
         post :fetch_attachment
         get  :dashboard
