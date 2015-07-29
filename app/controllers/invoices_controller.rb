@@ -29,7 +29,7 @@ class InvoicesController < ApplicationController
 
     begin
       @invoices = Invoice.list(api_params(request_params))
-     rescue HTTPService::ClientError
+    rescue HTTPService::ClientError
       flash.now[:alert] = 'There was an error trying to list your expenses. Please try again.'
     end
   end
@@ -67,9 +67,12 @@ class InvoicesController < ApplicationController
   end
 
   def export
-    params = search_params.reject { |_, v| v.blank? }
+    params = export_params.reject { |_, v| v.blank? }
     search = params.merge(request_params)
-    send_data Invoice.export(api_params(search)), :filename => 'ExportKuluData.xls', :type => 'application/vnd.ms-excel'
+    current_time = Time.now.strftime('%d/%m/%Y %H:%M')
+    send_data Invoice.export(api_params(search)),
+              :filename => "Kulu Data Export - #{current_time}.xls",
+              :type => 'application/vnd.ms-excel'
   rescue HTTPService::Error
     render json: {error_messages: 'Could not export your data. Please try again.'}
   end
@@ -117,6 +120,12 @@ class InvoicesController < ApplicationController
   end
 
   def search_params
+    params.permit(:q, :name, :amount, :currency, :from_date, :to_date,
+                  :amount, :min_amount, :max_amount, :expense_type, :status, :conflict, :user_name, :category_name,
+                  :from_submission_date, :to_submission_date)
+  end
+
+  def export_params
     params.permit(:q, :name, :amount, :currency, :from_date, :to_date,
                   :amount, :min_amount, :max_amount, :expense_type, :status, :conflict, :user_name, :category_name,
                   :from_submission_date, :to_submission_date)

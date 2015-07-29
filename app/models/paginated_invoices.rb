@@ -5,8 +5,8 @@ class PaginatedInvoices < Kaminari::PaginatableArray
 
   def initialize(raw_data)
     invoices = raw_data['items'].map {|i| Invoice.new(i).decorate }.reverse
-    @current_page, @limit_value, @total_pages, total_count = raw_data['meta'].values_at(*PAGINATION_KEYS)
-    super(invoices, total_count: total_count, limit: limit_value)
+    @current_page, @limit_value, @total_pages, @total_count = raw_data['meta'].values_at(*PAGINATION_KEYS)
+    super(invoices, total_count: @total_count, limit: limit_value)
   end
 
   def offset_value
