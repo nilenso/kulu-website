@@ -23,6 +23,7 @@ class Kulu.TranscriberInvoiceEdit
       currency: @formContainer.find('select[name="invoice[:currency]"]').val()
       amount: Number(@formContainer.find('input[name="invoice[:amount]"]').val())
       date: @formContainer.find('input[name="invoice[:date]"]').val()
+      conflict: @formContainer.find('input[name="invoice[:conflict]"]:checked').val()
       remarks: @formContainer.find('input[name="invoice[:remarks]"]').val()
     }
 

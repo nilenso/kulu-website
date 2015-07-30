@@ -13,7 +13,7 @@ table.table.table-striped.table-hover.expenses-table
       tr.invoice-table-row data-invoice-url="#{transcriber_path(i.id)}?#{sorted_params}"
         td = i.name
         td = i.display_date
-        td = i.amount_with_currency
+        td.amount = amount_with_currency(i.amount, i.currency)
         td = i.remarks
         td.invoice-status-marker class="#{i.status == 'Extracted' ? 'extracted' : 'submitted'}"
           = i.status
@@ -35,4 +35,3 @@ table.table.table-striped.table-hover.expenses-table
 javascript:
   new Kulu.Paginator($('#form-per-page')).setupPerPageForm();
   new Kulu.Utils().clickableRows($(".invoice-table-row"));
-  new Kulu.FixTopTableHeader($('.expenses-table'), $('.navbar').height());
