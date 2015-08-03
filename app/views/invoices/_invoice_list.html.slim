@@ -27,7 +27,13 @@
           td = i.submission_date
           td.amount = amount_with_currency(i.amount, i.currency)
           td = i.expense_type
-          td = i.status
+          td
+            - if i.status == 'Recorded'
+              i.fa.fa-lock.recorded-stub-icon
+              | &nbsp;
+              = i.status
+            - else
+              = i.status
           - if i.conflict?
             td Yes
           - else

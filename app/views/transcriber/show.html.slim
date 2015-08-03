@@ -22,23 +22,16 @@
 
         .invoice-details-fieldset
           p.invoice-details-label Amount
-          = select_tag 'invoice[:currency]', options_for_select(@currencies, @invoice.currency || 'INR'), class: 'form-control invoice-details-currency', tabindex: 3
+          = select_tag 'invoice[:currency]', options_for_select(@currencies, @invoice.currency || "INR"), class: 'form-control invoice-details-currency', tabindex: 3
           input name="invoice[:amount]" value="#{@invoice.amount}" tabindex=4
 
         .invoice-details-fieldset
-          p.invoice-details-label Conflict
-          = radio_button_tag 'invoice[:conflict]', true , @invoice.conflict? , class: 'invoice-details-expense-type', tabindex: 5
-          label_tag.invoice-expense-type-label Yes
-          = radio_button_tag 'invoice[:conflict]', false , !@invoice.conflict? , class: 'invoice-details-expense-type', tabindex: 6
-          label_tag.invoice-expense-type-label No
-
-        .invoice-details-fieldset
           p.invoice-details-label Remarks (please preserve the original remarks, and only add to it)
-          input.form-control name="invoice[:remarks]" value="#{@invoice.remarks}" tabindex=7
+          input.form-control name="invoice[:remarks]" value="#{@invoice.remarks}" tabindex=8
 
         .invoice-edit-actions
-          input.btn.btn-primary.invoice-edit-submit type='submit' value="Update" tabindex=8
-          = link_to 'Cancel', transcriber_index_path, class: 'btn btn-link', tabindex: 9
+          input.btn.btn-primary.invoice-edit-submit type='submit' value="Update" tabindex=9
+          = link_to "Cancel", transcriber_index_path, class: 'btn btn-link', tabindex: 10
 
     .invoice-image-container.col-md-6
       - if @invoice.image?
