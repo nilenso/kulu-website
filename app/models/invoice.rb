@@ -30,8 +30,8 @@ class Invoice
       p = Axlsx::Package.new
       p.workbook.add_worksheet(:name => 'Results') do |sheet|
         sheet.add_row data['headers']
-        data['rows'].reverse.each do |row|
-          sheet.add_row row.reverse
+        data['rows'].each do |row|
+          sheet.add_row row
         end
       end
       p.use_shared_strings = true
