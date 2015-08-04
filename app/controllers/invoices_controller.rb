@@ -70,7 +70,7 @@ class InvoicesController < ApplicationController
     params = export_params.reject { |_, v| v.blank? }
     search = params.merge(request_params)
     current_time = Time.now.strftime('%d/%m/%Y %H:%M')
-    send_data Invoice.export(api_params(search)),
+    send_data Invoice.export(api_params(search)).to_stream.read,
               :filename => "Kulu Data Export - #{current_time}.xls",
               :type => 'application/vnd.ms-excel'
   rescue HTTPService::Error

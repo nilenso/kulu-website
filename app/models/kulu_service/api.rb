@@ -180,7 +180,7 @@ module KuluService
 
     def export(options)
       response = request.make(:get, 'invoices/export', options, options[:token])
-      response.body
+      MultiJson.load(response.body)
     end
   end
 end

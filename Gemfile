@@ -39,6 +39,7 @@ gem 'formvalidation-rails', '~> 0.6.1.2'
 gem 'chosen-rails', '~> 1.4.1'
 gem 'pdfjs_viewer-rails', '~> 0.0.5'
 gem 'd3-rails', '~> 3.5.5'
+gem 'axlsx'
 
 group 'development' do
   gem 'spring', '~> 1.3.6'

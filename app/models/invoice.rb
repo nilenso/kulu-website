@@ -25,7 +25,17 @@ class Invoice
     end
 
     def export(options)
-      KuluService::API.new.export(options)
+      data = KuluService::API.new.export(options)
+
+      p = Axlsx::Package.new
+      p.workbook.add_worksheet(:name => 'Results') do |sheet|
+        sheet.add_row data['headers']
+        data['rows'].reverse.each do |row|
+          sheet.add_row row.reverse
+        end
+      end
+      p.use_shared_strings = true
+      p
     end
 
     def find(options)
