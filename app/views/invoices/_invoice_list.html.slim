@@ -3,7 +3,7 @@
     .flush-left
       .pagination.info = page_entries_info invoices
       div class="export"
-        - export_params = params.merge(page: 1, per_page: invoices.total_count)
+        - export_params = params.merge(page: params[:page] || 1, per_page: params[:per_page] || 15)
         a class="btn export-btn" href="#{export_invoices_path(export_params)}" data-no-turbolink="true"
           | Export as XLS (Excel)
     .clearfix
