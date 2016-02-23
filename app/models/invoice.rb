@@ -26,7 +26,6 @@ class Invoice
 
     def export(options)
       _ = KuluService::API.new.export(options)
-      puts '[Export LOG] Export is being generated and will be sent via email'
     end
 
     def find(options)
