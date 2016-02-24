@@ -4,7 +4,7 @@ Kulu.Reports = new function() {
       url: "/expenses/export",
       data: params,
       success: function (data) {
-        $('nav').append("<div class='flash-message'><p>" + data + "</p></div>");
+        $('nav').append("<div class='flash-message'><p>" + data.message + "</p></div>");
       },
       failure: function (error) {
 	$('nav')

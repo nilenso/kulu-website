@@ -70,8 +70,8 @@ class InvoicesController < ApplicationController
     params = export_params.reject { |_, v| v.blank? }
     search = params.merge(request_params)
     Invoice.export(api_params(search))
-    send_data "A email with the export has been sent to your address".to_json,
-              :type =>'text/json '
+    response = {:message => "A email with the export has been sent to your registered address !!"}
+    send_data JSON.generate(response),:type =>'application/json '
   rescue HTTPService::Error
     render json: {error_messages: 'Could not export your data. Please try again.'}
   end
