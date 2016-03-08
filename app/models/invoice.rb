@@ -25,20 +25,7 @@ class Invoice
     end
 
     def export(options)
-      data = KuluService::API.new.export(options)
-
-      puts '[Export LOG] Data was received'
-      puts data
-
-      p = Axlsx::Package.new
-      p.workbook.add_worksheet(:name => 'Results') do |sheet|
-        sheet.add_row data['headers']
-        data['rows'].each do |row|
-          sheet.add_row row
-        end
-      end
-      p.use_shared_strings = true
-      p
+      _ = KuluService::API.new.export(options)
     end
 
     def find(options)

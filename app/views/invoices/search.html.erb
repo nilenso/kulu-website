@@ -31,16 +31,16 @@
 <br/>
 
 <%= render 'invoice_list', invoices: @invoices, params: @search %>
-<!--<div class="pagination-per-page">-->
-  <!--<%= form_tag search_invoices_path, method: :get, id: 'form-per-page', enforce_utf8: false %>-->
-  <!--<%= hidden_field_tag :page, params[:page] || 1 %>-->
-  <!--<%= hidden_field_tag :direction, params[:direction] || 'desc' %>-->
-  <!--<%= hidden_field_tag :order, params[:order] || 'created_at' %>-->
-  <!--<%= label_tag :per_page, 'Expenses to show per page ' %>-->
-  <!--&nbsp;-->
-  <!--&mdash;-->
-  <!--<%= select_tag :per_page, options_for_select([15, 30, 60, 100], selected: params[:per_page] || Kaminari.config.default_per_page), id: 'per-page' %>-->
-<!--</div>-->
+<div class="pagination-per-page">
+  <%= form_tag search_invoices_path, method: :get, id: 'form-per-page', enforce_utf8: false %>
+  <%= hidden_field_tag :page, params[:page] || 1 %>
+  <%= hidden_field_tag :direction, params[:direction] || 'desc' %>
+  <%= hidden_field_tag :order, params[:order] || 'created_at' %>
+  <%= label_tag :per_page, 'Expenses to show per page ' %>
+  &nbsp;
+  &mdash;
+  <%= select_tag :per_page, options_for_select([15, 30, 60, 100], selected: params[:per_page] || Kaminari.config.default_per_page), id: 'per-page' %>
+</div>
 
 <br/>
 <br/>
