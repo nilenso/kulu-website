@@ -62,99 +62,6 @@
 
   </header>
 
-  <!--<hr class="space-three-bottom">-->
-
-  <!-- #header -->
-  <!--<section id="how-it-works" class="landing-container clearfix push-two-top push-four-bottom">-->
-  <!--<header class="centered">-->
-  <!--<h2 class="title-extralarge space-three-bottom red">-->
-  <!--<a class="pad-one push-one" href="#how-it-works">-->
-  <!--How it works-->
-  <!--</a>-->
-  <!--</h2>-->
-  <!--</header>-->
-  <!--</section>-->
-
-  <hr class="space-three-bottom">
-
-  <section id="customers" class="landing-container clearfix push-two-top push-four-bottom">
-    <header class="centered">
-      <h2 class="title-extralarge space-three-bottom red">
-        <a class="pad-one push-one" href="#customers">
-          People who are using it
-        </a>
-      </h2>
-    </header>
-
-    <div class="customer-content">
-      <ul class="customer-list centered clearfix nospace push-line-top push-one-bottom">
-        <li class="flushleft full half-sm third-md">
-          <a
-          class="occupy push-line-top push-one-bottom"
-          href="https://www.facebook.com/ChinitaTaqueria">
-        <span class="occupy resetcoords">
-          <img class="center height-full contain-height" src=<%= asset_path('client_logos/chinita.png') %>>
-        </span></a>
-        </li>
-
-        <li class="flushleft full half-sm third-md">
-          <a
-          class="occupy push-line-top push-one-bottom"
-          href="http://www.quintype.com/">
-        <span class="occupy resetcoords">
-          <img class="center height-full contain-height" src=<%= asset_path('client_logos/quintype.png') %>>
-        </span></a>
-        </li>
-
-        <li class="flushleft full half-sm third-md">
-          <a
-          class="occupy push-line-top push-one-bottom"
-          href="http://nilen.so">
-        <span class="occupy resetcoords">
-          <img class="center height-full contain-height" src=<%= asset_path('client_logos/nilenso.png') %>>
-        </span></a>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <hr class="space-three-bottom">
-
-  <section id="pricing" class="landing-container clearfix push-two-top push-four-bottom">
-    <header class="centered">
-      <h2 class="title-extralarge space-three-bottom red">
-        <a class="pad-one push-one" href="#pricing">
-          Beta pricing
-        </a>
-      </h2>
-    </header>
-
-    <div class="measure-12words center-block clearfix">
-      <div class="prose-large lined space-two-bottom">
-        <ul class="space-line pad-two-left pad-line-right centered">
-          <li class="occupy space-3q">₹1,500 <span class="gap-1q">/</span> mo (25 users)</li>
-        </ul>
-        <ul class="space-line pad-two-left pad-line-right centered">
-          <li class="occupy space-3q">₹3,000 <span class="gap-1q">/</span> mo (50 users)</li>
-        </ul><ul class="space-line pad-two-left pad-line-right centered">
-          <li class="occupy space-3q">₹10,000 <span class="gap-1q">/</span> mo (> 1k expenses / mo)</li>
-        </ul>
-      </div>
-
-      <div class="black prose">
-        <h3 class="space-half-bottom">
-          2 week trial period
-        </h3>
-
-        <p>
-          Request a demo and use it free for 10 days to evaluate whether Kulu is the right fit for your business, free
-          of
-          cost.
-        </p>
-      </div>
-    </div>
-  </section>
-
   <hr class="space-three-bottom">
 
   <footer id="footer" class="push-three-bottom landing-container clearfix">
@@ -202,6 +109,7 @@
 
     var myFirebaseRef = new Firebase("https://kulu-signups.firebaseio.com");
     myFirebaseRef.push({"email": email, "phone": phone});
+    window.alert("Thanks!");
   };
 <% end %>
 
