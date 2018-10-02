@@ -9,7 +9,20 @@ The webapp for the Kulu app.
 + `gem install bundler` if you have a new ruby install from the above step.
 + `bundle install` to install the required gems.
 + `npm install` to install all the js requisites.
+
+
+###### Minor note
+
+Since this a rails app, it requires you to setup a DB for the rails server to start up (even though we don't actually use a database for this frontend).
+Please copy over the `database.yml.sample` file to `database.yml` and make the required changes about your username and database and run the following command: 
++ run `bin/rake db:create db:migrate`
++ Copy over `application.yml.sample` to `application.yml`
++ Make the necessary config changes, especially the `KULU_BACKEND_SERVICE_URL`
+
+Once that's done, start the server with:
+
 + run `bin/rails server` to the start the server
+
 
 Once started visit [http://localhost:3000](http://localhost:3000)
 

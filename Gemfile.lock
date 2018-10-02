@@ -365,3 +365,9 @@ DEPENDENCIES
   uglifier (~> 2.7.1)
   underscore-rails (~> 1.8.3)
   unicorn (~> 4.9.0)
+
+RUBY VERSION
+   ruby 2.2.1p85
+
+BUNDLED WITH
+   1.16.5
