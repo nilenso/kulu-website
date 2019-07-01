@@ -4,17 +4,20 @@ The webapp for the Kulu app.
 
 ## Set up
 
-+ Install `ruby` with rbenv/rvm, if you don't have it already
-  ([version](.ruby-version)).
-+ `gem install bundler` if you have a new ruby install from the above step.
++ Install `ruby` with rbenv/rvm ([version](.ruby-version)).
++ Find out corresponding `bundler` version with `cat Gemfile.lock | grep -A 1 "BUNDLED WITH"`
+and install with `gem install bundler -v <bundler-version>`. (This is needed since newer `bundler` requires Ruby version >= 2.3.0.)
 + `bundle install` to install the required gems.
+(If `nokogiri` installation fails due to missing `libiconv` headers you will need to install extra headers with
+`open /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg`. This is because Xcode 10 on MacOS Mojave
+and above moves the system headers out of `/usr/include` causing a build failure for `nokogiri`.)
 + `npm install` to install all the js requisites.
 
 
 ###### Minor note
 
 Since this a rails app, it requires you to setup a DB for the rails server to start up (even though we don't actually use a database for this frontend).
-Please copy over the `database.yml.sample` file to `database.yml` and make the required changes about your username and database and run the following command: 
+Please copy over the `database.yml.sample` file to `database.yml` and make the required changes about your username and database and run the following command:
 + run `bin/rake db:create db:migrate`
 + Copy over `application.yml.sample` to `application.yml`
 + Make the necessary config changes, especially the `KULU_BACKEND_SERVICE_URL`
