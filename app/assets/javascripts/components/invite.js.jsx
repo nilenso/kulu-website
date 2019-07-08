@@ -67,7 +67,7 @@ var Invite = React.createClass({
       </form>
 
       <div>
-        <h3>Active users</h3>
+        <h3>All users</h3>
 
         <p>
           <ul>
