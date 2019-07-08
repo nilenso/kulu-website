@@ -73,7 +73,7 @@ var Invite = React.createClass({
           <ul>
             {
               this.state.users.map(function (o, i) {
-                return <li key={i}>{o["user-email"]} ({o["role"]})</li>;
+                return <li key={i}>{o["user-email"]} {o["status"]} {o["role"]}</li>;
               })
             }
           </ul>
