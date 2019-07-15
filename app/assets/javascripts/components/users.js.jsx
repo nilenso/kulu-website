@@ -3,6 +3,12 @@ var User = require('./user.js.jsx');
 var LoadingIcon = require('./loading-icon.js.jsx');
 
 var Users = React.createClass({
+  getInitialState: function () {
+    return {
+      users: []
+    };
+  },
+
   getDefaultProps: function () {
     return {
       auth: {},
@@ -10,10 +16,24 @@ var Users = React.createClass({
     };
   },
 
+  listUsers: function () {
+    var self = this;
+
+    $.get('/users', {}).fail(function (e) {
+      console.log(e);
+    }).success(function (d) {
+      self.setState({users: d});
+    });
+  },
+
+  componentWillMount: function () {
+    this.listUsers();
+  },
+
   render: function () {
     var user;
 
-    if (!this.props.data) {
+    if (!this.state.users) {
       return <LoadingIcon/>
     }
 
@@ -29,7 +49,7 @@ var Users = React.createClass({
            React.DOM.th(null, 'Role'))),
          React.DOM.tbody(null, (function () {
            var i, len, ref, results;
-           ref = this.props.data;
+           ref = this.state.users;
            results = [];
            for (i = 0, len = ref.length; i < len; i++) {
              user = ref[i];

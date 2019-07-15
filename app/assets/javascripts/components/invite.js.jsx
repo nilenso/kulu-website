@@ -2,26 +2,10 @@ var React = require('react');
 var Users = require('./users.js.jsx');
 
 var Invite = React.createClass({
-  getInitialState: function () {
-    return {
-      users: []
-    };
-  },
-
   getDefaultProps: function () {
     return {
       auth: {}
     };
-  },
-
-  listUsers: function () {
-    var self = this;
-
-    $.get('/users', {}).fail(function (e) {
-      console.log(e);
-    }).success(function (d) {
-      self.setState({users: d});
-    });
   },
 
   submitInvitation: function (e) {
@@ -39,10 +23,6 @@ var Invite = React.createClass({
       Turbolinks.visit(self.props.admin_root_path);
       Kulu.flash();
     });
-  },
-
-  componentWillMount: function () {
-    this.listUsers();
   },
 
   render: function () {
@@ -69,7 +49,7 @@ var Invite = React.createClass({
 
       <div>
         <h3>All users</h3>
-        <Users auth={this.props.auth} data={this.state.users}/>
+        <Users auth={this.props.auth}/>
       </div>
     </div>);
   }
