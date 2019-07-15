@@ -1,4 +1,5 @@
 var React = require('react');
+var Users = require('./users.js.jsx');
 
 var Invite = React.createClass({
   getInitialState: function () {
@@ -68,16 +69,7 @@ var Invite = React.createClass({
 
       <div>
         <h3>All users</h3>
-
-        <p>
-          <ul>
-            {
-              this.state.users.map(function (o, i) {
-                return <li key={i}>{o["user-email"]} {o["status"]} {o["role"]}</li>;
-              })
-            }
-          </ul>
-        </p>
+        <Users auth={this.props.auth} data={this.state.users}/>
       </div>
     </div>);
   }
