@@ -16,9 +16,6 @@ var Users = React.createClass({
     if (!this.props.data) {
       return <LoadingIcon/>
     }
-    else {
-        console.log('users are:' + this.props.data);
-    }
 
     return React.DOM.div({
       className: 'users'
