@@ -148,6 +148,12 @@ module KuluService
       MultiJson.load(response.body)
     end
 
+    def delete_user(options)
+      params = {organization_name: options[:organization_name]}
+      response = request.make(:delete, "admin/users/#{options[:id]}", params, options[:token])
+      response.status == 204
+    end
+
     def categories(options)
       params = {organization_name: options[:organization_name]}
       response = request.make(:get, 'organizations/categories', params, options[:token])

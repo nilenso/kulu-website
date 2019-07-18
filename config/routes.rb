@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
   get  '/admin', to: 'admin#index'
   get  '/users', to: 'admin#users'
+  delete  '/users/:id', to: 'admin#delete_user'
 
   get     '/categories', to: 'admin#categories'
   post    '/categories', to: 'admin#create_category'

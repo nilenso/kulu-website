@@ -11,8 +11,7 @@ var Users = React.createClass({
 
   getDefaultProps: function () {
     return {
-      auth: {},
-      data: {}
+      auth: {}
     };
   },
 
@@ -23,6 +22,19 @@ var Users = React.createClass({
       console.log(e);
     }).success(function (d) {
       self.setState({users: d});
+    });
+  },
+
+  deleteUser: function (user) {
+    var index, users;
+    index = this.state.users.indexOf(user);
+
+    users = React.addons.update(this.state.users, {
+      $splice: [[index, 1]]
+    });
+
+    return this.setState({
+      users: users
     });
   },
 
@@ -46,7 +58,8 @@ var Users = React.createClass({
            React.DOM.tr(null,
            React.DOM.th(null, 'Email'),
            React.DOM.th(null, 'Status'),
-           React.DOM.th(null, 'Role'))),
+           React.DOM.th(null, 'Role'),
+           React.DOM.th(null, 'Actions'))),
          React.DOM.tbody(null, (function () {
            var i, len, ref, results;
            ref = this.state.users;
@@ -56,7 +69,8 @@ var Users = React.createClass({
              results.push(React.createElement(User, {
                key: i,
                user: user,
-               auth: this.props.auth
+               auth: this.props.auth,
+               handleDeleteUser: this.deleteUser
             }));
         }
         return results;

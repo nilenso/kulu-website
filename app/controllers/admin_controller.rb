@@ -26,6 +26,15 @@ class AdminController < ApplicationController
     end
   end
 
+  def delete_user
+    begin
+      render json: KuluService::API.new.delete_user(api_params(delete_user_params)).to_json
+    rescue HTTPService::ClientError => e
+      flash.alert = "#{e}"
+      render json: e.to_json, status: 400 and return
+    end
+  end
+
   def categories
     begin
       render json: KuluService::API.new.categories(categories_params).to_json
@@ -92,6 +101,10 @@ class AdminController < ApplicationController
   end
 
   def delete_category_params
+    params.permit(:id)
+  end
+
+  def delete_user_params
     params.permit(:id)
   end
 end
