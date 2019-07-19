@@ -63,27 +63,33 @@ var Record = React.createClass({
 
   recordRow: function () {
     return React.DOM.tr(null, React.DOM.td(null, this.props.record.name), React.DOM.td(null, React.DOM.a({
-      className: 'btn btn-default',
+      className: 'btn btn-primary',
       onClick: this.handleToggle
     }, React.DOM.i({className: 'fa fa-pencil-square-o'})), React.DOM.a({
-      className: 'btn btn-danger',
+      className: 'btn btn-error',
       onClick: this.handleDelete
     }, React.DOM.i({className: 'fa fa-trash-o'}))));
   },
 
   recordForm: function () {
-    return React.DOM.tr(null, React.DOM.td(null, React.DOM.input({
-      className: 'form-control',
-      type: 'text',
-      defaultValue: this.props.record.name,
-      ref: 'name'
-    })), React.DOM.td(null, React.DOM.a({
-      className: 'btn btn-default',
-      onClick: this.handleEdit
-    }, React.DOM.i({className: 'fa fa-check-square'})), React.DOM.a({
-      className: 'btn btn-danger',
-      onClick: this.handleToggle
-    }, React.DOM.i({className: 'fa fa-times'}))));
+    return React.DOM.tr(null,
+
+      React.DOM.td(null,
+        React.DOM.input({
+          className: 'form-control form-input',
+          type: 'text',
+          defaultValue: this.props.record.name,
+          ref: 'name'
+        })), React.DOM.div({className: 'btn-group btn-group-block'},
+
+        React.DOM.td(null, React.DOM.a({
+          className: 'input-group-btn btn',
+          onClick: this.handleEdit
+        }, React.DOM.i({className: 'fa fa-check-square'})), React.DOM.a({
+          className: 'btn input-group-btn',
+          onClick: this.handleToggle
+        }, React.DOM.i({className: 'fa fa-times'})))
+      ));
   },
 
   render: function () {

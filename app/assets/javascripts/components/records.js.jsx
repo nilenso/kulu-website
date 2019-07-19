@@ -83,7 +83,7 @@ var Records = React.createClass({
     }, React.createElement(RecordForm, {
       handleNewRecord: this.addRecord
     }), React.DOM.table({
-        className: 'table table-bordered'
+        className: 'table'
       }, React.DOM.thead(null,
         React.DOM.tr(null,
           React.DOM.th(null, 'Name'),

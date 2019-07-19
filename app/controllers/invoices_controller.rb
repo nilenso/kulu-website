@@ -24,9 +24,6 @@ class InvoicesController < ApplicationController
   end
 
   def index
-    @pre_signed_post = KuluAWS.new.presigned_post
-    @invoice = Invoice.new(url_prefix: @pre_signed_post.key)
-
     begin
       @invoices = Invoice.list(api_params(request_params))
     rescue HTTPService::ClientError
@@ -39,7 +36,7 @@ class InvoicesController < ApplicationController
     if invoice.valid?
       redirect_to invoice_path(invoice.id)
     else
-      render json: {error_messages: invoice.errors.full_messages}
+      render json: { error_messages: invoice.errors.full_messages }
     end
   end
 
@@ -50,9 +47,9 @@ class InvoicesController < ApplicationController
     @categories = select_categories(KuluService::API.new.categories(organization_name: @organization_name,
                                                                     token: current_user_token))
     @invoice_states =
-        KuluService::API.new.list_of_states(organization_name: @organization_name, token: current_user_token)
+      KuluService::API.new.list_of_states(organization_name: @organization_name, token: current_user_token)
     @invoices =
-        Invoices.next_and_prev_invoices(api_params(params))
+      Invoices.next_and_prev_invoices(api_params(params))
   end
 
   def update
@@ -70,16 +67,25 @@ class InvoicesController < ApplicationController
     params = export_params.reject { |_, v| v.blank? }
     search = params.merge(request_params)
     Invoice.export(api_params(search))
-    response = {:message => "A email with the export has been sent to your registered address !!"}
-    send_data JSON.generate(response),:type =>'application/json '
+    response = { :message => "A email with the export has been sent to your registered address !!" }
+    send_data JSON.generate(response), :type => 'application/json '
   rescue HTTPService::Error
-    render json: {error_messages: 'Could not export your data. Please try again.'}
+    render json: { error_messages: 'Could not export your data. Please try again.' }
   end
 
   private
 
   def sort_column
-    %w(name amount currency remarks date created_at expense_type status conflict user_name).include?((params[:order] || '').downcase) ? params[:order] : 'created_at'
+    %w(name
+amount
+currency
+remarks
+date
+created_at
+expense_type
+status
+conflict
+user_name).include?((params[:order] || '').downcase) ? params[:order] : 'created_at'
   end
 
   def sort_direction
@@ -88,7 +94,7 @@ class InvoicesController < ApplicationController
 
   def select_categories(categories)
     categories.inject({}) do |acc, v|
-      map = {v['name'] => v['id']}
+      map = { v['name'] => v['id'] }
       acc.merge!(map)
       acc
     end
@@ -103,7 +109,16 @@ class InvoicesController < ApplicationController
   end
 
   def update_params
-    params.permit(:id, invoice: [:id, :name, :currency, :expense_type, :amount, :date, :status, :conflict, :remarks, :category_id])
+    params.permit(:id, invoice: [:id,
+                                 :name,
+                                 :currency,
+                                 :expense_type,
+                                 :amount,
+                                 :date,
+                                 :status,
+                                 :conflict,
+                                 :remarks,
+                                 :category_id])
   end
 
   def show_params

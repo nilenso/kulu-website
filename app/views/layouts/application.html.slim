@@ -6,38 +6,82 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = javascript_include_tag '/javascripts/pdf'
     = javascript_include_tag '/javascripts/pdf.worker'
-    = javascript_include_tag 'https://cdn.firebase.com/js/client/2.2.7/firebase.js', 'data-turbolinks-track' => true
+    link href="https://unpkg.com/spectre.css/dist/spectre.min.css" rel="stylesheet" /
+    link href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css" rel="stylesheet" /
+    link href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css" rel="stylesheet" /
     = csrf_meta_tags
 
   body
-    nav.navbar.navbar-inverse role="navigation" id="nav" class=(notice ? 'flash-background notice' : '') class=(alert ? 'flash-background error' : '')
-      .navbar-header
-        a.navbar-brand href="#{root_path}"
+    header.navbar class=(notice ? 'flash-background notice' : '') class=(alert ? 'flash-background error' : '')
+      section.navbar-section
+        a.navbar-brand.mr-2 href="#{root_path}"
           | kulu β
           - if @organization_name
             | &nbsp;
             | &mdash;
             | &nbsp;
             = "#{@organization_name}"
-      ul.nav.navbar-nav.navbar-right
-        li.navbar-menu
-          - if logged_in?
-            a href='/expenses/dashboard' data-no-turbolink="true" class="hint--bottom" data-hint="Dashboard"
-              span class="#{current_page?(controller: 'invoices', action: 'dashboard')} fa fa-home"
-            a href='/expenses/search' data-no-turbolink="true" class="hint--bottom" data-hint="Search"
-              span class="#{current_page?(controller: 'invoices', action: 'search')} fa fa-search"
-            a href='/expenses' data-no-turbolink="true" class="hint--bottom" data-hint="List"
-              span class="#{current_page?(controller: 'invoices')} fa fa-list"
-            a href='/admin' data-no-turbolink="true" class="hint--bottom" data-hint="Admin"
-              span class='#{current_page?(controller: 'admin')} fa fa-cog'
-        li.navbar-menu
-          - if logged_in?
-            a href='/logout' data-no-turbolink="true"
-              span class='fa fa-sign-out'
-          - else
-            a href='/signin' data-no-turbolink="true"
-              span class='fa fa-sign-in'
-      = render '/flash'
+      section.navbar-center
+        = form_for(@invoice, html: {class: 'direct-upload'}) do |f|
+          .field
+            = f.hidden_field(:url_prefix)
+            = f.hidden_field(:filename, class: 'filename')
+
+            input id='file-upload' type='file' name='upload' accept='image/jpeg,image/gif,image/png,application/pdf' data-s3-url="#{@pre_signed_post.url}" data-form-data="#{@pre_signed_post.fields.to_json}"
+
+            label.btn.btn-link tabindex=0 for='file-upload'
+              | upload an expense
+              | &nbsp;
+              i class="fa fa-upload"
+
+      section.navbar-section
+        .dropdown.dropdown-right
+          a.btn.btn-link.dropdown-toggle href="#" tabindex="1"
+            i.fa.fa-bars
+          ul.menu
+            - if logged_in?
+              li.menu-item
+                a href='/expenses/dashboard' data-no-turbolink="true"
+                  i class="fa fa-home"
+                  | &nbsp;
+                  | &nbsp;
+                  | Dashboard
+              li.menu-item
+                a href='/expenses/search' data-no-turbolink="true"
+                  i class="fa fa-search"
+                  | &nbsp;
+                  | &nbsp;
+                  | Search
+              li.menu-item
+                a href='/expenses' data-no-turbolink="true"
+                  i class="fa fa-list"
+                  | &nbsp;
+                  | &nbsp;
+                  | List
+              li.menu-item
+                a href='/admin' data-no-turbolink="true"
+                  i class="fa fa-cog"
+                  | &nbsp;
+                  | &nbsp;
+                  | Settings
+
+            li.divider
+
+            li.menu-item
+              - if logged_in?
+                a href='/logout' data-no-turbolink="true"
+                  i class="fa fa-sign-out"
+                  | &nbsp;
+                  | &nbsp;
+                  | Sign-out
+              - else
+                a href='/signin' data-no-turbolink="true"
+                  i class="fa fa-sign-in"
+                  | &nbsp;
+                  | &nbsp;
+                  | Sign-in
+
+    = render '/flash'
 
     .container
       == yield
@@ -46,10 +90,10 @@ html
       (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function () {
-                  (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
         a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
+          m = s.getElementsByTagName(o)[0];
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m)

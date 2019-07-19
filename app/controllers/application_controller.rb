@@ -1,6 +1,7 @@
 require 'http_service/error'
 
 class ApplicationController < ActionController::Base
+  before_filter :set_aws_presigned_post
   protect_from_forgery with: :exception
 
   rescue_from(HTTPService::ClientError) do |exception|
@@ -28,9 +29,14 @@ class ApplicationController < ActionController::Base
       if @organization_name.present?
         render 'static_pages/not_logged_in'
       else
-        render 'static_pages/landing_page'
+        render 'home/signin'
       end
     end
+  end
+
+  def set_aws_presigned_post
+    @pre_signed_post = KuluAWS.new.presigned_post
+    @invoice = Invoice.new(url_prefix: @pre_signed_post.key)
   end
 
   helper_method :current_user_token, :logged_in?

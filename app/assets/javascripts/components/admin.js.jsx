@@ -12,12 +12,11 @@ var Admin = React.createClass({
   },
 
   render: function () {
-    var forwardMail = "expenses." + this.props.auth.organization_name + "@kulu.in";
+    var forwardMail = "expenses." + this.props.auth.organization_name + "@kulu.tech";
 
     return (<div className="invite">
       <Tabs onBeforeChange={this.handleBefore} tabActive={this.state.activeTab}>
         <Tabs.Panel title='Categories'>
-          <h4>Add new</h4>
           <Records auth={this.props.auth}/>
         </Tabs.Panel>
 

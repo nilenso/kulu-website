@@ -41,13 +41,13 @@ var RecordForm = React.createClass({
     }, React.DOM.input({
       type: 'text',
       className: 'form-control admin-form-input',
-      placeholder: 'Title',
+      placeholder: 'eg. F&B or Lunch',
       name: 'name',
       value: this.state.name,
       onChange: this.handleChange
     })), React.DOM.input({
       type: 'submit',
-      value: 'Create',
+      value: 'Add new',
       className: 'btn btn-primary admin-form-button',
       disabled: !this.valid()
     }));
