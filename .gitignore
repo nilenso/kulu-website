@@ -22,3 +22,8 @@ config/database.yml
 
 .sass-cache
 .idea
+
+package-lock.json
+
+# Ignore all editor-generated temp files anywhere in the source tree
+*~
