@@ -48,7 +48,7 @@ var Invite = React.createClass({
       </form>
 
       <div>
-        <h3>All users</h3>
+        <h3>Active Users</h3>
         <Users auth={this.props.auth}/>
       </div>
     </div>);

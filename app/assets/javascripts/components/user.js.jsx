@@ -22,7 +22,6 @@ var User = React.createClass({
   recordRow: function () {
     return React.DOM.tr(null,
                         React.DOM.td(null, this.props.user["user-email"]),
-                        React.DOM.td(null, this.props.user["status"]),
                         React.DOM.td(null, this.props.user["role"]),
                         React.DOM.td(null, React.DOM.a({
                             className: 'btn btn-danger',

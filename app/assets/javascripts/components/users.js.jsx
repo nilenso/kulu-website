@@ -57,7 +57,6 @@ var Users = React.createClass({
       }, React.DOM.thead(null,
            React.DOM.tr(null,
            React.DOM.th(null, 'Email'),
-           React.DOM.th(null, 'Status'),
            React.DOM.th(null, 'Role'),
            React.DOM.th(null, 'Actions'))),
          React.DOM.tbody(null, (function () {
