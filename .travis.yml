@@ -1,9 +1,6 @@
 language: ruby
 rvm:
-  - 2.0.0
-  - 1.9.3
-  - jruby-19mode
-  - rbx-2
+  - 2.2.1
 before_install:
   - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
   - gem install bundler -v 1.16.5
