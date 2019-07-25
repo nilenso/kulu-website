@@ -11,6 +11,10 @@ before_install:
 install:
   - bundle install --jobs=3 --retry=3
   - npm install
+notifications:
+  email:
+    on_success: never
+    on_failure: never
 deploy:
   provider: heroku
   on:
