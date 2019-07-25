@@ -11,6 +11,8 @@ before_install:
 install:
   - bundle install --jobs=3 --retry=3
   - npm install
+before_script:
+  - bin/rake db:create db:migrate
 services:
   - postgresql
 notifications:
