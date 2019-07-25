@@ -12,7 +12,7 @@ install:
   - bundle install --jobs=3 --retry=3
   - npm install
 before_script:
-  - bin/rake db:create db:migrate
+  - psql -c 'CREATE DATABASE kulu_test;' -U postgres
 services:
   - postgresql
 notifications:
@@ -21,6 +21,8 @@ notifications:
     on_failure: never
 deploy:
   provider: heroku
+  run:
+    - bin/rake db:create db:migrate
   on:
     branch: travis-ci
   api_key:
