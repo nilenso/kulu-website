@@ -1,0 +1,20 @@
+language: ruby
+rvm:
+  - 2.0.0
+  - 1.9.3
+  - jruby-19mode
+  - rbx-2
+before_install:
+  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
+  - gem install bundler -v 1.16.5
+install:
+  - bundle install --jobs=3 --retry=3
+deploy:
+  provider: heroku
+  run:
+    - cp database.yml.sample database.yml
+    - bin/rake db:create db:migrate
+  on:
+    branch: travis-ci
+  api_key:
+    secure: 12fXUd6H25shjwkksZiAwyJLv4LkqhcZQo6rPdEnE76/qWhHzHmmqOG6NEkeI3XV0+r3MPBwFJaEW83Je+ogdUtZba/uktVgAwYG5rxCdOs/bTf/+uXjL+7B8ACzpGKF9UpCpHs9Q3IYGf0vUQXqj7mw4V7XU+upr6R9yXXxAnZoEEUPzzZZar3rIhMcSTKPnSUQ0G7BBj+rdRrgHNVTCKsMjMjRyqZ1imtsUzsoE1IhkR1Rjo3cXOUMiXhy7HQlSyEqeL5UpeifPmD8LPPtR27l3ryPhMVp4J0bGhex3HcKXlA19XQEG5itfXEbRXL9uBZAEPAm+LHO2b3I5I2ibUo43smdLYXGrCDz8bSWpeIuEu/Pnf0LhMzjs804QoBG08azzzN6vqmrd4jp1aOj+RpvlyiBAxbvFNEejf8cRpbE6gxg8NIuk9vVtqaKLm3QLkz8o+wmi2iUKZYuatcYOweghLXoQOz6NKShLN36M04sg/jInltvWXU+cRePgm11TEM8XTlaifr9YAjZ3MW2fQuwcBeh6fgI3ieEBZAbTyLbGn42wLxNypSvnn51TmT5jYNFR6OTaxBB+98w3iKM+hNAS7LCP/3YOTW+QnYPwEnvsmjABNMIuf2OeRHjD0JGq1r8RuVVcxX07J9Q7pVhX11j4ZbHp2HQBAdsWJAk0M4=
