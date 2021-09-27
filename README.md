@@ -7,6 +7,8 @@ The webapp for the Kulu app.
 + Install `ruby` with rbenv/rvm ([version](.ruby-version)).
 + Find out corresponding `bundler` version with `cat Gemfile.lock | grep -A 1 "BUNDLED WITH"`
 and install with `gem install bundler -v <bundler-version>`. (This is needed since newer `bundler` requires Ruby version >= 2.3.0.)
++ `gem install ffi -v '1.9.10' --source 'https://rubygems.org/' -- --with-cflags=-Wno-implicit-function-declaration`
++ `brew install shared-mime-info`
 + `bundle install` to install the required gems.
 (If `nokogiri` installation fails due to missing `libiconv` headers you will need to install extra headers with
 `open /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg`. This is because Xcode 10 on MacOS Mojave
