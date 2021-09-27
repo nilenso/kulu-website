@@ -47,7 +47,7 @@ group 'development' do
   gem 'guard-rspec', '~> 4.5.2'
   gem 'rb-fsevent', '~> 0.9.5'
   gem 'pry', '~> 0.10.1'
-  gem 'better_errors', '~> 2.1.1'
+  gem 'better_errors', '~> 2.8.0'
   gem 'binding_of_caller', '~> 0.7.2'
 end
 
